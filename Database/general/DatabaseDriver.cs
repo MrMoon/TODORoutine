@@ -15,9 +15,7 @@ namespace TODORoutine.Database {
         private static SQLiteCommand command = null;
         private static SQLiteDataReader reader = null;
         
-        private DatabaseDriver() {
-            initDatabase();
-        }
+        private DatabaseDriver() { initDatabase(); }
 
         public static DatabaseDriver getInstance() {
             if (driver == null) driver = new DatabaseDriver();
@@ -33,7 +31,7 @@ namespace TODORoutine.Database {
 
         private static void setupDatabaseConnection() {
             command = new SQLiteCommand();
-            connection = new SQLiteConnection(Constants.getConnectionString());
+            connection = new SQLiteConnection(Constants.CONNECTION_STRING);
             connection.Open();
             command.Connection = connection;
         }
