@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TODORoutine.Shared {
+    /**
+     * Pair Class that handle strings that are connected 
+     **/
     public class Pair {
         public Pair() { }
 

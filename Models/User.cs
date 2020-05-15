@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TODORoutine.Models {
-    class User {
+    /**
+     * Main User Genral Class that has fields related to the user
+     **/
+    public class User {
 
-        private String userId, username, notesId, fullName;
+        private String username, notesId, fullName;
+        private readonly String userId;
 
-        User() { }
+        public User(String userId) { this.userId = userId; }
 
         public String getId() { return userId; }
 
@@ -19,9 +24,7 @@ namespace TODORoutine.Models {
 
         public String getFullName() { return fullName; }
 
-        public void setId(String id) { this.userId = id; }
-
-        public void setName(String name) { this.username = name; }
+        public void setUsername(String username) { this.username = username; }
 
         public void setNotesId(String notesId) { this.notesId = notesId; }
 
