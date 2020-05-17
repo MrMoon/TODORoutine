@@ -4,27 +4,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TODORoutine.database.general;
-using TODORoutine.database.parsers;
-using TODORoutine.database.user.exceptions;
+using TODORoutine.Database.Shared;
+using TODORoutine.Database.user.DAO;
 using TODORoutine.exceptions;
 using TODORoutine.Models;
 using TODORoutine.Shared;
+using TODORoutine.database.user.exceptions;
+using TODORoutine.database.general;
+using TODORoutine.database.parsers;
 
 namespace TODORoutine.Database.user.DTO {
+
     /**
-     * Main User Data Transfer Class that will handle that communication between class for the User 
+     * Main User Data Transfer Implementation that will handle that communication between class for the User 
      **/
     class UserDTOImplementation : UserDTO {
 
-        private static String tableName = DatabaseConstants.TABEL_TODOROUTINE;
         private static UserDTO dto = null;
+        private static UserDAO dao = null;
         private static DatabaseDriver driver = null;
         private static DatabaseParser parser = null;
 
         private UserDTOImplementation() {
             driver = DatabaseDriverImplementation.getInstance();
             parser = DatabaseParserImplementation.getInstance();
+            dao = UserDAOImplementation.getInstance();
         }
 
         public static UserDTO getInstance() {
@@ -33,59 +37,157 @@ namespace TODORoutine.Database.user.DTO {
         }
 
         /**
-         * User SQL statment based on the username
+         * Deleting the user from the Database
          * 
-         * @username : the username in the select statment
+         * @user : the user that will be deleted
          * 
-         * Return an SQL Select Statment for the User
+         * return true if and only if the user was deleted successfully and false otherwise
          **/
-        public String getIdQuery(String username) {
-            throw new NotImplementedException();
+        public bool deleteUser(User user) {
+            try {
+                dao.delete(user);
+            } catch(Exception e) {
+                return false;
+            }
+            return true;
         }
 
         /**
-         * User SQL statment based on the id
+         * Getting the user from it's id
          * 
-         * @id : the id in the select statment
+         * @id : the user id to search for in the Database
          * 
-         * Return an SQL Select Statment for the notesId
+         * return a User if and ony if it was found and null otherwise
          **/
-        public String getNotesIdQuery(String id) {
-            throw new NotImplementedException();
+        public User getUserById(string id) {
+            User user;
+            try {
+                user = dao.findById(id);
+            } catch(Exception e) {
+                return null;
+            }
+            return user;
         }
 
         /**
-         * User SQL Statment based on the id
+         * Getting the user from it's username
          * 
-         * @id : the id in the select statment
+         * @username : the user username to search for in the Database
          * 
-         * Retunr an SQL Select Statment for the username
+         * return a User if and ony if it was found and null otherwise
          **/
-        public String getUsernameQuery(String id) {
-            throw new NotImplementedException();
+        public User getUserByUsername(string username) {
+            User user;
+            try {
+                user = dao.findByUsername(username);
+            } catch(Exception e) {
+                return null;
+            }
+            return user;
         }
 
-        /**Compare two users and return the diffrent columns in an 
-         * @oldUser : Main user to compate to
-         * @newUser : User to compare to the main user
+        /**
+         * Getting the user id based on it's username
          * 
-         * return an arraylist of diffrences
+         * @username : the user username to search for in the Database
+         * 
+         * return an id if and ony if it was found and -1
          **/
-        public ArrayList compare(User oldUser , User newUser) {
-            if (oldUser == null || newUser == null) throw new UserException(UserConstants.INVALID("Null") + 
-                Logging.paramenterLogging(nameof(compare) , true , new Pair(nameof(oldUser) , oldUser.toString())
-                , new Pair(nameof(newUser) , newUser.toString())));
+        public string getUserId(string username) {
+            String id;
+            try {
+                id = dao.findUserId(username);
+            } catch(Exception e) {
+                if (e is UserException) return UserConstants.USER_FOUND;
+                return "-1";
+            }
+            return id;
+        }
 
-            Logging.paramenterLogging(nameof(compare) , false , new Pair(nameof(oldUser) , oldUser.toString())
-                , new Pair(nameof(newUser) , newUser.toString()));
+        /**
+         * Getting the user notesId based on it's id
+         * 
+         * @id : the user id to search for in the Database
+         * 
+         * return an notesId if and ony if it was found and -1
+         **/
+        public string getUserNotesId(string id) {
+            String notesid;
+            try {
+                notesid = dao.findUserNotesId(id);
+            } catch(Exception e) {
+                if (e is UserException) return UserConstants.USER_FOUND;
+                return "-1";
+            }
+            return notesid;
+        }
 
-            ArrayList list = new ArrayList();
+        /**
+         * Getting the user username based on it's id
+         * 
+         * @id : the user id to search for in the Database
+         * 
+         * return an username if and ony if it was found and -1
+         **/
+        public string getUserUsername(string id) {
+            String username;
+            try {
+                username = dao.findUserUsername(id);
+            } catch (Exception e) {
+                if (e is UserException) return UserConstants.USER_FOUND;
+                return "-1";
+            }
+            return username;
+        }
 
-            if (!oldUser.getFullName().Equals(newUser.getFullName())) list.Add(DatabaseConstants`.COLUMN_FULLNAME);
-            if (!oldUser.getNotesId().Equals(newUser.getNotesId())) list.Add(DatabaseConstants.COLUMN_NOTESID);
-            if (!oldUser.getUsername().Equals(newUser.getUsername())) list.Add(DatabaseConstants.COLUMN_USERNAME);
+        /**
+         * Checking if the user is authenticated based on the username
+         * 
+         * @username : the username to search for in the Database
+         * 
+         * return 1 if the user is Authenticated , 0 if not , and -1 if the there is an Error from the Database
+         **/
+        public int isAuthenticated(string username) {
+            bool flag = false;
+            try {
+                flag = dao.isUserAuthenticated(username);
+            } catch(Exception e) {
+                return -1;
+            }
+            return flag ? 1 : 0;
+        }
 
-            return list;
+        /**
+         * Saving the user in the Database
+         * 
+         * @user : the user to save
+         * 
+         * return true if and only if the saving operation was successfull and false otherwise
+         **/
+        public bool saveUser(User user) {
+            try {
+                dao.save(user);
+            } catch(Exception e) {
+                return false;
+            }
+            return true;
+        }
+
+        /**
+         * Updating User's Info in the Database
+         * 
+         * @user : the user to update
+         * @columns : Info that will get updated
+         * 
+         * return true if and only if the update operation was successfull and false otherwise
+         **/
+        public bool updateUser(User user , params string[] columns) {
+            try {
+                dao.update(user , columns);
+            } catch(Exception e) {
+                return false;
+            }
+            return true;
         }
     }
 }

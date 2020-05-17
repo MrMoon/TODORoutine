@@ -13,6 +13,9 @@ namespace TODORoutine.Models {
 
         private String username, notesId, fullName;
         private readonly String userId;
+        private int isAuthenticated;
+
+        public User() { }
 
         public User(String userId) { this.userId = userId; }
 
@@ -24,11 +27,15 @@ namespace TODORoutine.Models {
 
         public String getFullName() { return fullName; }
 
+        public int getIsAuthenticated() { return isAuthenticated; }
+
         public void setUsername(String username) { this.username = username; }
 
         public void setNotesId(String notesId) { this.notesId = notesId; }
 
         public void setFullName(String fullName) { this.fullName = fullName; }
+
+        public void setIsAuthenticated(int isAuthenticated) { this.isAuthenticated = isAuthenticated; }
 
         public String toString() {
             StringBuilder sb = new StringBuilder();
@@ -40,6 +47,8 @@ namespace TODORoutine.Models {
             sb.Append(fullName);
             sb.Append(" , Notes Id : ");
             sb.Append(notesId);
+            sb.Append(" , isAuthenticated : ");
+            sb.Append(isAuthenticated);
             sb.Append(" }\n");
             return sb.ToString();
         }

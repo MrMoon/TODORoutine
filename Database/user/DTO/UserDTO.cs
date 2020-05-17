@@ -8,12 +8,18 @@ using TODORoutine.Models;
 
 namespace TODORoutine.Database.user.DTO {
     /**
-     * Main Interface for all the user Data Transfor Object to comunicate with other classes
+     * Main Layer for all the user Data Transfor to comunicate with other classes
+     * Handles the User Data transfor between the Transfor Layer and the Data Layer
      **/
-    interface UserDTO {
-        ArrayList compare(User oldUser , User newUser);
-        String getIdQuery(String username);
-        String getUsernameQuery(String id);
-        String getNotesIdQuery(String id);
+    public interface UserDTO {
+        User getUserById(String id);
+        User getUserByUsername(String username);
+        String getUserId(String username);
+        String getUserUsername(String id);
+        String getUserNotesId(String id);
+        bool saveUser(User user);
+        bool deleteUser(User user);
+        bool updateUser(User user , params String[] columns);
+        int isAuthenticated(String username);
     }
 }

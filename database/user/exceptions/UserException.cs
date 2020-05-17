@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TODORoutine.Shared;
 
 namespace TODORoutine.exceptions {
+
     /**
      * Main User Genral Exception Class
      **/

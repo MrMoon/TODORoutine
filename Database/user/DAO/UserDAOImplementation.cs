@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TODORoutine.database.general;
@@ -15,20 +16,20 @@ using TODORoutine.Models;
 using TODORoutine.Shared;
 
 namespace TODORoutine.Database.user.DAO {
+
     /**
-     * Main User Data Access Class that handle database operations
+     * Main User Data Access Implementation that handle database operations
      **/
     class UserDAOImplementation : UserDAO {
 
+        private readonly String tableName = DatabaseConstants.TABLE_TODOROUTINE;
         private static UserDAO dao = null;
-        private static UserDTO dto = null;
-        private static DatabaseParser parser = null;
-        private static DatabaseDriver driver = null;
+        private DatabaseParser parser = null;
+        private DatabaseDriver driver = null;
 
         private UserDAOImplementation() {
             driver = DatabaseDriverImplementation.getInstance();
             parser = DatabaseParserImplementation.getInstance();
-            dto = UserDTOImplementation.getInstance();
         }
 
         public static UserDAO getInstance() {
@@ -36,60 +37,6 @@ namespace TODORoutine.Database.user.DAO {
             return dao;
         }
 
-        /**
-         * Getting the user from the database based on the id
-         * 
-         * @id : the user id to search for
-         * 
-         * return User if found and throw an Exception otherwise
-         **/
-        public User findById(String id) {
-            if (!DatabaseValidator.isValidParameters(id))
-                throw new ArgumentException(UserConstants.INVALID(DatabaseConstants.COLUMN_USERID) 
-                    + Logging.paramenterLogging(nameof(findById) , true , new Pair(nameof(id) , id)));
-            //Logging
-            Logging.paramenterLogging(nameof(findById) , false , new Pair(nameof(id) , id));
-            //Getting the user
-            SQLiteDataReader dataReader = driver.getReader(parser.getSelect(DatabaseConstants.TABEL_TODOROUTINE ,
-                                            DatabaseConstants.COLUMN_USERID , DatabaseConstants.ALL , id));
-            while (dataReader.Read()) {
-                User user = getUser(dataReader);
-                Logging.logInfo(nameof(findById) , UserConstants.USER_FOUND , user.toString());
-                return user;
-            }
-            //Logging
-            Logging.paramenterLogging(nameof(findById) , true , new Pair(nameof(id) , id));
-            //User not found in the database
-            throw new UserException(UserConstants.USER_NOT_FOUND);
-        }
-        /**
-        * Getting the user from the database based on the username
-        * 
-        * @username : the user username to search for
-        * 
-        * return User if found and throw an Exception otherwise
-        **/
-        public User findByUsername(String username) {
-            if(!DatabaseValidator.isValidParameters(username)) 
-                throw new ArgumentException(UserConstants.INVALID(DatabaseConstants.COLUMN_USERNAME)
-                + Logging.paramenterLogging(nameof(findByUsername) , true , new Pair(nameof(username) , username)));
-            //Logging
-            Logging.paramenterLogging(nameof(findByUsername) , false
-                , new Pair(nameof(username) , username));
-            //Getting the user
-            SQLiteDataReader dataReader = driver.getReader(parser.getSelect(DatabaseConstants.TABEL_TODOROUTINE ,
-                                            DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.ALL , username));
-            while(dataReader.Read()) {
-                User user = getUser(dataReader);
-                Logging.logInfo(nameof(findByUsername) , UserConstants.USER_FOUND , user.toString());
-                return user;
-            }
-            //Logging
-            Logging.paramenterLogging(nameof(findByUsername) , true
-                , new Pair(nameof(username) , username));
-            //User not found in the database
-            throw new UserException(UserConstants.USER_NOT_FOUND);
-        }
         /**
          * Reading the user from the database
          * 
@@ -104,6 +51,7 @@ namespace TODORoutine.Database.user.DAO {
             user.setNotesId(dataReader[DatabaseConstants.COLUMN_NOTESID].ToString());
             return user;
         }
+
         /**
          * inserting the user into the SQL Database
          * 
@@ -112,14 +60,19 @@ namespace TODORoutine.Database.user.DAO {
          * return ture if and only if the user was saved successfully
          **/
         public bool save(User user) {
-            if (user == null) throw new ArgumentException(UserConstants.USER_INVLAID
-                + Logging.paramenterLogging(nameof(save) , true  , new Pair(nameof(user) , user.toString())));
             //Logging
             Logging.paramenterLogging(nameof(save) , false
                 , new Pair(nameof(user) , user.toString()));
             //Inserting User into the Database
-            return driver.executeQuery(parser.getInsert(user)) > 0;
+            try {
+                driver.executeQuery(parser.getInsert(user));
+            } catch (SQLiteException e) {
+                Logging.logInfo(true , e.Data.ToString());
+                return false;
+            }
+            return true;
         }
+
         /**
          * updatting the user in the SQL Database
          * 
@@ -128,21 +81,19 @@ namespace TODORoutine.Database.user.DAO {
          * 
          * return the number of affected records
          **/
-        public int update(User oldUser , User newUser) {
-            if (oldUser == null || newUser == null || !newUser.getId().Equals(oldUser.getId())) 
-                throw new ArgumentException(UserConstants.USER_INVLAID + 
-                Logging.paramenterLogging(nameof(update) , true
-                , new Pair(nameof(oldUser) , oldUser.toString()) 
-                , new Pair(nameof(newUser) , newUser.toString())));
+        public bool update(User user , params String[] columns) {
             //Logging
-            Logging.paramenterLogging(nameof(update) , true
-                , new Pair(nameof(oldUser) , oldUser.toString())
-                , new Pair(nameof(newUser) , newUser.toString()));
-            //Updating User
-            ArrayList userDifferentColumns = dto.compare(oldUser , newUser);
-            return driver.executeQuery(parser.getUpdate(DatabaseConstants.TABEL_TODOROUTINE , DatabaseConstants.COLUMN_USERID
-                                        , newUser.getId() , userDifferentColumns , newUser));
+            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(user) , user.toString()));
+            //Updating
+            try {
+                driver.executeQuery(parser.getUpdate(tableName , DatabaseConstants.COLUMN_USERID , user.getId() , user , columns));
+            } catch (SQLiteException e) {
+                Logging.logInfo(true , e.Data.ToString());
+                return false;
+            }
+            return true;
         }
+
         /**
         * deleting the user from the Database
         * 
@@ -150,15 +101,185 @@ namespace TODORoutine.Database.user.DAO {
         * 
         * return the number of affected record
         **/
-        public int delete(User user) {
-            if (user == null) throw new ArgumentException(UserConstants.USER_INVLAID
-                + Logging.paramenterLogging(nameof(delete) , true , new Pair(nameof(user) , user.toString())));
+        public bool delete(User user) {
             //Logging
             Logging.paramenterLogging(nameof(delete) , false
                 , new Pair(nameof(user) , user.toString()));
             //Deleting user from database
-            return driver.executeQuery(parser.getDelete(DatabaseConstants.TABEL_TODOROUTINE
-                , DatabaseConstants.COLUMN_USERID , user.getId()));
+            try {
+               driver.executeQuery(parser.getDelete(tableName , DatabaseConstants.COLUMN_USERID , user.getId()));
+            } catch(SQLiteException e) {
+                Logging.logInfo(true , e.Data.ToString());
+                return false;
+            }
+            return true ;
+        }
+
+
+        /**
+         * Getting the user from the database based on the id
+         * 
+         * @id : the user id to search for
+         * 
+         * return User if found and throw an Exception otherwise
+         **/
+        public User findById(String id) {
+            //Logging
+            Logging.paramenterLogging(nameof(findById) , false , new Pair(nameof(id) , id));
+            //Getting the user
+            SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
+                                            DatabaseConstants.COLUMN_USERID , DatabaseConstants.ALL , id));
+            //Reading the the Record from the database
+            while (reader.Read()) {
+                User user = getUser(reader);
+                Logging.logInfo(false , nameof(findById) , UserConstants.USER_FOUND , user.toString());
+                reader.Close();
+                return user;
+            }
+            reader.Close();
+            //Logging
+            Logging.paramenterLogging(nameof(findById) , true , new Pair(nameof(id) , id));
+            //User not found in the database
+            throw new UserException(UserConstants.NOT_FOUND(id));
+        }
+
+        /**
+        * Getting the user from the database based on the username
+        * 
+        * @username : the user username to search for
+        * 
+        * return User if found and throw an Exception otherwise
+        **/
+        public User findByUsername(String username) {
+            //Logging
+            Logging.paramenterLogging(nameof(findByUsername) , false
+                , new Pair(nameof(username) , username));
+            //Getting the user
+            String s = parser.getSelect(tableName , DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.ALL , username);
+            SQLiteDataReader reader = driver.getReader(s);
+            while (reader.Read()) {
+                User user = getUser(reader);
+                Logging.logInfo(false , nameof(findByUsername) , UserConstants.USER_FOUND , user.toString());
+                reader.Close();
+                return user;
+            }
+            reader.Close();
+            //Logging
+            Logging.paramenterLogging(nameof(findByUsername) , true
+                , new Pair(nameof(username) , username));
+            //User not found in the database
+            throw new UserException(UserConstants.NOT_FOUND(username));
+        }
+
+        /**
+         * User ID from the database based on the username
+         * 
+         * @username : the username in the select statment
+         * 
+         * Return an id for the user
+         **/
+        public String findUserId(String username) {
+            //Logging
+            Logging.paramenterLogging(nameof(findUserId) , false
+                , new Pair(nameof(username) , username));
+            //Finding the id
+            String query = parser.getSelect(tableName , DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.COLUMN_USERID , username);
+            SQLiteDataReader reader = driver.getReader(query);
+            while (reader.Read()) {
+                String id = reader[DatabaseConstants.COLUMN_USERID].ToString();
+                Logging.logInfo(false , nameof(findUserId) , id);
+                reader.Close();
+                return id;
+            }
+            reader.Close();
+            //Logging
+            Logging.paramenterLogging(nameof(findUserId) , true
+                , new Pair(nameof(username) , username));
+            //User not found in the database
+            throw new UserException(UserConstants.NOT_FOUND(username));
+        }
+        /**
+         * User Notes Id from the database based on the id
+         * 
+         * @id : the id in the select statment
+         * 
+         * Return the notesId for the user if it was founded
+         **/
+        public String findUserNotesId(String id) {
+            //Logging
+            Logging.paramenterLogging(nameof(findUserId) , false
+                , new Pair(nameof(id) , id));
+            //Finding the notesId
+            String query = parser.getSelect(tableName , DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.COLUMN_NOTESID , id);
+            SQLiteDataReader reader = driver.getReader(query);
+            while (reader.Read()) {
+                String notesId = reader[DatabaseConstants.COLUMN_NOTESID].ToString();
+                Logging.logInfo(false , nameof(findUserNotesId) , notesId);
+                reader.Close();
+                return notesId;
+            }
+            reader.Close();
+            //Logging
+            Logging.paramenterLogging(nameof(findUserNotesId) , true
+                , new Pair(nameof(id) , id));
+            //User not found in the database
+            throw new UserException(UserConstants.NOT_FOUND(id));
+        }
+
+        /**
+         * User username based on the id
+         * 
+         * @id : the id in the select statment
+         * 
+         * Return the username for the user if it was founded
+         **/
+        public String findUserUsername(String id) {
+            //Logging
+            Logging.paramenterLogging(nameof(findUserUsername) , false
+                , new Pair(nameof(id) , id));
+            //Finding the username
+            String query = parser.getSelect(tableName , DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.COLUMN_USERNAME , id);
+            SQLiteDataReader reader = driver.getReader(query);
+            while(reader.Read()) {
+                String username = reader[DatabaseConstants.COLUMN_USERNAME].ToString();
+                Logging.logInfo(false , nameof(findUserUsername) , username);
+                reader.Close();
+                return username;
+            }
+            reader.Close();
+            //Logging
+            Logging.paramenterLogging(nameof(findUserUsername) , true
+                , new Pair(nameof(id) , id));
+            //User not found in the database
+            throw new UserException(UserConstants.NOT_FOUND(id));
+        }
+
+        /**
+         * Checks the database if the user is Authenticated or not
+         * 
+         * @username : the username of the user that we will check
+         * 
+         * return true if and only if the user is authenticated
+         **/
+        public bool isUserAuthenticated(String username) {
+            //Logging
+            Logging.paramenterLogging(nameof(isUserAuthenticated) , false
+                , new Pair(nameof(username) , username));
+            //Checking if user is Authenticated
+            String query = parser.getSelect(tableName , DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.COLUMN_AUTH , username);
+            SQLiteDataReader reader = driver.getReader(query);
+            while (reader.Read()) {
+                int isAuth = int.Parse(reader[DatabaseConstants.COLUMN_AUTH].ToString());
+                Logging.logInfo(false , nameof(isUserAuthenticated) , username);
+                reader.Close();
+                return isAuth == 1 ? true : false;
+            }
+            reader.Close();
+            //Logging
+            Logging.paramenterLogging(nameof(isUserAuthenticated) , true
+                , new Pair(nameof(username) , username));
+            //User not found in the database
+            throw new UserException(UserConstants.NOT_FOUND(username));
         }
     }
 }
