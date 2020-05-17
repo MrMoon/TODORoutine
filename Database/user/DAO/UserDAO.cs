@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 using TODORoutine.Models;
 
 namespace TODORoutine.Database.user.DAO {
+
     /**
-     * Main Interface for all the user Data Access Object to comunicate with the database
+     * Main Data Access Layer for all the user comunicatation with the database
+     * Handles the Database side of the Application for the User
      **/
-    interface UserDAO {
+     interface UserDAO {
+        String findUserId(String username);
+        String findUserUsername(String id);
+        String findUserNotesId(String id);
         User findById(String id);
         User findByUsername(String username);
         bool save(User user);
-        int update(User oldUser , User newUser);
-        int delete(User user);
+        bool update(User user , params String[] columns);
+        bool delete(User user);
+        bool isUserAuthenticated(String id);
     }
 }

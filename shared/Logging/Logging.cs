@@ -13,7 +13,7 @@ namespace TODORoutine.Shared {
      **/
     class Logging {
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         /**
          * Logging Parser for the parameter Errors and Exceptions
@@ -39,7 +39,15 @@ namespace TODORoutine.Shared {
             return stringBuilder.ToString();
         }
 
-        public static string logInfo(params String[] args) {
+        /**
+         * Normal Logging 
+         * 
+         * @isError : is this an Error Message
+         * @args : the Message Info
+         * 
+         * return the Message that was Logged
+         **/
+        public static string logInfo(bool isError  , params String[] args) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("{ ");
             foreach(String str in args) {
@@ -47,7 +55,8 @@ namespace TODORoutine.Shared {
                 if(str != args[args.Count() - 1]) stringBuilder.Append(" , ");
             }
             String s = stringBuilder.ToString();
-            logger.Info(s);
+            if (isError) logger.Error(s);
+            else logger.Info(s);
             return s;
         }
     }
