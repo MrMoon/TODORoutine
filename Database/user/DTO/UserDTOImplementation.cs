@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TODORoutine.Database.Shared;
 using TODORoutine.Database.user.DAO;
 using TODORoutine.exceptions;
 using TODORoutine.Models;
-using TODORoutine.Shared;
 using TODORoutine.database.user.exceptions;
 using TODORoutine.database.general;
-using TODORoutine.database.parsers;
 
 namespace TODORoutine.Database.user.DTO {
 
@@ -98,7 +90,7 @@ namespace TODORoutine.Database.user.DTO {
             try {
                 id = dao.findUserId(username);
             } catch(Exception e) {
-                if (e is UserException) return UserConstants.USER_FOUND;
+                if (e is DatabaseException) return UserConstants.USER_FOUND;
                 return "-1";
             }
             return id;
@@ -116,7 +108,7 @@ namespace TODORoutine.Database.user.DTO {
             try {
                 notesid = dao.findUserNotesId(id);
             } catch(Exception e) {
-                if (e is UserException) return UserConstants.USER_FOUND;
+                if (e is DatabaseException) return UserConstants.USER_FOUND;
                 return "-1";
             }
             return notesid;
@@ -134,7 +126,7 @@ namespace TODORoutine.Database.user.DTO {
             try {
                 username = dao.findUserUsername(id);
             } catch (Exception e) {
-                if (e is UserException) return UserConstants.USER_FOUND;
+                if (e is DatabaseException) return UserConstants.USER_FOUND;
                 return "-1";
             }
             return username;

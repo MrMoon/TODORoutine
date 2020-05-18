@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TODORoutine.Shared;
 using TODORoutine.database.parsers;
 using TODORoutine.database.general;
-using System.Data;
-using Microsoft.Data.Sqlite;
-using System.Windows.Forms;
 
 namespace TODORoutine.Database {
 

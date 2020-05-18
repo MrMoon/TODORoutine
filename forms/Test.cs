@@ -1,17 +1,8 @@
-﻿using NLog.Fluent;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TODORoutine.authentication;
 using TODORoutine.database.parsers;
-using TODORoutine.Database.user.DAO;
 using TODORoutine.Database.user.DTO;
 using TODORoutine.Models;
 

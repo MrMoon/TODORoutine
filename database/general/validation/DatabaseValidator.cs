@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using TODORoutine.models;
 using TODORoutine.Models;
 
 namespace TODORoutine.Database.Shared {
@@ -20,7 +17,7 @@ namespace TODORoutine.Database.Shared {
          * 
          * return true if and only if none of the Strings don't have extra white spaces, not Empty and not NULL
          **/
-        public static bool isValidParameters( params String[] args) {
+        public static bool isValidParameters(params String[] args) {
             string temp;
             foreach (String s in args) {
                 if (String.IsNullOrEmpty(s)) return false;
@@ -37,7 +34,13 @@ namespace TODORoutine.Database.Shared {
          * 
          * return true if and only if the user is valid according to the @isValidParameters
          **/
-        public static bool isValidUser(User user) { return user != null && isValidParameters(user.getUsername() , user.getFullName()); }
+        public static bool isValidUser(User user) => user != null && isValidParameters(user.getUsername() , user.getFullName());
+
+        public static bool isValidNote(Note note) => note != null;
+
+        public static bool isValidDocument(Document document) => document != null && isValidParameters(document.getOwner());
+
+        public static bool isValidNotebook(Notebook notebook) => notebook != null;
 
     }
 }

@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TODORoutine.database.user.exceptions;
-using TODORoutine.Database.Shared;
 using TODORoutine.Database.user.DTO;
-using TODORoutine.Models;
 using TODORoutine.Shared;
 
 namespace TODORoutine.authentication {
