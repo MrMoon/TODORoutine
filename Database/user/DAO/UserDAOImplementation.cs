@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using TODORoutine.database.general;
 using TODORoutine.database.parsers;
 using TODORoutine.database.user.exceptions;
-using TODORoutine.Database.Shared;
-using TODORoutine.Database.user.DTO;
 using TODORoutine.exceptions;
 using TODORoutine.Models;
 using TODORoutine.Shared;
@@ -44,7 +36,7 @@ namespace TODORoutine.Database.user.DAO {
          * 
          * return the read User
          **/
-        private User getUser(SQLiteDataReader dataReader) {
+        public User getUser(SQLiteDataReader dataReader) {
             User user = new User(dataReader[DatabaseConstants.COLUMN_USERID].ToString());
             user.setFullName(dataReader[DatabaseConstants.COLUMN_FULLNAME].ToString());
             user.setUsername(dataReader[DatabaseConstants.COLUMN_USERNAME].ToString());
@@ -140,7 +132,7 @@ namespace TODORoutine.Database.user.DAO {
             //Logging
             Logging.paramenterLogging(nameof(findById) , true , new Pair(nameof(id) , id));
             //User not found in the database
-            throw new UserException(UserConstants.NOT_FOUND(id));
+            throw new DatabaseException(UserConstants.NOT_FOUND(id));
         }
 
         /**
@@ -168,7 +160,7 @@ namespace TODORoutine.Database.user.DAO {
             Logging.paramenterLogging(nameof(findByUsername) , true
                 , new Pair(nameof(username) , username));
             //User not found in the database
-            throw new UserException(UserConstants.NOT_FOUND(username));
+            throw new DatabaseException(UserConstants.NOT_FOUND(username));
         }
 
         /**
@@ -196,7 +188,7 @@ namespace TODORoutine.Database.user.DAO {
             Logging.paramenterLogging(nameof(findUserId) , true
                 , new Pair(nameof(username) , username));
             //User not found in the database
-            throw new UserException(UserConstants.NOT_FOUND(username));
+            throw new DatabaseException(UserConstants.NOT_FOUND(username));
         }
         /**
          * User Notes Id from the database based on the id
@@ -223,7 +215,7 @@ namespace TODORoutine.Database.user.DAO {
             Logging.paramenterLogging(nameof(findUserNotesId) , true
                 , new Pair(nameof(id) , id));
             //User not found in the database
-            throw new UserException(UserConstants.NOT_FOUND(id));
+            throw new DatabaseException(UserConstants.NOT_FOUND(id));
         }
 
         /**
@@ -251,7 +243,7 @@ namespace TODORoutine.Database.user.DAO {
             Logging.paramenterLogging(nameof(findUserUsername) , true
                 , new Pair(nameof(id) , id));
             //User not found in the database
-            throw new UserException(UserConstants.NOT_FOUND(id));
+            throw new DatabaseException(UserConstants.NOT_FOUND(id));
         }
 
         /**
@@ -279,7 +271,7 @@ namespace TODORoutine.Database.user.DAO {
             Logging.paramenterLogging(nameof(isUserAuthenticated) , true
                 , new Pair(nameof(username) , username));
             //User not found in the database
-            throw new UserException(UserConstants.NOT_FOUND(username));
+            throw new DatabaseException(UserConstants.NOT_FOUND(username));
         }
     }
 }

@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace TODORoutine.models {
     class Notebook {
 
         private String id, title, author, dateCreated, lastModified;
-        private List<Note> notes;
+        private List<String> notes;
 
         public Notebook() {
-            notes = new List<Note>();
+            notes = new List<String>();
         }
 
         public String getId() { return id; }
@@ -20,13 +18,15 @@ namespace TODORoutine.models {
         public String getAuthor() { return author; }
         public String getDateCreated() { return dateCreated; }
         public String getLastModified() { return lastModified; }
-        public List<Note> getNotes() { return notes; }
+        public List<String> getNotes() { return notes; }
         public void setId(String id) { this.id = id; }
         public void setTitle(String title) { this.title = title; }
         public void setAuthor(String author) { this.author = author; }
         public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
         public void setLastModified(String lastModified) { this.lastModified = lastModified; }
-        public void setNotes(List<Note> notes) { this.notes = notes; }
+        public void setNotes(List<String> notes) { this.notes = notes; }
+        public void addNote(String noteId) { this.notes.Add(noteId); }
+        public void removeNote(String noteId) { this.notes.Remove(noteId); }
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.Append("{ ID : ");
@@ -40,7 +40,7 @@ namespace TODORoutine.models {
             sb.Append(" , Last Modified : ");
             sb.Append(lastModified);
             sb.Append(", Notes : { ");
-            foreach(Note note in notes) {
+            foreach(String note in notes) {
                 sb.Append(note.toString());
                 if (note != notes[notes.Count() - 1]) sb.Append(" , ");
             }

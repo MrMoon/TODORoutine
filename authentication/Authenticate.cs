@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TODORoutine.Database.user.DTO;
+﻿using TODORoutine.Database.user.DTO;
 using TODORoutine.Models;
 
 namespace TODORoutine.authentication {

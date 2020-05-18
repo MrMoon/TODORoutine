@@ -122,20 +122,35 @@
     <Compile Include="authentication\Authenticate.cs" />
     <Compile Include="authentication\Login.cs" />
     <Compile Include="authentication\Register.cs" />
-    <Compile Include="database\general\DatabaseDriver.cs" />
-    <Compile Include="database\general\DatabaseDriverImplementation.cs" />
+    <Compile Include="database\document\dao\DocumentDAO.cs" />
+    <Compile Include="database\document\dao\DocumentDAOImplementation.cs" />
+    <Compile Include="database\document\dto\DocumentDTO.cs" />
+    <Compile Include="database\document\dto\DocumentDTOImplementation.cs" />
+    <Compile Include="database\document\parser\DocumentParser.cs" />
+    <Compile Include="database\document\parser\DocumentParserImplementation.cs" />
+    <Compile Include="database\general\dao\DatabaseDAO.cs" />
+    <Compile Include="database\general\driver\DatabaseDriver.cs" />
+    <Compile Include="database\general\driver\DatabaseDriverImplementation.cs" />
+    <Compile Include="database\general\dto\DatabaseDTO.cs" />
+    <Compile Include="database\notebook\NotebookParser.cs" />
+    <Compile Include="database\notebook\NotebookParserImplementation.cs" />
     <Compile Include="database\note\dao\NoteDAO.cs" />
     <Compile Include="database\note\dao\NoteDAOImlementation.cs" />
-    <Compile Include="database\shared\DatabaseConstants.cs" />
-    <Compile Include="database\parsers\DatabaseParser.cs" />
-    <Compile Include="database\shared\UserConstants.cs" />
-    <Compile Include="database\validation\DatabaseValidator.cs" />
-    <Compile Include="database\parsers\UserParser.cs" />
+    <Compile Include="database\note\dto\NoteDTO.cs" />
+    <Compile Include="database\note\dto\NoteDTOImplementation.cs" />
+    <Compile Include="database\note\parser\NoteParser.cs" />
+    <Compile Include="database\note\parser\NoteParserImplementation.cs" />
+    <Compile Include="database\user\parser\UserParserImplementation.cs" />
+    <Compile Include="database\general\shared\DatabaseConstants.cs" />
+    <Compile Include="database\general\parser\DatabaseParser.cs" />
+    <Compile Include="database\general\shared\UserConstants.cs" />
+    <Compile Include="database\general\validation\DatabaseValidator.cs" />
+    <Compile Include="database\user\parser\UserParser.cs" />
     <Compile Include="database\user\dao\UserDAO.cs" />
     <Compile Include="database\user\dao\UserDAOImplementation.cs" />
     <Compile Include="database\user\dto\UserDTO.cs" />
     <Compile Include="database\user\dto\UserDTOImplementation.cs" />
-    <Compile Include="database\user\exceptions\UserException.cs" />
+    <Compile Include="database\user\exceptions\DatabaseException.cs" />
     <Compile Include="forms\SplashScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,13 +175,15 @@
     <Compile Include="forms\TodoForm.Designer.cs">
       <DependentUpon>TodoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="models\Document.cs" />
     <Compile Include="models\Note.cs" />
     <Compile Include="models\Notebook.cs" />
     <Compile Include="models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="database\parsers\DatabaseParserImplementation.cs" />
-    <Compile Include="shared\Logging\Logging.cs" />
+    <Compile Include="database\general\parser\DatabaseParserImplementation.cs" />
+    <Compile Include="shared\csv\CSVParser.cs" />
+    <Compile Include="shared\logging\Logging.cs" />
     <Compile Include="shared\Pair.cs" />
     <EmbeddedResource Include="forms\SplashScreenForm.resx">
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
@@ -205,8 +222,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="database\note\dto\" />
-    <Folder Include="Notes\" />
+    <Folder Include="database\documentshare\dao\" />
+    <Folder Include="database\documentshare\dto\" />
+    <Folder Include="database\documentshare\parser\" />
+    <Folder Include="database\notebook\dao\" />
+    <Folder Include="database\notebook\dto\" />
+    <Folder Include="database\notebook\parser\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

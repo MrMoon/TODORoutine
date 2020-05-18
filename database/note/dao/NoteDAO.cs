@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TODORoutine.database.general.dao;
 using TODORoutine.models;
 
 namespace TODORoutine.database.note.dao {
@@ -10,14 +8,11 @@ namespace TODORoutine.database.note.dao {
      * Main Data Access Layer for all the notes comunicatation with the database
      * Handles main notes and database operations
      **/
-    public interface NoteDAO {
-        Note findById(String id);
+    public interface NoteDAO : DatabaseDAO<Note> {
         Note findByTitle(String title);
-        List<Note> findByAuthorName(String author);
-        List<Note> findAllByOrderOfDateCreated();
-        List<Note> findAllByOrderOfLastModified();
-        bool save(Note note);
-        bool update(Note note , params String[] columns);
-        bool delete(Note note);
+        List<String> findByAuthorName(String author);
+        List<String> findAllByOrderOfDateCreated();
+        List<String> findAllByOrderOfLastModified();
+
     }
 }
