@@ -6,10 +6,10 @@ namespace TODORoutine.database.general.dto {
      * Main Database Transfor Layer 
      * Handles basic transfor operations
      **/
-    public interface DatabaseDTO<T> {
-        T getTById(String id);
-        bool saveT(T t);
-        bool deleteT(T t);
-        bool updateT(T t , params String[] columns);
+    interface DatabaseDTO<T> {
+        T getById(String id);
+        bool save(T t);
+        bool delete(String id);
+        bool update(T t , params String[] columns);
     }
 }

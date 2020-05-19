@@ -18,7 +18,7 @@ namespace TODORoutine.Database.Shared {
          * return true if and only if none of the Strings don't have extra white spaces, not Empty and not NULL
          **/
         public static bool isValidParameters(params String[] args) {
-            string temp;
+            String temp;
             foreach (String s in args) {
                 if (String.IsNullOrEmpty(s)) return false;
                 temp = Regex.Replace(s.ToString() , " {2,}" , " ");

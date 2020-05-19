@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 using TODORoutine.database.general;
+using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
 using TODORoutine.Database;
 using TODORoutine.exceptions;
@@ -15,8 +15,9 @@ namespace TODORoutine.database.document.dao {
      * Document Data Access Layer Implementation to comunicate with the database
      * Handles Database Operation for documents
      **/
-    public class DocumentDAOImplementation : DocumentDAO {
+    class DocumentDAOImplementation : DatabaseDAOImplementation<Document> , DocumentDAO {
 
+        private readonly String idColumn = DatabaseConstants.COLUMN_DOCUMENTID;
         private readonly String tableName = DatabaseConstants.TABLE_DOCUMENT;
         private static DocumentDAO documentDAO = null;
         private DocumentParser parser = null;
@@ -39,12 +40,14 @@ namespace TODORoutine.database.document.dao {
         * 
         * return the read document from the database
         **/
-        public Document getT(SQLiteDataReader dataReader) {
-            Document document = new Document();
-            //TODO get document
-            document.setId(dataReader[DatabaseConstants.COLUMN_DOCUMENTID].ToString());
-            document.setOwner(dataReader[DatabaseConstants.COLUMN_OWENER].ToString());
-            return document;
+        public override Document get(SQLiteDataReader dataReader) {
+            if(dataReader.Read()) {
+                Document document = new Document();
+                document.setId(dataReader[idColumn].ToString());
+                document.setOwner(dataReader[DatabaseConstants.COLUMN_OWENER].ToString());
+                return document;
+            }
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND("404"));
         }
 
         /**
@@ -54,18 +57,20 @@ namespace TODORoutine.database.document.dao {
         * 
         * return true if and only if the delete operation was done successfully
         **/
-        public bool delete(Document document) {
+        public override bool delete(String id) {
             //Logging
             Logging.paramenterLogging(nameof(delete) , false
-                , new Pair(nameof(document) , document.toString()));
+                , new Pair(nameof(id) , id));
             //Deleting document from database
             try {
-                driver.executeQuery(parser.getDelete(tableName , DatabaseConstants.COLUMN_USERID , document.getId()));
-            } catch (SQLiteException e) {
-                Logging.logInfo(true , e.Data.ToString());
-                return false;
+                return driver.executeQuery(parser.getDelete(tableName , idColumn , id)) != -1;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return true;
+            //Logging
+            Logging.paramenterLogging(nameof(delete) , true , new Pair(nameof(id) , id));
+            //Document not found in the database
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
         /**
@@ -75,20 +80,22 @@ namespace TODORoutine.database.document.dao {
          * 
          * return document if found and throw an Exception otherwise
          **/
-        public Document findById(string id) {
+        public override Document findById(String id) {
             //Logging
             Logging.paramenterLogging(nameof(findById) , false , new Pair(nameof(id) , id));
-            //Getting the document
-            SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
-                                            DatabaseConstants.COLUMN_USERID , DatabaseConstants.ALL , id));
-            //Reading the the Record from the database
-            while (reader.Read()) {
-                Document document = getT(reader);
-                Logging.logInfo(false , nameof(findById) , DatabaseConstants.FOUND(id) , document.toString());
-                reader.Close();
-                return document;
+            try {
+                //Finding the document
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
+                                                DatabaseConstants.COLUMN_USERID , DatabaseConstants.ALL , id));
+                //Reading the the Record from the database
+                if (reader.Read()) {
+                    Document document = get(reader);
+                    reader.Close();
+                    return document;
+                }
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            reader.Close();
             //Logging
             Logging.paramenterLogging(nameof(findById) , true , new Pair(nameof(id) , id));
             //Document not found in the database
@@ -103,18 +110,17 @@ namespace TODORoutine.database.document.dao {
          * 
          * return ture if and only if the document was saved successfully
          **/
-        public bool save(Document document) {
+        public override bool save(Document document) {
             //Logging
             Logging.paramenterLogging(nameof(save) , false
                 , new Pair(nameof(document) , document.toString()));
             //Inserting User into the Database
             try {
-                driver.executeQuery(parser.getInsert(document));
-            } catch (SQLiteException e) {
-                Logging.logInfo(true , e.Data.ToString());
+                return driver.executeQuery(parser.getInsert(document)) != -1;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
                 return false;
             }
-            return true;
         }
 
         /**
@@ -125,45 +131,34 @@ namespace TODORoutine.database.document.dao {
          * 
          * return true if and only if the updating operation was successfull
          **/
-        public bool update(Document document , params string[] columns) {
+        public override bool update(Document document , params String[] columns) {
             //Logging
             Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(document) , document.toString()));
             //Updating
             try {
-                driver.executeQuery(parser.getUpdate(tableName , DatabaseConstants.COLUMN_USERID , document.getId() , document , columns));
-            } catch (SQLiteException e) {
-                Logging.logInfo(true , e.Data.ToString());
-                return false;
+                return driver.executeQuery(parser.getUpdate(tableName ,
+                    DatabaseConstants.COLUMN_USERID , document.getId() , document , columns)) != -1;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return true;
+            //Logging
+            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(document) , document.toString()));
+            //Documnet was not found
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(document.toString()));
         }
 
         /**
-         * Getting all Documents from the range of lastId - 1 to lastId + 20
+         * Getting all Documents in a range
          * 
          * @lastId : the last id that was read before
          * 
          * return a list of document ids
          **/
-        public List<String> getDocuments(String lastId = "0") {
+        public List<String> findAllDocuments(String lastId = "0") {
             //Logging
-            Logging.logInfo(false , nameof(getDocuments));
-            //Getting 20 Document
-            List<String> documentsIds = new List<String>();
-            int x = int.Parse(lastId);
-            String query = parser.getSelect(tableName , "" , DatabaseConstants.COLUMN_DOCUMENTID , "" , lastId.Equals("0") ? 0 : x - 1 , lastId.Equals("0") ? 20 : x + 20);
-            SQLiteDataReader reader = driver.getReader(query);
-            try {
-                while(reader.Read()) {
-                    documentsIds.Add(reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString());
-                }
-            } catch(Exception e) {
-                Logging.logInfo(true , e.Data.ToString());
-                return new List<String>();
-            }
-            //Logging
-            Logging.logInfo(false , nameof(documentsIds));
-            return documentsIds;
+            Logging.paramenterLogging(nameof(findAllDocuments) , false , new Pair(nameof(lastId) , lastId));
+            //Finding Documents
+            return findAll(parser , tableName , "" , idColumn , lastId);
         }
 
         /**
@@ -173,21 +168,24 @@ namespace TODORoutine.database.document.dao {
         * 
         * return a list of document ids
         **/
-        public List<string> getByOwnerId(string ownerId) {
-            List<String> documentsIds = new List<String>();
-            String query = parser.getSelect(tableName , DatabaseConstants.COLUMN_OWENER , DatabaseConstants.COLUMN_DOCUMENTID , ownerId);
-            SQLiteDataReader reader = driver.getReader(query);
+        public List<String> findByOwnerId(String ownerId) {
+            //Logging
+            Logging.paramenterLogging(nameof(findByOwnerId) , false , new Pair(nameof(ownerId) , ownerId));
+            //Finding Docuemnts
             try {
-                while (reader.Read()) {
-                    documentsIds.Add(reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString());
-                }
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , 
+                                        DatabaseConstants.COLUMN_OWENER , idColumn , ownerId));
+                List<String> documentsIds = new List<String>();
+                while (reader.Read()) documentsIds.Add(reader[idColumn].ToString());
+                reader.Close();
+                return documentsIds;
             } catch (Exception e) {
-                Logging.logInfo(true , e.Data.ToString());
-                return new List<String>();
+                Logging.logInfo(true , e.Message);
             }
             //Logging
-            Logging.logInfo(false , nameof(documentsIds));
-            return documentsIds;
+            Logging.paramenterLogging(nameof(findByOwnerId) , true , new Pair(nameof(ownerId) , ownerId));
+            //Documnet was not found
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(ownerId));
         }
     }
 }

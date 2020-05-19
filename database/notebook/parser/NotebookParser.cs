@@ -2,6 +2,7 @@
 using TODORoutine.models;
 
 namespace TODORoutine.database.notebook {
-    public interface NotebookParser : DatabaseParser<Notebook> {
+    interface NotebookParser : DatabaseParser<Notebook> {
+
     }
 }

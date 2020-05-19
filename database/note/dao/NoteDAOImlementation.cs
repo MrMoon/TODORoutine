@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using TODORoutine.database.general;
+using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
 using TODORoutine.database.parsers.notes_parser;
 using TODORoutine.Database;
@@ -15,8 +16,9 @@ namespace TODORoutine.database.note.dao {
      * Main Note Data Access Implementation that handle database operations
      **/
 
-    public class NoteDAOImlementation : NoteDAO {
+    class NoteDAOImlementation : DatabaseDAOImplementation<Note> , NoteDAO {
 
+        private readonly String idColumn = DatabaseConstants.COLUMN_NOTEID;
         private readonly String tableName = DatabaseConstants.TABLE_NOTE;
         private static NoteDAO noteDAO = null;
         private DatabaseDriver driver = null;
@@ -39,30 +41,53 @@ namespace TODORoutine.database.note.dao {
         * 
         * return true if and only if the delete operation was done successfully
         **/
-        public bool delete(Note note) {
+        public override bool delete(String id) {
             //Logging
             Logging.paramenterLogging(nameof(delete) , false
-                , new Pair(nameof(note) , note.toString()));
+                , new Pair(nameof(id) , id));
             //Deleting note from database
             try {
-                driver.executeQuery(parser.getDelete(tableName , DatabaseConstants.COLUMN_USERID , note.getId()));
-            } catch (SQLiteException e) {
-                Logging.logInfo(true , e.Data.ToString());
-                return false;
+                return driver.executeQuery(parser.getDelete(tableName , idColumn , id)) != -1;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return true;
+            //Logging
+            Logging.paramenterLogging(nameof(delete) , true
+                , new Pair(nameof(id) , id));
+            //Note not found in the database
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
-        public List<string> findAllByOrderOfDateCreated() {
-            throw new NotImplementedException();
+        public List<String> findAllByOrderOfDateCreated(String lastNoteId = "") {
+            //Logging
+            Logging.paramenterLogging(nameof(findAllByOrderOfDateCreated) , false , new Pair(nameof(lastNoteId) , lastNoteId));
+            return findAll(parser , tableName , DatabaseConstants.COLUMN_DATECREATED , idColumn , lastNoteId);
         }
 
-        public List<string> findAllByOrderOfLastModified() {
-            throw new NotImplementedException();
+        public List<String> findAllByOrderOfLastModified(String lastNoteId = "") {
+            //Logging
+            Logging.paramenterLogging(nameof(findAllByOrderOfLastModified) , false , new Pair(nameof(lastNoteId) , lastNoteId));
+            return findAll(parser , tableName , DatabaseConstants.COLUMN_LASTMODIFIED , idColumn , lastNoteId);
         }
 
-        public List<string> findByAuthorName(string author) {
-            throw new NotImplementedException();
+        public List<String> findByAuthorName(String author) {
+            //Logging
+            Logging.paramenterLogging(nameof(findByAuthorName) , false , new Pair(nameof(author) , author));
+            //Finding notes id
+            try {
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName
+                                    , DatabaseConstants.COLUMN_AUTHOR , idColumn , author));
+                List<String> notesIds = new List<String>();
+                while (reader.Read()) notesIds.Add(reader[idColumn].ToString());
+                reader.Close();
+                return notesIds;
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            //Logging
+            Logging.paramenterLogging(nameof(findByAuthorName) , true , new Pair(nameof(author) , author));
+            //Note not found in the database
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(author));
         }
 
         /**
@@ -72,32 +97,60 @@ namespace TODORoutine.database.note.dao {
          * 
          * return note if found and throw an Exception otherwise
          **/
-        public Note findById(string id) {
+        public override Note findById(String id) {
             //Logging
             Logging.paramenterLogging(nameof(findById) , false , new Pair(nameof(id) , id));
-            //Getting the note
-            SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
+            //Finding the note
+            try {
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
                                             DatabaseConstants.COLUMN_USERID , DatabaseConstants.ALL , id));
-            //Reading the the Record from the database
-            while (reader.Read()) {
-                Note note = getT(reader);
+                //Reading the the Record from the database
+                Note note = get(reader);
                 Logging.logInfo(false , nameof(findById) , DatabaseConstants.FOUND(id) , note.toString());
                 reader.Close();
                 return note;
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            reader.Close();
             //Logging
             Logging.paramenterLogging(nameof(findById) , true , new Pair(nameof(id) , id));
             //Note not found in the database
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
-        public Note findByTitle(string title) {
-            throw new NotImplementedException();
+        public Note findByTitle(String title) {
+            //Logging
+            Logging.paramenterLogging(nameof(findByTitle) , false , new Pair(nameof(title) , title));
+            //Finding the note
+            try {
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
+                                            , DatabaseConstants.COLUMN_TITLE , "*" , title));
+                Note note = get(reader);
+                Logging.logInfo(false , note.toString());
+                reader.Close();
+                return note;
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            //Logging
+            Logging.paramenterLogging(nameof(findByTitle) , true , new Pair(nameof(title) , title));
+            //Note was not found
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(title));
         }
 
-        public Note getT(SQLiteDataReader dataReader) {
-            throw new NotImplementedException();
+        public override Note get(SQLiteDataReader reader) {
+            if(reader.Read()) {
+                Note note = new Note();
+                note.setAuthor(reader[DatabaseConstants.COLUMN_AUTHOR].ToString());
+                note.setDateCreated(reader[DatabaseConstants.COLUMN_DATECREATED].ToString());
+                note.setDocumentId(reader[DatabaseConstants.COLUMN_DOCUMENT].ToString());
+                note.setId(reader[idColumn].ToString());
+                note.setLastModified(reader[DatabaseConstants.COLUMN_LASTMODIFIED].ToString());
+                note.setTitle(reader[DatabaseConstants.COLUMN_TITLE].ToString());
+                return note;
+            }
+            //Note was not found
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND("404"));
         }
 
         /**
@@ -107,18 +160,17 @@ namespace TODORoutine.database.note.dao {
          * 
          * return ture if and only if the note was saved successfully
          **/
-        public bool save(Note note) {
+        public override bool save(Note note) {
             //Logging
             Logging.paramenterLogging(nameof(save) , false
                 , new Pair(nameof(note) , note.toString()));
             //Inserting User into the Database
             try {
-                driver.executeQuery(parser.getInsert(note));
-            } catch (SQLiteException e) {
-                Logging.logInfo(true , e.Data.ToString());
+                return driver.executeQuery(parser.getInsert(note)) != -1;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
                 return false;
             }
-            return true;
         }
 
         /**
@@ -129,17 +181,49 @@ namespace TODORoutine.database.note.dao {
          * 
          * return true if and only if the updating operation was successfull
          **/
-        public bool update(Note note , params string[] columns) {
+        public override bool update(Note note , params String[] columns) {
             //Logging
             Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(note) , note.toString()));
             //Updating
             try {
-                driver.executeQuery(parser.getUpdate(tableName , DatabaseConstants.COLUMN_USERID , note.getId() , note , columns));
-            } catch (SQLiteException e) {
-                Logging.logInfo(true , e.Data.ToString());
-                return false;
+                return driver.executeQuery(parser.getUpdate(tableName ,
+                    DatabaseConstants.COLUMN_USERID , note.getId() , note , columns)) != -1;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return true;
+            //Logging
+            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(note) , note.toString()));
+            //Note was not found
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(note.toString()));
+        }
+
+        /**
+         * Getting Doucment Id 
+         * 
+         * @id : the note id the get the docuemnt from
+         * 
+         * return id of the document if it was found and throw an exception otherwise
+         **/
+        public String findNoteDocument(String id) {
+            //Logging
+            Logging.paramenterLogging(nameof(findByTitle) , false , new Pair(nameof(id) , id));
+            //Finding the note
+            try {
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
+                                        , DatabaseConstants.COLUMN_DOCUMENTID , DatabaseConstants.COLUMN_DOCUMENTID , id));
+                if(reader.Read()) {
+                    String documentId = reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString();
+                    Logging.logInfo(false , documentId);
+                    reader.Close();
+                    return documentId;
+                }
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            //Logging
+            Logging.paramenterLogging(nameof(findByTitle) , true , new Pair(nameof(id) , id));
+            //Note was not found
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
     }
 }

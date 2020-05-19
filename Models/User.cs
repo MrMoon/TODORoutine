@@ -7,13 +7,10 @@ namespace TODORoutine.Models {
      **/
     public class User {
 
-        private String username, notesId, fullName;
-        private readonly String userId;
+        private String username, notesId, fullName , userId;
         private int isAuthenticated;
 
         public User() { }
-
-        public User(String userId) { this.userId = userId; }
 
         public String getId() { return userId; }
 
@@ -24,12 +21,12 @@ namespace TODORoutine.Models {
         public String getFullName() { return fullName; }
 
         public int getIsAuthenticated() { return isAuthenticated; }
-
         public void setUsername(String username) { this.username = username; }
 
         public void setNotesId(String notesId) { this.notesId = notesId; }
 
         public void setFullName(String fullName) { this.fullName = fullName; }
+        public void setId(String userId) { this.userId = userId; }
 
         public void setIsAuthenticated(int isAuthenticated) { this.isAuthenticated = isAuthenticated; }
 

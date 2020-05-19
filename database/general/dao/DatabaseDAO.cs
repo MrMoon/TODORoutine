@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
+using TODORoutine.database.parsers;
 
 namespace TODORoutine.database.general.dao {
 
@@ -7,11 +9,12 @@ namespace TODORoutine.database.general.dao {
      * Main Database Genric Access Layer
      * Handle basic data operations 
      **/
-    public interface DatabaseDAO<T> {
+    interface DatabaseDAO<T> {
         T findById(String id);
         bool save(T t);
         bool update(T t , params String[] columns);
-        bool delete(T t);
-        T getT(SQLiteDataReader dataReader);
+        bool delete(String id);
+        T get(SQLiteDataReader reader);
+        List<String> findAll(DatabaseParser<T> parser , String tableName , String orderbyColumnName , String idColumnName , String lastId);
     }
 }
