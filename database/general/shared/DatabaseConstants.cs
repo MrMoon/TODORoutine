@@ -7,6 +7,7 @@ namespace TODORoutine.database.parsers {
     public abstract class DatabaseConstants {
         //Trivaial Strings
         public readonly static String ALL = "*";
+        public readonly static String RANGE = (20).ToString();
         //Messages
         public static Func<String , String> INVALID = (s) => "Invalid " + s;
         public static Func<String , String> NOT_FOUND = (s) => s + " was not found";
@@ -38,7 +39,7 @@ namespace TODORoutine.database.parsers {
         public readonly static String COLUMN_DOCUMENTID = "DOCUMNETID";
         public readonly static String CREATE_NOTE_TABLE = @"CREATE TABLE " + TABLE_NOTE + " ( "
                                                             + COLUMN_NOTEID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                                                            + COLUMN_TITLE + " TEXT,"
+                                                            + COLUMN_TITLE + " TEXT UNIQUE,"
                                                             + COLUMN_AUTHOR + " TEXT NOT NULL,"
                                                             + COLUMN_DATECREATED + " TEXT NOT NULL,"
                                                             + COLUMN_LASTMODIFIED + " TEXT,"

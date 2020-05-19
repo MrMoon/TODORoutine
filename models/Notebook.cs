@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace TODORoutine.models {
-    class Notebook {
+    public class Notebook {
 
         private String id, title, author, dateCreated, lastModified;
         private List<String> notes;
@@ -39,9 +39,9 @@ namespace TODORoutine.models {
             sb.Append(dateCreated);
             sb.Append(" , Last Modified : ");
             sb.Append(lastModified);
-            sb.Append(", Notes : { ");
+            sb.Append(", Notes IDs : { ");
             foreach(String note in notes) {
-                sb.Append(note.toString());
+                sb.Append(note);
                 if (note != notes[notes.Count() - 1]) sb.Append(" , ");
             }
             sb.Append(" } ");

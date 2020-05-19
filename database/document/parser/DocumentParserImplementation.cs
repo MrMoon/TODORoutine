@@ -5,7 +5,6 @@ using TODORoutine.database.parsers;
 using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
 using TODORoutine.models;
-using TODORoutine.shared.csv;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.document {
@@ -13,7 +12,7 @@ namespace TODORoutine.database.document {
     /**
      * Main Document Parser Implementation that handles inserts of the Documnets and Updating 
      **/
-    public class DocumentParserImplementation : DatabaseParserImplementation<Document> , DocumentParser {
+    class DocumentParserImplementation : DatabaseParserImplementation<Document> , DocumentParser {
 
         private static DocumentParser documentParser = null;
 
@@ -34,10 +33,12 @@ namespace TODORoutine.database.document {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
                     , new Pair(nameof(column) , column) , new Pair(nameof(document) , document.toString()));
-            //Getting document filed
+            //Finding document filed
             if (column.Equals(DatabaseConstants.COLUMN_DOCUMENTID)) return document.getId();
             if (column.Equals(DatabaseConstants.COLUMN_OWENER)) return document.getOwner();
             //Column is invalid
+            Logging.paramenterLogging(nameof(getFieldFromColumn) , true
+                    , new Pair(nameof(column) , column) , new Pair(nameof(document) , document.toString()));
             throw new DatabaseException(DatabaseConstants.INVALID(column));
         }
 
@@ -114,7 +115,7 @@ namespace TODORoutine.database.document {
                 try {
                     val = getFieldFromColumn(columnName , document);
                 } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Data.ToString());
+                    Logging.logInfo(true , e.Message);
                     return null;
                 }
                 query.Append(val);

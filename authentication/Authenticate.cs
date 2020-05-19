@@ -23,8 +23,8 @@ namespace TODORoutine.authentication {
          * 
          * return 1 if the authentication was successfull , 0 if not and -1 if a database error occured
          **/
-        public int authentication(User user , bool isLogin = false) {
-            if (isLogin) return login.authenticate(user.getUsername());
+        public bool authentication(User user , bool isLogin = false) {
+            if (isLogin) return login.authenticate(user.getId());
             return register.register(user);
         }
 

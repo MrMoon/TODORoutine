@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using TODORoutine.database.general.dao;
 using TODORoutine.models;
 
-namespace TODORoutine.database.note.dao {
+namespace TODORoutine.database.notebook.dao {
+
     /**
-     * Main Data Access Layer for all the notes comunicatation with the database
-     * Handles main notes and database operations
+     * Notebook Data Access Layer
+     * Handles Main Data Operations for the Notebook
      **/
-    interface NoteDAO : DatabaseDAO<Note> {
-        Note findByTitle(String title);
+    interface NotebookDAO : DatabaseDAO<Notebook> {
+        Notebook findByTitle(String title);
+        List<String> findNotes(String id);
         List<String> findByAuthorName(String author);
-        String findNoteDocument(String id);
         List<String> findAllByOrderOfDateCreated(String lastNoteId = "");
         List<String> findAllByOrderOfLastModified(String lastNoteId = "");
-
     }
 }

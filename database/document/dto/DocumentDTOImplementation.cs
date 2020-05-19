@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TODORoutine.database.document.dao;
 using TODORoutine.models;
+using TODORoutine.Shared;
 
 namespace TODORoutine.database.document.dto {
 
@@ -12,7 +10,7 @@ namespace TODORoutine.database.document.dto {
      * Documnet Data Transfor Layer Implementation to comunicate between the data access layer and the application layer
      * Handles Transfor Operations
      **/
-    public class DocumentDTOImplementation : DocumentDTO {
+    class DocumentDTOImplementation : DocumentDTO {
 
         private DocumentDAO documentDAO = null;
         private static DocumentDTO documentDTO = null;
@@ -29,14 +27,18 @@ namespace TODORoutine.database.document.dto {
         /**
          * Return Documents with a limit specified in the data access layer
          * 
-         * @startId : the startId for the range of the documents
+         * @lastId : the lastId that from the previous call
          * 
          * return a list of documents
          **/
-        public List<Document> findAll(String startId) {
+        public List<Document> findAll(String lastId) {
             List<Document> documents = new List<Document>();
-            List<String> ids = documentDAO.getDocuments(startId);
-            ids.ForEach(id => documents.Add(documentDAO.findById(id)));
+            try {
+                documentDAO.findAllDocuments(lastId).ForEach(id => documents.Add(documentDAO.findById(id)));
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+                return documents;
+            }
             return documents;
         }
 
@@ -45,9 +47,17 @@ namespace TODORoutine.database.document.dto {
          * 
          * @id : the id of the document to search for
          * 
-         * return the document if it was found
+         * return the document if it was found and null otherwise
          **/
-        public Document getTById(string id) => documentDAO.findById(id);
+        public Document getById(String id) {
+            Document document = null;
+            try {
+                document = documentDAO.findById(id);
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            return document;
+        }
 
         /**
          * Saving the document
@@ -56,7 +66,15 @@ namespace TODORoutine.database.document.dto {
          * 
          * return true if and only if the save opearation was successfull
          **/
-        public bool saveT(Document document) => documentDAO.save(document);
+        public bool save(Document document) {
+            try {
+                documentDAO.save(document);
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+                return false;
+            }
+            return true;
+        }
 
         /**
          * Deleting the document based on the id
@@ -65,7 +83,15 @@ namespace TODORoutine.database.document.dto {
          * 
          * return true if and only if the delete opearation was successfull
          **/
-        public bool deleteT(Document document) => documentDAO.delete(document);
+        public bool delete(String id) {
+            try {
+                documentDAO.delete(id);
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+                return false;
+            }
+            return true;
+        }
 
         /**
          * Updating the document based on the id
@@ -75,7 +101,15 @@ namespace TODORoutine.database.document.dto {
          * 
          * return true if and only if the update opearation was successfull
          **/
-        public bool updateT(Document document , params string[] columns) => documentDAO.update(document , columns);
+        public bool update(Document document , params String[] columns) {
+            try {
+                documentDAO.update(document , columns);
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+                return false;
+            }
+            return true;
+        }
 
         /**
         * Return Documents based on the ownerId
@@ -84,10 +118,13 @@ namespace TODORoutine.database.document.dto {
         * 
         * return a list of documents for the ownerId
         **/
-        public List<Document> findAllByOwnerId(string owenrId) {
+        public List<Document> findAllByOwnerId(String owenrId) {
             List<Document> documents = new List<Document>();
-            List<String> ids = documentDAO.getByOwnerId(owenrId);
-            ids.ForEach(id => documents.Add(documentDAO.findById(id)));
+            try {
+                documentDAO.findByOwnerId(owenrId).ForEach(id => documents.Add(documentDAO.findById(id)));
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
             return documents;
         }
     }

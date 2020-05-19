@@ -1,5 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TODORoutine.authentication;
 using TODORoutine.database.parsers;
@@ -9,12 +16,10 @@ using TODORoutine.Models;
 namespace TODORoutine.forms {
     public partial class Test : Form {
 
+        private User user;
         private UserDTO dto;
         private Authenticate auth;
-        private User user;
-        private int ans = 0;
-        private static int idx = 0 , jdx = 0;
-        private static String file = @"E:\MyDocs\Programming\Projects\Data Sets\CSV\idusername.csv";
+        private String file = @"E:\MyDocs\Programming\Projects\Data Sets\CSV\idusername.csv";
 
         public Test() {
             InitializeComponent();
@@ -25,72 +30,49 @@ namespace TODORoutine.forms {
             auth = new Authenticate(dto);
         }
 
-
-        private void btnId_Click(object sender , EventArgs e) {
-            user = dto.getUserById(txtID.Text);
-            if(user != null) MessageBox.Show(user.toString());
-            else MessageBox.Show("NULL");
-        }
-
-        private void txtID_TextChanged(object sender , EventArgs e) {
-
-        }
-
-        private void textBox1_TextChanged(object sender , EventArgs e) {
-
-        }
-
-        private void btnUsername_Click(object sender , EventArgs e) {
-            user = dto.getUserByUsername(txtUsername.Text);
-            if (user != null) MessageBox.Show(user.toString());
-
-        }
-
-        private void btnUpdate_Click(object sender , EventArgs e) {
-            String fullName = txtID.Text , username = txtUsername.Text;
-            user.setFullName(fullName);
-            user.setUsername(username);
-            Console.WriteLine(user.toString());
-            if (dto.updateUser(user , DatabaseConstants.COLUMN_FULLNAME , DatabaseConstants.COLUMN_USERNAME)) Console.WriteLine("Update Successfull");
-            else Console.WriteLine("Update Failed");
+        private void btnInsert_Click(object sender , EventArgs e) {
+            int counter = 0;
+            StreamReader reader = new StreamReader(file);
+            while(!reader.EndOfStream) {
+                String line = reader.ReadLine();
+                String[] val = line.Split(',');
+                User user = new User();
+                user.setFullName(val[1]);
+                user.setUsername(val[0]);
+                user.setIsAuthenticated(0);
+                if (dto.save(user)) ++counter;
+            }
+            Console.WriteLine(counter);
         }
 
         private void btnDelete_Click(object sender , EventArgs e) {
-            if(dto.deleteUser(user)) Console.WriteLine("Delete Successfull");
-            else Console.WriteLine("Delete Failed");
+            Console.WriteLine((dto.delete(user.getId())));  
         }
 
-        private void btnRegister_Click(object sender , EventArgs e) {
-            User u = new User();
-            u.setFullName(txtID.Text);
-            u.setUsername(txtUsername.Text);
-            u.setIsAuthenticated(1);
-            int x = auth.authentication(u);
-            Console.WriteLine(x);
-            if (x == -1) MessageBox.Show("Already Exsits");
-            else if (x == 0) MessageBox.Show("Failed");
-            else MessageBox.Show("DONE");
+        private void btnUpdate_Click(object sender , EventArgs e) {
+            user.setFullName(txtName.Text);
+            user.setUsername(txtUsername.Text);
+            Console.WriteLine(dto.update(user , DatabaseConstants.COLUMN_FULLNAME , DatabaseConstants.COLUMN_USERNAME));
+            Console.WriteLine(user.toString());
+        }
+
+        private void btnSelect_Click(object sender , EventArgs e) {
+            user = dto.getByUsername(txtUsername.Text);
+            Console.WriteLine(user.toString());
         }
 
         private void btnLogin_Click(object sender , EventArgs e) {
-            User u = new User();
-            u.setUsername(txtUsername.Text);
-            int x = auth.authentication(u , true);
-            if (x == -1 || x == 0) MessageBox.Show("Failed");
-            else MessageBox.Show("WELCOME");
+            Console.WriteLine(user.toString());
+            Console.WriteLine(auth.authentication(user , true));
         }
 
-        private void btnReadInsert_Click(object sender , EventArgs e) {
-            StreamReader streamReader = new StreamReader(file);
-            while (!streamReader.EndOfStream) {
-                String line = streamReader.ReadLine();
-                String[] values = line.Split(',');
-                User user = new User();
-                user.setFullName(values[1]);
-                user.setUsername(values[0]);
-                if (dto.saveUser(user)) ++ans;
-            }
-            MessageBox.Show(ans.ToString() , "Number of saved users");
+        private void btnRegister_Click(object sender , EventArgs e) {
+            user = new User();
+            user.setFullName(txtName.Text);
+            user.setUsername(txtUsername.Text);
+            user.setIsAuthenticated(1);
+            Console.WriteLine(auth.authentication(user , false));
+            Console.WriteLine(user.toString());
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Text;
 using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
 using TODORoutine.models;
-using TODORoutine.shared.csv;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.parsers.notes_parser {
@@ -13,7 +12,7 @@ namespace TODORoutine.database.parsers.notes_parser {
      * Main Note Parser for SQL Statment Parsing 
      * Select , Update , Insert , Update
      **/
-    public class NoteParserImplementation : DatabaseParserImplementation<Note> , NoteParser {
+    class NoteParserImplementation : DatabaseParserImplementation<Note> , NoteParser {
 
         private static NoteParser noteParser = null;
 
@@ -66,7 +65,7 @@ namespace TODORoutine.database.parsers.notes_parser {
             query.Append("','");
             query.Append(note.getLastModified());
             query.Append("','");
-            query.Append(CSVParser.CSV2String(note.getDocuments()));
+            query.Append(note.getDocumentId());
             query.Append("');");
             return query.ToString();
         }
@@ -111,7 +110,7 @@ namespace TODORoutine.database.parsers.notes_parser {
                 try {
                     val = getFieldFromColumn(columnName , note);
                 } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Data.ToString());
+                    Logging.logInfo(true , e.Message);
                     return null;
                 }
                 query.Append(val);
@@ -135,13 +134,16 @@ namespace TODORoutine.database.parsers.notes_parser {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
                     , new Pair(nameof(column) , column) , new Pair(nameof(note) , note.toString()));
-            //Getting note filed
+            //Finding note filed
             if (column.Equals(DatabaseConstants.COLUMN_AUTHOR)) return note.getAuthor();
             if (column.Equals(DatabaseConstants.COLUMN_NOTEID)) return note.getId();
             if (column.Equals(DatabaseConstants.COLUMN_TITLE)) return note.getTitle();
             if (column.Equals(DatabaseConstants.COLUMN_LASTMODIFIED)) return note.getLastModified();
             if (column.Equals(DatabaseConstants.COLUMN_DATECREATED)) return note.getDateCreated();
-            if (column.Equals(DatabaseConstants.COLUMN_DOCUMENTID)) return CSVParser.CSV2String(note.getDocuments());
+            if (column.Equals(DatabaseConstants.COLUMN_DOCUMENTID)) return note.getDocumentId();
+            //Logging
+            Logging.paramenterLogging(nameof(getFieldFromColumn) , true
+                    , new Pair(nameof(column) , column) , new Pair(nameof(note) , note.toString()));
             //Column is invalid
             throw new DatabaseException(DatabaseConstants.INVALID(column));
         }

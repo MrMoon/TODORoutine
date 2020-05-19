@@ -3,7 +3,7 @@ using TODORoutine.Database.user.DTO;
 using TODORoutine.Shared;
 
 namespace TODORoutine.authentication {
-    public class Login {
+    class Login {
     
         private UserDTO dto;
 
@@ -14,13 +14,13 @@ namespace TODORoutine.authentication {
          * 
          * @username : the username of the user to log in
          * 
-         * return 1 if the login was successfull , 0 if not and -1 if a database error occured
+         * return true if the login was successfull and false otherwise
          **/
-        public int authenticate(String username) {
+        public bool authenticate(String id) {
             //Logging
-            Logging.paramenterLogging(nameof(authenticate) , false , new Pair(nameof(username) , username));
+            Logging.paramenterLogging(nameof(authenticate) , false , new Pair(nameof(id) , id));
             //Checking
-            return dto.isAuthenticated(username);
+            return dto.isAuthenticated(id) ;
         }
     }
 }

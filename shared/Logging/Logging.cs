@@ -17,7 +17,7 @@ namespace TODORoutine.Shared {
          * @args : a pair of //parameter name , parameter value// of the errors to log parameters
          * return a String of logs
          **/
-        public static string paramenterLogging(String methodName , bool flag , params Pair[] args) {
+        public static String paramenterLogging(String methodName , bool flag , params Pair[] args) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("Method ");
             stringBuilder.Append(methodName);
@@ -26,7 +26,7 @@ namespace TODORoutine.Shared {
             foreach(Pair pair in args) {
                 stringBuilder.Append(pair.first);
                 stringBuilder.Append(" - ");
-                stringBuilder.Append(string.IsNullOrEmpty(pair.second) ? "Null or Empty" : pair.second);
+                stringBuilder.Append(String.IsNullOrEmpty(pair.second) ? "Null or Empty" : pair.second);
                 if (pair != args[args.Count() - 1]) stringBuilder.Append(" , ");
             }
             stringBuilder.Append(" }");
@@ -43,7 +43,7 @@ namespace TODORoutine.Shared {
          * 
          * return the Message that was Logged
          **/
-        public static string logInfo(bool isError  , params String[] args) {
+        public static String logInfo(bool isError  , params String[] args) {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("{ ");
             foreach(String str in args) {

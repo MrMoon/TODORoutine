@@ -28,11 +28,11 @@ namespace TODORoutine.database.notebook {
        * 
        * return a notebook field String value based on the database column
        **/
-        public override string getFieldFromColumn(string column , Notebook notebook) {
+        public override String getFieldFromColumn(String column , Notebook notebook) {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
                     , new Pair(nameof(column) , column) , new Pair(nameof(notebook) , notebook.toString()));
-            //Getting notebook filed
+            //Finding notebook filed
             if (column.Equals(DatabaseConstants.COLUMN_NOTEBOOKID)) return notebook.getId();
             if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return CSVParser.CSV2String(notebook.getNotes());
             if (column.Equals(DatabaseConstants.COLUMN_TITLE)) return notebook.getTitle();
@@ -52,7 +52,7 @@ namespace TODORoutine.database.notebook {
         * 
         * return an SQL Notebook Insert Statment
         **/
-        public override string getInsert(Notebook notebook) {
+        public override String getInsert(Notebook notebook) {
             //Validation
             if (!DatabaseValidator.isValidNotebook((notebook)))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
@@ -97,7 +97,7 @@ namespace TODORoutine.database.notebook {
          * 
          * return an SQL Note Insert Statment
          **/
-        public override string getUpdate(string tableName , string filter , string condition , Notebook notebook , params string[] columns) {
+        public override String getUpdate(String tableName , String filter , String condition , Notebook notebook , params String[] columns) {
             //Validation
             if (columns.Count() == 0) throw new ArgumentException(DatabaseConstants.INVALID(DatabaseConstants.EMPTY_UPDATE) + Logging.paramenterLogging(nameof(getUpdate) , true
                 , new Pair(nameof(columns) , columns.ToString())));
@@ -125,7 +125,7 @@ namespace TODORoutine.database.notebook {
                 try {
                     val = getFieldFromColumn(columnName , notebook);
                 } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Data.ToString());
+                    Logging.logInfo(true , e.Message);
                     return null;
                 }
                 query.Append(val);

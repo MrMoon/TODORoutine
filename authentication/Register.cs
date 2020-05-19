@@ -18,14 +18,13 @@ namespace TODORoutine.authentication {
          * 
          * return 1 if the registration was successfull , 0 if not , -1 if the user is already authenticated
          **/
-        public int register(User user) {
+        public bool register(User user) {
             //Logging
             Logging.paramenterLogging(nameof(register) , false , new Pair(nameof(user) , user.toString()));
             //Checking if the user already exist in the database (which means that he is already registered)
-            if (dto.isAuthenticated(user.getId()) >= 0) return -1;
+            if (dto.isAuthenticated(user.getId())) return false;
             //Registering the user
-            bool flag = dto.saveUser(user);
-            return flag ? 1 : 0;
+            return dto.save(user);
         }
 
     }

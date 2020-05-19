@@ -7,7 +7,7 @@ using TODORoutine.Models;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.parsers.user_parsers {
-    public class UserParserImplementation : DatabaseParserImplementation<User> , UserParser {
+    class UserParserImplementation : DatabaseParserImplementation<User> , UserParser {
 
         private static UserParser userParser = null;
 
@@ -25,7 +25,7 @@ namespace TODORoutine.database.parsers.user_parsers {
         * 
         * return an SQL Insert Statment
         **/
-        public override string getInsert(User user) {
+        public override String getInsert(User user) {
             //Validation
             if (!DatabaseValidator.isValidUser((user)))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
@@ -65,7 +65,7 @@ namespace TODORoutine.database.parsers.user_parsers {
         * 
         * return an SQL Update Statment
         **/
-        public override string getUpdate(string tableName , string filter , string condition , User user , params string[] columns) {
+        public override String getUpdate(String tableName , String filter , String condition , User user , params String[] columns) {
             //Validation
             if (columns.Count() == 0) throw new ArgumentException("There is Nothing to Update\n" + Logging.paramenterLogging(nameof(getUpdate) , true
                 , new Pair(nameof(columns) , columns.ToString())));
@@ -93,7 +93,7 @@ namespace TODORoutine.database.parsers.user_parsers {
                 try {
                     val = getFieldFromColumn(columnName , user);
                 } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Data.ToString());
+                    Logging.logInfo(true , e.Message);
                     return null;
                 }
                 stringBuilder.Append(val);
@@ -113,11 +113,11 @@ namespace TODORoutine.database.parsers.user_parsers {
         * 
         * return a user field String value based on the database column
         **/
-        public override String getFieldFromColumn(string column , User user) {
+        public override String getFieldFromColumn(String column , User user) {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
                     , new Pair(nameof(column) , column) , new Pair(nameof(user) , user.toString()));
-            //Getting user filed
+            //Finding user filed
             if (column.Equals(DatabaseConstants.COLUMN_FULLNAME)) return user.getFullName();
             if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return user.getNotesId();
             if (column.Equals(DatabaseConstants.COLUMN_USERID)) return user.getId();

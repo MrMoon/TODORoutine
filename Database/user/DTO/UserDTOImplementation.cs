@@ -1,9 +1,7 @@
 ﻿using System;
 using TODORoutine.Database.user.DAO;
-using TODORoutine.exceptions;
 using TODORoutine.Models;
-using TODORoutine.database.user.exceptions;
-using TODORoutine.database.general;
+using TODORoutine.Shared;
 
 namespace TODORoutine.Database.user.DTO {
 
@@ -12,70 +10,64 @@ namespace TODORoutine.Database.user.DTO {
      **/
     class UserDTOImplementation : UserDTO {
 
-        private static UserDTO dto = null;
-        private static UserDAO dao = null;
-        private static DatabaseDriver driver = null;
-        private static DatabaseParser parser = null;
-
+        private static UserDTO userDTO = null;
+        private UserDAO userDAO = null;
+        
         private UserDTOImplementation() {
-            driver = DatabaseDriverImplementation.getInstance();
-            parser = DatabaseParserImplementation.getInstance();
-            dao = UserDAOImplementation.getInstance();
+            userDAO = UserDAOImplementation.getInstance();
         }
 
         public static UserDTO getInstance() {
-            if (dto == null) dto = new UserDTOImplementation();
-            return dto;
+            if (userDTO == null) userDTO = new UserDTOImplementation();
+            return userDTO;
         }
 
         /**
-         * Deleting the user from the Database
-         * 
-         * @user : the user that will be deleted
-         * 
-         * return true if and only if the user was deleted successfully and false otherwise
-         **/
-        public bool deleteUser(User user) {
+        * Deleting the user from the Database
+        * 
+        * @id : the user id that will be deleted
+        * 
+        * return true if and only if the user was deleted successfully and false otherwise
+        **/
+        public bool delete(String id) {
             try {
-                dao.delete(user);
+                return userDAO.delete(id);
             } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
                 return false;
             }
-            return true;
         }
 
         /**
-         * Getting the user from it's id
-         * 
-         * @id : the user id to search for in the Database
-         * 
-         * return a User if and ony if it was found and null otherwise
-         **/
-        public User getUserById(string id) {
-            User user;
+        * Getting the user from it's id
+        * 
+        * @id : the user id to search for in the Database
+        * 
+        * return a User if and ony if it was found and null otherwise
+        **/
+        public User getById(String id) {
             try {
-                user = dao.findById(id);
-            } catch(Exception e) {
-                return null;
+                return userDAO.findById(id);
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return user;
+            return null;
         }
 
         /**
-         * Getting the user from it's username
-         * 
-         * @username : the user username to search for in the Database
-         * 
-         * return a User if and ony if it was found and null otherwise
-         **/
-        public User getUserByUsername(string username) {
-            User user;
+        * Getting the user from it's username
+        * 
+        * @username : the user username to search for in the Database
+        * 
+        * return a User if and ony if it was found and null otherwise
+        **/
+        public User getByUsername(String username) {
             try {
-                user = dao.findByUsername(username);
-            } catch(Exception e) {
-                return null;
+                return userDAO.findByUsername(username);
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return user;
+            return null;
         }
 
         /**
@@ -83,17 +75,15 @@ namespace TODORoutine.Database.user.DTO {
          * 
          * @username : the user username to search for in the Database
          * 
-         * return an id if and ony if it was found and -1
+         * return an id if and ony if it was found and "" otherwise
          **/
-        public string getUserId(string username) {
-            String id;
+        public String getId(String username) {
             try {
-                id = dao.findUserId(username);
-            } catch(Exception e) {
-                if (e is DatabaseException) return UserConstants.USER_FOUND;
-                return "-1";
+                return userDAO.findUserId(username);
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return id;
+            return "";
         }
 
         /**
@@ -103,15 +93,13 @@ namespace TODORoutine.Database.user.DTO {
          * 
          * return an notesId if and ony if it was found and -1
          **/
-        public string getUserNotesId(string id) {
-            String notesid;
+        public String getNotesId(String id) {
             try {
-                notesid = dao.findUserNotesId(id);
-            } catch(Exception e) {
-                if (e is DatabaseException) return UserConstants.USER_FOUND;
-                return "-1";
+                return userDAO.findNotesId(id);
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return notesid;
+            return "";
         }
 
         /**
@@ -121,15 +109,13 @@ namespace TODORoutine.Database.user.DTO {
          * 
          * return an username if and ony if it was found and -1
          **/
-        public string getUserUsername(string id) {
-            String username;
+        public String getUsername(String id) {
             try {
-                username = dao.findUserUsername(id);
+                return userDAO.findUsername(id);
             } catch (Exception e) {
-                if (e is DatabaseException) return UserConstants.USER_FOUND;
-                return "-1";
+                Logging.logInfo(true , e.Message);
             }
-            return username;
+            return "";
         }
 
         /**
@@ -137,32 +123,31 @@ namespace TODORoutine.Database.user.DTO {
          * 
          * @username : the username to search for in the Database
          * 
-         * return 1 if the user is Authenticated , 0 if not , and -1 if the there is an Error from the Database
+         * return true if the user is authenticated and false otherwise
          **/
-        public int isAuthenticated(string username) {
-            bool flag = false;
+        public bool isAuthenticated(String id) {
             try {
-                flag = dao.isUserAuthenticated(username);
-            } catch(Exception e) {
-                return -1;
+                return userDAO.isUserAuthenticated(id);
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return flag ? 1 : 0;
+            return false;
         }
 
         /**
-         * Saving the user in the Database
-         * 
-         * @user : the user to save
-         * 
-         * return true if and only if the saving operation was successfull and false otherwise
-         **/
-        public bool saveUser(User user) {
+        * Saving the user in the Database
+        * 
+        * @user : the user to save
+        * 
+        * return true if and only if the saving operation was successfull and false otherwise
+        **/
+        public bool save(User user) {
             try {
-                dao.save(user);
-            } catch(Exception e) {
-                return false;
+                return userDAO.save(user);
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return true;
+            return false;
         }
 
         /**
@@ -173,13 +158,13 @@ namespace TODORoutine.Database.user.DTO {
          * 
          * return true if and only if the update operation was successfull and false otherwise
          **/
-        public bool updateUser(User user , params string[] columns) {
+        public bool update(User user , params String[] columns) {
             try {
-                dao.update(user , columns);
-            } catch(Exception e) {
-                return false;
+                return userDAO.update(user , columns);
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
             }
-            return true;
+            return false;
         }
     }
 }

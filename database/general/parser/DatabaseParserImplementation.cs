@@ -9,7 +9,7 @@ namespace TODORoutine.Shared {
      * Main Database Parser Implementation
      * Database Statment Parser Class that handle SQL Statments
      **/
-    public abstract class DatabaseParserImplementation<T> : DatabaseParser<T> {
+    abstract class DatabaseParserImplementation<T> : DatabaseParser<T> {
 
         /**
          * This method is for Generic SQL Where Query Statments
@@ -42,9 +42,9 @@ namespace TODORoutine.Shared {
          * 
          * return an SQL Select Statment
          **/
-        public String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , int from = 0 , int to = 0) {
+        public String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , int from = 0 , int to = 0 , bool isOrder = false , String orderColumn = "") {
             //Validation
-            if (from < 0 || to < 0 || !DatabaseValidator.isValidParameters(tableName))
+            if (from < 0 || to < 0 || (isOrder && orderColumn == null) || !DatabaseValidator.isValidParameters(tableName))
                 throw new ArgumentException("Invalid Parameters in getSelect\n" + Logging.paramenterLogging(nameof(getSelect)  , true 
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(condition) , condition)
@@ -66,6 +66,10 @@ namespace TODORoutine.Shared {
                 query.Append(from);
                 query.Append(" , ");
                 query.Append(to);
+            }
+            if(isOrder) {
+                query.Append("ORDER BY ");
+                query.Append(orderColumn);
             }
             query.Append(";");
             return query.ToString();
@@ -101,9 +105,9 @@ namespace TODORoutine.Shared {
 
         public String getLastAddedRecored(String tableName) { return "SELECT * FROM " + tableName + " ORDER BY column DESC LIMIT 1;"; }
 
-        public abstract string getInsert(T t);
-        public abstract string getUpdate(string tableName , string filter , string condition , T t , params string[] columns);
-        public abstract string getFieldFromColumn(string column , T t);
+        public abstract String getInsert(T t);
+        public abstract String getUpdate(String tableName , String filter , String condition , T t , params String[] columns);
+        public abstract String getFieldFromColumn(String column , T t);
     }
 }
 
