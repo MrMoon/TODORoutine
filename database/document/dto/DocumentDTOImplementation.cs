@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.document.dao;
+using TODORoutine.database.general.dao;
+using TODORoutine.database.parsers;
 using TODORoutine.models;
 using TODORoutine.Shared;
 
@@ -31,15 +33,15 @@ namespace TODORoutine.database.document.dto {
          * 
          * return a list of documents
          **/
-        public List<Document> findAll(String lastId) {
-            List<Document> documents = new List<Document>();
+        public List<Document> getAll(String lastId = "1") {
             try {
+                List<Document> documents = new List<Document>();
                 documentDAO.findAllDocuments(lastId).ForEach(id => documents.Add(documentDAO.findById(id)));
+                return documents;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return documents;
             }
-            return documents;
+            return new List<Document>();
         }
 
         /**
@@ -50,13 +52,12 @@ namespace TODORoutine.database.document.dto {
          * return the document if it was found and null otherwise
          **/
         public Document getById(String id) {
-            Document document = null;
             try {
-                document = documentDAO.findById(id);
+                return documentDAO.findById(id);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return document;
+            return null;
         }
 
         /**
@@ -68,12 +69,15 @@ namespace TODORoutine.database.document.dto {
          **/
         public bool save(Document document) {
             try {
-                documentDAO.save(document);
+                bool flag = documentDAO.save(document);
+                if(flag) {
+                    document.setId(DatabaseDAOImplementation<Document>.getLastId(DatabaseConstants.TABLE_DOCUMENT));
+                    return true;
+                }
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
@@ -85,12 +89,11 @@ namespace TODORoutine.database.document.dto {
          **/
         public bool delete(String id) {
             try {
-                documentDAO.delete(id);
+                return documentDAO.delete(id);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
@@ -103,12 +106,11 @@ namespace TODORoutine.database.document.dto {
          **/
         public bool update(Document document , params String[] columns) {
             try {
-                documentDAO.update(document , columns);
+                return documentDAO.update(document , columns);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
@@ -118,14 +120,15 @@ namespace TODORoutine.database.document.dto {
         * 
         * return a list of documents for the ownerId
         **/
-        public List<Document> findAllByOwnerId(String owenrId) {
-            List<Document> documents = new List<Document>();
+        public List<Document> getAllByOwnerId(String owenrId) {
             try {
+                List<Document> documents = new List<Document>();
                 documentDAO.findByOwnerId(owenrId).ForEach(id => documents.Add(documentDAO.findById(id)));
+                return documents;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return documents;
+            return new List<Document>();
         }
     }
 }

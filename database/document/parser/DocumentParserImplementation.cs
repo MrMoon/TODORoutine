@@ -66,10 +66,14 @@ namespace TODORoutine.database.document {
             query.Append(" ( ");
             query.Append(DatabaseConstants.COLUMN_OWENER);
             query.Append(" , ");
+            query.Append(DatabaseConstants.COLUMN_SHARED);
+            query.Append(" , ");
             query.Append(DatabaseConstants.COLUMN_DOCUMENT);
             query.Append(") VALUES ('");
             query.Append(document.getOwner());
-            query.Append(",");
+            query.Append("' , '");
+            query.Append(false.ToString());
+            query.Append("' , ");
             query.Append(DatabaseConstants.DOCUMENT_PARAMETER);
             query.Append(");");
             return query.ToString();
@@ -125,17 +129,6 @@ namespace TODORoutine.database.document {
             query.Append(getWhere(filter , condition));
             query.Append(";");
             return query.ToString();
-        }
-
-        /**
-         * Return and s + "@" + t such that s is the the insert Statment and t is the parameter for the command 
-         * 
-         * @document : the document that will be inserted
-         * 
-         * return a Pair of the split character and the s + "@" + t
-         **/
-        public Pair insertDocumentWithBLOB(Document document) {
-            return new Pair("@" , getInsert(document) + "@" + document.getDocument());
         }
 
     }

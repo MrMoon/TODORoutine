@@ -9,7 +9,7 @@ namespace TODORoutine.database.document.dto {
      * Documnet Data Transfor Layer to comunicate between the data access layer and the application layer
      **/
     interface DocumentDTO : DatabaseDTO<Document> {
-        List<Document> findAll(String lastId);
-        List<Document> findAllByOwnerId(String owenrId);
+        List<Document> getAll(String lastId = "1");
+        List<Document> getAllByOwnerId(String owenrId);
     }
 }

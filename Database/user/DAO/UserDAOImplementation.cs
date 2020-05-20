@@ -16,8 +16,8 @@ namespace TODORoutine.Database.user.DAO {
      **/
     class UserDAOImplementation : DatabaseDAOImplementation<User> , UserDAO {
 
-        private readonly String idColumn = DatabaseConstants.COLUMN_USERID;
-        private readonly String tableName = DatabaseConstants.TABLE_TODOROUTINE;
+        private readonly String idColumn = DatabaseConstants.COLUMN_ID;
+        private readonly String tableName = DatabaseConstants.TABLE_USER;
         private DatabaseDriver driver = null;
         private UserParser parser = null;
         private static UserDAO userDAO = null;
@@ -39,7 +39,7 @@ namespace TODORoutine.Database.user.DAO {
         * 
         * return user object
         **/
-        public override User get(SQLiteDataReader reader) {
+        public override User find(SQLiteDataReader reader) {
             if(reader.Read()) {
                 User user = new User();
                 user.setFullName(reader[DatabaseConstants.COLUMN_FULLNAME].ToString());
@@ -88,7 +88,7 @@ namespace TODORoutine.Database.user.DAO {
             //Finding the user
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , idColumn , DatabaseConstants.ALL , id));
-                User user = get(reader);
+                User user = find(reader);
                 Logging.logInfo(false , user.toString());
                 reader.Close();
                 return user;
@@ -115,7 +115,7 @@ namespace TODORoutine.Database.user.DAO {
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
                                             , DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.ALL , username));
-                User user = get(reader);
+                User user = find(reader);
                 Logging.logInfo(false , user.toString());
                 reader.Close();
                 return user;

@@ -63,7 +63,7 @@ namespace TODORoutine.database.notebook {
             //Building the SQL Statment 
             StringBuilder query = new StringBuilder();
             query.Append("INSERT INTO ");
-            query.Append(DatabaseConstants.TABLE_TODOROUTINE);
+            query.Append(DatabaseConstants.TABLE_NOTEBOOK);
             query.Append(" ( ");
             query.Append(DatabaseConstants.COLUMN_AUTHOR);
             query.Append(" , ");
@@ -72,8 +72,6 @@ namespace TODORoutine.database.notebook {
             query.Append(DatabaseConstants.COLUMN_DATECREATED);
             query.Append(" , ");
             query.Append(DatabaseConstants.COLUMN_LASTMODIFIED);
-            query.Append(" , ");
-            query.Append(DatabaseConstants.COLUMN_NOTESID);
             query.Append(") VALUES ('");
             query.Append(notebook.getAuthor());
             query.Append("','");
@@ -82,8 +80,6 @@ namespace TODORoutine.database.notebook {
             query.Append(DateTime.Now);
             query.Append("','");
             query.Append(notebook.getLastModified());
-            query.Append("','");
-            query.Append(notebook.getNotes());
             query.Append("');");
             return query.ToString();
         }

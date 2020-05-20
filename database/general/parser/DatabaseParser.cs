@@ -7,9 +7,8 @@ namespace TODORoutine.database.parsers {
      **/
     interface DatabaseParser<T> {
         String getWhere(String filter , String condition);
-        String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , int from = 0 , int to = 0 , bool isOrder = false , String orderColumn = "");
+        String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , bool range = false , int from = 0 , int to = 21 , bool isOrder = false , String orderColumn = "");
         String getDelete(String tableName , String filter , String condition);
-        String getLastAddedRecored(String tableName);
         String getInsert(T t);
         String getUpdate(String tableName , String filter , String condition , T t , params String[] columns);
         String getFieldFromColumn(String column , T t);

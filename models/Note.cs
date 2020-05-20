@@ -4,9 +4,11 @@ using System.Text;
 namespace TODORoutine.models {
     public class Note {
 
-        private String id , title , author , dateCreated , lastModified , documentId;
+        private String id , title , author , dateCreated, lastModified , documentId;
 
-        public Note() { }
+        public Note() {
+            dateCreated = DateTime.Now.ToString() ;
+        }
 
         public String getId() { return id; }
         public String getTitle() { return title; }
@@ -17,10 +19,9 @@ namespace TODORoutine.models {
         public void setId(String id) { this.id = id; }
         public void setTitle(String title) { this.title = title; }
         public void setAuthor(String author) { this.author = author; }
-        public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
         public void setLastModified(String lastModified) { this.lastModified = lastModified; }
         public void setDocumentId(String documentId) { this.documentId = documentId; }
-
+        public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.Append("{ ID : ");
