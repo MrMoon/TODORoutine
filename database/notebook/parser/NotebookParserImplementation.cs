@@ -34,7 +34,7 @@ namespace TODORoutine.database.notebook {
                     , new Pair(nameof(column) , column) , new Pair(nameof(notebook) , notebook.toString()));
             //Finding notebook filed
             if (column.Equals(DatabaseConstants.COLUMN_NOTEBOOKID)) return notebook.getId();
-            if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return CSVParser.CSV2String(notebook.getNotes());
+            if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return CSVParser.CSV2String(notebook.getNotes().ToList());
             if (column.Equals(DatabaseConstants.COLUMN_TITLE)) return notebook.getTitle();
             if (column.Equals(DatabaseConstants.COLUMN_AUTHOR)) return notebook.getAuthor();
             if (column.Equals(DatabaseConstants.COLUMN_LASTMODIFIED)) return notebook.getLastModified();
@@ -114,8 +114,10 @@ namespace TODORoutine.database.notebook {
             query.Append("UPDATE ");
             query.Append(tableName);
             query.Append(" SET ");
-            String val = "";
+            String val = "" , prefix = "";
             foreach (String columnName in columns) {
+                query.Append(prefix);
+                prefix = ",";
                 query.Append(columnName);
                 query.Append(" = '");
                 try {
@@ -126,7 +128,6 @@ namespace TODORoutine.database.notebook {
                 }
                 query.Append(val);
                 query.Append("'");
-                if (columnName != columns[columns.Count() - 1]) query.Append(",");
             }
             query.Append(getWhere(filter , condition));
             query.Append(";");

@@ -56,8 +56,7 @@ namespace TODORoutine.Database {
             Logging.logInfo(false , "Creating Table " , query);
             setupDatabaseConnection();
             try {
-                command.CommandText = query.Equals("") ? DatabaseConstants.CREATE_TODOROUTINE_TABLE : query;
-                Console.WriteLine(query);
+                command.CommandText = query.Equals("") ? DatabaseConstants.CREATE_USER_TABLE : query;
                 command.ExecuteNonQuery();
                 connection.Close();
             } catch(Exception e) {
@@ -97,15 +96,17 @@ namespace TODORoutine.Database {
             setupDatabaseConnection();
             try {
                 command.CommandText = query;
-                command.ExecuteNonQuery();
+                n = command.ExecuteNonQuery();
             } catch (System.Data.SQLite.SQLiteException e) {
-                if (e.Message.Contains("constraint failed UNIQUE constraint failed"))
+                if (e.Message.Contains("constraint failed UNIQUE constraint failed")) {
                     Console.WriteLine("Record Exsists");
+                    return -1;
+                }
             } finally {
                 connection.Close();
                 Logging.logInfo(false , "Number of Effected Recorders is " , n.ToString());
             }
-            return n;
+            return n == -1 ? 0 : n;
         }
 
         public SQLiteCommand getBLOBCommand(SQLiteConnection connection , String query , String parameter , byte[] file) {

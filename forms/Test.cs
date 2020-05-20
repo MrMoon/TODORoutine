@@ -14,6 +14,7 @@ using TODORoutine.database.document.dto;
 using TODORoutine.database.note.dto;
 using TODORoutine.database.notebook.dto;
 using TODORoutine.database.parsers;
+using TODORoutine.database.sharing.dto;
 using TODORoutine.Database.user.DTO;
 using TODORoutine.models;
 using TODORoutine.Models;
@@ -21,41 +22,37 @@ using TODORoutine.Models;
 namespace TODORoutine.forms {
     public partial class Test : Form {
 
-        private DocumentDTO dto;
-        private Document document;
+        private Share share;
+        private ShareDTO dto = null;
 
         public Test() {
             InitializeComponent();
         }
 
         private void Test_Load(object sender , EventArgs e) {
-            dto = DocumentDTOImplementation.getInstance();
-            document = new Document();
+            share = new Share();
+            dto = ShareDTOImplentation.getInstance();
         }
 
         private void btnInsert_Click(object sender , EventArgs e) {
-            document.setOwner(txtOwner.Text);
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Text files (*.txt)|*.txt";
-            fileDialog.FilterIndex = 0;
-            fileDialog.RestoreDirectory = true;
+            share = new Share();
+            share.userId = txtUserId.Text;
+            share.documentsIds.Add(txtDocumentIds.Text);
+            Console.WriteLine(dto.save(share));
 
-            if(fileDialog.ShowDialog() == DialogResult.OK) document.setDocument(File.ReadAllBytes(fileDialog.FileName));
-            dto.save(document);
         }
 
         private void btnDelete_Click(object sender , EventArgs e) {
-            MessageBox.Show(dto.delete(document.getId()).ToString());
+
         }
 
         private void btnUpdate_Click(object sender , EventArgs e) {
-            document.setOwner(txtOwner.Text);
-            MessageBox.Show(dto.update(document , DatabaseConstants.COLUMN_OWENER).ToString());
+            share.documentsIds.Add(txtDocumentIds.Text);
+            Console.WriteLine(dto.update(share , DatabaseConstants.COLUMN_DOCUMENTSIDS));
         }
 
         private void btnSelect_Click(object sender , EventArgs e) {
-            List<Document> documents = dto.getAll();
-            foreach (Document document in documents) MessageBox.Show(document.toString());
+            
         }
 
         private void txtId_TextChanged(object sender , EventArgs e) {

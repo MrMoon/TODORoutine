@@ -6,11 +6,12 @@ using System.Text;
 namespace TODORoutine.shared.csv {
     class CSVParser {
         public static String CSV2String(List<String> list) {
-            if (list.Count() == 0) return "";
             StringBuilder sb = new StringBuilder();
+            String prefix = "";
             foreach (String documentId in list) {
+                sb.Append(prefix);
+                prefix = ",";
                 sb.Append(documentId);
-                if (documentId != list[list.Count() - 1]) sb.Append(",");
             }
             return sb.ToString();
         }

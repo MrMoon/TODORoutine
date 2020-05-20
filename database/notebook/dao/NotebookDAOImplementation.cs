@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
 using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
@@ -33,6 +34,27 @@ namespace TODORoutine.database.notebook.dao {
         public static NotebookDAO getInstance() {
             if (notebookDAO == null) notebookDAO = new NotebookDAOImplementation();
             return notebookDAO;
+        }
+
+        /**
+         * Getting the notebook from the SQLiteDataReader
+         * 
+         * @reader : the SQLiteDataReader
+         * 
+         * return a notebook from the reader
+         **/
+        public override Notebook find(SQLiteDataReader reader) {
+            if (reader.Read()) {
+                Notebook notebook = new Notebook();
+                notebook.setAuthor(reader[DatabaseConstants.COLUMN_AUTHOR].ToString());
+                notebook.setId(reader[idColumn].ToString());
+                notebook.setLastModified(reader[DatabaseConstants.COLUMN_LASTMODIFIED].ToString());
+                notebook.setNotes(CSVParser.CSV2List(reader[DatabaseConstants.COLUMN_NOTESID].ToString()).ToHashSet());
+                notebook.setTitle(reader[DatabaseConstants.COLUMN_TITLE].ToString());
+                return notebook;
+            }
+
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND("404"));
         }
 
         /**
@@ -137,7 +159,7 @@ namespace TODORoutine.database.notebook.dao {
         }
 
         /**
-         * Finding he notebook based on it's title
+         * Finding the notebook based on it's title
          * 
          * @id : the notebook title
          * 
@@ -160,27 +182,6 @@ namespace TODORoutine.database.notebook.dao {
             Logging.paramenterLogging(nameof(findByTitle) , true , new Pair(nameof(title) , title));
             //Notebook was not found
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(title));
-        }
-
-        /**
-         * Getting the notebook from the SQLiteDataReader
-         * 
-         * @reader : the SQLiteDataReader
-         * 
-         * return a notebook from the reader
-         **/
-        public override Notebook find(SQLiteDataReader reader) {
-            if(reader.Read()) {
-                Notebook notebook = new Notebook();
-                notebook.setAuthor(reader[DatabaseConstants.COLUMN_AUTHOR].ToString());
-                notebook.setId(reader[idColumn].ToString());
-                notebook.setLastModified(reader[DatabaseConstants.COLUMN_LASTMODIFIED].ToString());
-                notebook.setNotes(CSVParser.CSV2List(reader[DatabaseConstants.COLUMN_NOTESID].ToString()));
-                notebook.setTitle(reader[DatabaseConstants.COLUMN_TITLE].ToString());
-                return notebook;
-            }
-
-            throw new DatabaseException(DatabaseConstants.NOT_FOUND("404"));
         }
 
         /**
