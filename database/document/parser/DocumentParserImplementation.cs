@@ -53,7 +53,7 @@ namespace TODORoutine.database.document {
         **/
         public override String getInsert(Document document) {
             //Validation
-            if (!DatabaseValidator.isValidDocument((document)))
+            if (!DatabaseValidator.isValid<Document>(document))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(document) , document.toString())));
 
@@ -112,8 +112,10 @@ namespace TODORoutine.database.document {
             query.Append("UPDATE ");
             query.Append(tableName);
             query.Append(" SET ");
-            String val = "";
+            String val = "" , prefix = "";
             foreach (String columnName in columns) {
+                query.Append(prefix);
+                prefix = ",";
                 query.Append(columnName);
                 query.Append(" = '");
                 try {
@@ -124,7 +126,6 @@ namespace TODORoutine.database.document {
                 }
                 query.Append(val);
                 query.Append("'");
-                if (columnName != columns[columns.Count() - 1]) query.Append(",");
             }
             query.Append(getWhere(filter , condition));
             query.Append(";");

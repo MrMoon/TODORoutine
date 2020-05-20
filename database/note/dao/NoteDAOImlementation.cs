@@ -15,7 +15,6 @@ namespace TODORoutine.database.note.dao {
     /**
      * Main Note Data Access Implementation that handle database operations
      **/
-
     class NoteDAOImlementation : DatabaseDAOImplementation<Note> , NoteDAO {
 
         private readonly String idColumn = DatabaseConstants.COLUMN_ID;

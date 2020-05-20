@@ -77,6 +77,7 @@ namespace TODORoutine.database.parsers.notes_parser {
         * @filter : the filter for the Where Statment
         * @condition : the condition for the Where statment
         * @column : the column name in the database
+        * @note : the note that will be updated
         * 
         * It Throws and Exception when one of the parameters are invalid
         * 
@@ -104,8 +105,10 @@ namespace TODORoutine.database.parsers.notes_parser {
             query.Append("UPDATE ");
             query.Append(tableName);
             query.Append(" SET ");
-            String val = "";
+            String val = "" , prefix = "";
             foreach (String columnName in columns) {
+                query.Append(prefix);
+                prefix = ",";
                 query.Append(columnName);
                 query.Append(" = '");
                 try {
@@ -116,7 +119,6 @@ namespace TODORoutine.database.parsers.notes_parser {
                 }
                 query.Append(val);
                 query.Append("'");
-                if (columnName != columns[columns.Count() - 1]) query.Append(",");
             }
             query.Append(getWhere(filter , condition));
             query.Append(";");

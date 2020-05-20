@@ -34,23 +34,23 @@ namespace TODORoutine.database.parsers.user_parsers {
             //Logging
             Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(user) , user.toString()));
             //Building the SQL Statment 
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("INSERT INTO ");
-            stringBuilder.Append(DatabaseConstants.TABLE_USER);
-            stringBuilder.Append(" ( ");
-            stringBuilder.Append(DatabaseConstants.COLUMN_USERNAME);
-            stringBuilder.Append(" , ");
-            stringBuilder.Append(DatabaseConstants.COLUMN_FULLNAME);
-            stringBuilder.Append(" , ");
-            stringBuilder.Append(DatabaseConstants.COLUMN_AUTH);
-            stringBuilder.Append(") VALUES ('");
-            stringBuilder.Append(user.getUsername());
-            stringBuilder.Append("','");
-            stringBuilder.Append(user.getFullName());
-            stringBuilder.Append("','");
-            stringBuilder.Append(user.getIsAuthenticated());
-            stringBuilder.Append("');");
-            return stringBuilder.ToString();
+            StringBuilder query = new StringBuilder();
+            query.Append("INSERT INTO ");
+            query.Append(DatabaseConstants.TABLE_USER);
+            query.Append(" ( ");
+            query.Append(DatabaseConstants.COLUMN_USERNAME);
+            query.Append(" , ");
+            query.Append(DatabaseConstants.COLUMN_FULLNAME);
+            query.Append(" , ");
+            query.Append(DatabaseConstants.COLUMN_AUTH);
+            query.Append(") VALUES ('");
+            query.Append(user.getUsername());
+            query.Append("','");
+            query.Append(user.getFullName());
+            query.Append("','");
+            query.Append(user.getIsAuthenticated());
+            query.Append("');");
+            return query.ToString();
         }
 
         /**
@@ -82,27 +82,28 @@ namespace TODORoutine.database.parsers.user_parsers {
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(user) , user.toString())
                                             , new Pair(nameof(condition) , condition));
             //Building SQL Statment
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("UPDATE ");
-            stringBuilder.Append(tableName);
-            stringBuilder.Append(" SET ");
-            String val = "";
+            StringBuilder query = new StringBuilder();
+            query.Append("UPDATE ");
+            query.Append(tableName);
+            query.Append(" SET ");
+            String val = "" , prefix = "";
             foreach (String columnName in columns) {
-                stringBuilder.Append(columnName);
-                stringBuilder.Append(" = '");
+                query.Append(prefix);
+                prefix = ",";
+                query.Append(columnName);
+                query.Append(" = '");
                 try {
                     val = getFieldFromColumn(columnName , user);
                 } catch (DatabaseException e) {
                     Logging.logInfo(true , e.Message);
                     return null;
                 }
-                stringBuilder.Append(val);
-                stringBuilder.Append("'");
-                if (columnName != columns[columns.Count() - 1]) stringBuilder.Append(",");
+                query.Append(val);
+                query.Append("'");
             }
-            stringBuilder.Append(getWhere(filter , condition));
-            stringBuilder.Append(";");
-            return stringBuilder.ToString();
+            query.Append(getWhere(filter , condition));
+            query.Append(";");
+            return query.ToString();
         }
 
         /**

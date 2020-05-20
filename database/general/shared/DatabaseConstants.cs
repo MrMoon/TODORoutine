@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using TODORoutine.Shared;
 
 namespace TODORoutine.database.parsers {
     /**
@@ -18,17 +21,35 @@ namespace TODORoutine.database.parsers {
         //Main Database Strings
         public readonly static String DATABASE_NAME = "TODORoutine.sqlite";
         public readonly static String CONNECTION_STRING = "Data Source = TODORoutine.sqlite; Version = 3;";
+        //Creating tables
+        private static String getTableStatment(String tableName , params Pair[] columns) {
+            String prefix = "";
+            StringBuilder sb = new StringBuilder();
+            sb.Append("CREATE TABLE ");
+            sb.Append(tableName);
+            sb.Append(" ( ");
+            sb.Append(ID);
+            foreach(Pair pair in columns) {
+                sb.Append(prefix);
+                prefix = ",";
+                sb.Append(pair.first);
+                sb.Append(" ");
+                sb.Append(pair.second);
+            }
+            sb.Append(";");
+            return sb.ToString();
+        }
         //Table TODORoutine Strings
         public readonly static String TABLE_USER = "User";
         public readonly static String COLUMN_USERNAME = "USERNAME";
         public readonly static String COLUMN_NOTESID = "NOTESID";
         public readonly static String COLUMN_FULLNAME = "FULLNAME";
         public readonly static String COLUMN_AUTH = "AUTH";
-        public readonly static String CREATE_TODOROUTINE_TABLE = @"CREATE TABLE " + TABLE_USER + " ( "
-	                                                    + ID
-	                                                    + COLUMN_USERNAME + " TEXT UNIQUE NOT NULL,"
-	                                                    + COLUMN_NOTESID +  " INTEGER UNIQUE,"
-	                                                    + COLUMN_FULLNAME + " TEXT NOT NULL,"
+        public readonly static String CREATE_USER_TABLE = @"CREATE TABLE " + TABLE_USER + " ( "
+                                                        + ID
+                                                        + COLUMN_USERNAME + " TEXT UNIQUE NOT NULL,"
+                                                        + COLUMN_NOTESID + " INTEGER UNIQUE,"
+                                                        + COLUMN_FULLNAME + " TEXT NOT NULL,"
                                                         + COLUMN_AUTH + " INTEGER);";
         //Table Note Strings
         public readonly static String TABLE_NOTE = "Note";
@@ -40,10 +61,10 @@ namespace TODORoutine.database.parsers {
         public readonly static String COLUMN_DOCUMENTID = "DOCUMNETID";
         public readonly static String CREATE_NOTE_TABLE = @"CREATE TABLE " + TABLE_NOTE + " ( "
                                                             + ID
-                                                            + COLUMN_TITLE + " TEXT UNIQUE,"
+                                                            + COLUMN_TITLE + " TEXT NOT NULL,"
                                                             + COLUMN_AUTHOR + " TEXT NOT NULL,"
                                                             + COLUMN_DATECREATED + " TEXT NOT NULL,"
-                                                            + COLUMN_LASTMODIFIED + " TEXT,"
+                                                            + COLUMN_LASTMODIFIED + " TEXT NOT NULL,"
                                                             + COLUMN_DOCUMENTID + " TEXT);";
         //Table Document Strings
         public readonly static String DOCUMENT_PARAMETER = "@Documents";
@@ -66,5 +87,18 @@ namespace TODORoutine.database.parsers {
                                                             + COLUMN_DATECREATED + " TEXT NOT NULL,"
                                                             + COLUMN_LASTMODIFIED + " TEXT,"
                                                             + COLUMN_NOTESID + " TEXT);";
+        //Table DocumentShare Strings
+        public readonly static String TABLE_DOCUMENT_SHARE = "DocumentShare";
+        public readonly static String COLUMN_USERID = "USERID";
+        public readonly static String COLUMN_DOCUMENTSIDS = "DOCUMENTSIDS";
+        public readonly static String CREATE_DOCUMENT_SHARE_TABLE = @"CREATE TABLE " + TABLE_DOCUMENT_SHARE + " ( "
+                                                            + COLUMN_USERID + " TEXT UNIQUE NOT NULL,"
+                                                            + COLUMN_DOCUMENTSIDS + " TEXT NOT NULL);";
+        //Table Authenticate Strings
+        public readonly static String TABLE_AUTHENTICATE = "Authenticate";
+        public readonly static String COLUMN_PASSWORD = "PASSWORD";
+        public readonly static String CREATE_AUTHENTICATE_TABLE = @"CREATE TABLE " + TABLE_AUTHENTICATE + " ( "
+                                                            + COLUMN_USERNAME + " TEXT UNIQUE NOT NULL,"
+                                                            + COLUMN_PASSWORD + " TEXT NOT NULL);";
     }
 }
