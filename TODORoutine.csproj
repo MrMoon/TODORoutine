@@ -154,7 +154,7 @@
     <Compile Include="database\user\dao\UserDAOImplementation.cs" />
     <Compile Include="database\user\dto\UserDTO.cs" />
     <Compile Include="database\user\dto\UserDTOImplementation.cs" />
-    <Compile Include="database\user\exceptions\DatabaseException.cs" />
+    <Compile Include="database\general\exceptions\DatabaseException.cs" />
     <Compile Include="forms\SplashScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>

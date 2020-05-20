@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
+using System.IO;
+using System.Text;
 using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
@@ -17,7 +21,7 @@ namespace TODORoutine.database.document.dao {
      **/
     class DocumentDAOImplementation : DatabaseDAOImplementation<Document> , DocumentDAO {
 
-        private readonly String idColumn = DatabaseConstants.COLUMN_DOCUMENTID;
+        private readonly String idColumn = DatabaseConstants.COLUMN_ID;
         private readonly String tableName = DatabaseConstants.TABLE_DOCUMENT;
         private static DocumentDAO documentDAO = null;
         private DocumentParser parser = null;
@@ -26,6 +30,7 @@ namespace TODORoutine.database.document.dao {
         private DocumentDAOImplementation() {
             driver = DatabaseDriverImplementation.getInstance();
             parser = DocumentParserImplementation.getInstance();
+            driver.createTable(DatabaseConstants.CREATE_DOCUMENT_TABLE);
         }
 
         public static DocumentDAO getInstance() {
@@ -40,11 +45,12 @@ namespace TODORoutine.database.document.dao {
         * 
         * return the read document from the database
         **/
-        public override Document get(SQLiteDataReader dataReader) {
+        public override Document find(SQLiteDataReader dataReader) {
             if(dataReader.Read()) {
                 Document document = new Document();
                 document.setId(dataReader[idColumn].ToString());
                 document.setOwner(dataReader[DatabaseConstants.COLUMN_OWENER].ToString());
+                document.setDocument((byte[]) dataReader[DatabaseConstants.COLUMN_DOCUMENT]);
                 return document;
             }
             throw new DatabaseException(DatabaseConstants.NOT_FOUND("404"));
@@ -63,7 +69,8 @@ namespace TODORoutine.database.document.dao {
                 , new Pair(nameof(id) , id));
             //Deleting document from database
             try {
-                return driver.executeQuery(parser.getDelete(tableName , idColumn , id)) != -1;
+                driver.executeQuery(parser.getDelete(tableName , idColumn , id));
+                return true;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -86,13 +93,11 @@ namespace TODORoutine.database.document.dao {
             try {
                 //Finding the document
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
-                                                DatabaseConstants.COLUMN_USERID , DatabaseConstants.ALL , id));
+                                                DatabaseConstants.COLUMN_ID , DatabaseConstants.ALL , id));
                 //Reading the the Record from the database
-                if (reader.Read()) {
-                    Document document = get(reader);
-                    reader.Close();
-                    return document;
-                }
+                Document document = find(reader);
+                reader.Close();
+                return document;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -116,7 +121,11 @@ namespace TODORoutine.database.document.dao {
                 , new Pair(nameof(document) , document.toString()));
             //Inserting User into the Database
             try {
-                return driver.executeQuery(parser.getInsert(document)) != -1;
+                SQLiteConnection connection = new SQLiteConnection(DatabaseConstants.CONNECTION_STRING);
+                SQLiteCommand command = driver.getBLOBCommand(connection , parser.getInsert(document) , DatabaseConstants.DOCUMENT_PARAMETER , document.getDocument());
+                command.ExecuteNonQuery();
+                connection.Close();
+                return true;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
                 return false;
@@ -137,7 +146,7 @@ namespace TODORoutine.database.document.dao {
             //Updating
             try {
                 return driver.executeQuery(parser.getUpdate(tableName ,
-                    DatabaseConstants.COLUMN_USERID , document.getId() , document , columns)) != -1;
+                    DatabaseConstants.COLUMN_ID , document.getId() , document , columns)) != -1;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -154,11 +163,11 @@ namespace TODORoutine.database.document.dao {
          * 
          * return a list of document ids
          **/
-        public List<String> findAllDocuments(String lastId = "0") {
+        public List<String> findAllDocuments(String lastId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllDocuments) , false , new Pair(nameof(lastId) , lastId));
             //Finding Documents
-            return findAll(parser , tableName , "" , idColumn , lastId);
+            return findAll(parser , tableName , "" , lastId);
         }
 
         /**

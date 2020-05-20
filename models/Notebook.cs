@@ -6,11 +6,13 @@ using System.Text;
 namespace TODORoutine.models {
     public class Notebook {
 
-        private String id, title, author, dateCreated, lastModified;
+        private String id, title, author , lastModified;
+        private readonly String dateCreated;
         private List<String> notes;
 
         public Notebook() {
             notes = new List<String>();
+            dateCreated = DateTime.Now.ToString();
         }
 
         public String getId() { return id; }
@@ -22,7 +24,6 @@ namespace TODORoutine.models {
         public void setId(String id) { this.id = id; }
         public void setTitle(String title) { this.title = title; }
         public void setAuthor(String author) { this.author = author; }
-        public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
         public void setLastModified(String lastModified) { this.lastModified = lastModified; }
         public void setNotes(List<String> notes) { this.notes = notes; }
         public void addNote(String noteId) { this.notes.Add(noteId); }

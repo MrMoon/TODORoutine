@@ -1,4 +1,6 @@
 ﻿using System;
+using TODORoutine.database.general.dao;
+using TODORoutine.database.parsers;
 using TODORoutine.Database.user.DAO;
 using TODORoutine.Models;
 using TODORoutine.Shared;
@@ -34,8 +36,8 @@ namespace TODORoutine.Database.user.DTO {
                 return userDAO.delete(id);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
+            return false;
         }
 
         /**
@@ -143,7 +145,11 @@ namespace TODORoutine.Database.user.DTO {
         **/
         public bool save(User user) {
             try {
-                return userDAO.save(user);
+                bool flag = userDAO.save(user);
+                if(flag) {
+                    user.setId(DatabaseDAOImplementation<User>.getLastId(DatabaseConstants.TABLE_USER));
+                    return true;
+                }
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }

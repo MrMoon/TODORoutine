@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.document.dto;
+using TODORoutine.database.general.dao;
 using TODORoutine.database.note.dao;
+using TODORoutine.database.parsers;
 using TODORoutine.models;
 using TODORoutine.Shared;
 
@@ -19,7 +21,7 @@ namespace TODORoutine.database.note.dto {
             noteDAO = NoteDAOImlementation.getInsence();
         }
 
-        public NoteDTO getInstance() {
+        public static NoteDTO getInstance() {
             if (noteDTO == null) noteDTO = new NoteDTOImplementation();
             return noteDTO;
         }
@@ -33,12 +35,11 @@ namespace TODORoutine.database.note.dto {
          **/
         public bool delete(String id) {
             try {
-                noteDAO.delete(id);
+                return noteDAO.delete(id);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
@@ -49,13 +50,12 @@ namespace TODORoutine.database.note.dto {
          * return a note if it was found and null otherwise
          **/
         public Note getById(String id) {
-            Note note = null;
             try {
-                note = noteDAO.findById(id);
+                return noteDAO.findById(id);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return note;
+            return null;
         }
 
         /**
@@ -67,12 +67,15 @@ namespace TODORoutine.database.note.dto {
          **/
         public bool save(Note note) {
             try {
-                noteDAO.save(note);
+                bool flag = noteDAO.save(note);
+                if (flag) {
+                    note.setId(DatabaseDAOImplementation<Note>.getLastId(DatabaseConstants.TABLE_NOTE));
+                    return true;
+                }
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
@@ -85,12 +88,11 @@ namespace TODORoutine.database.note.dto {
          **/
         public bool update(Note note , params String[] columns) {
             try {
-                noteDAO.update(note , columns);
+                return noteDAO.update(note , columns);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
@@ -101,13 +103,12 @@ namespace TODORoutine.database.note.dto {
          * return the note if it was found and null otherwise
          **/
         public Note getByTitle(String title) {
-            Note note = null;
             try {
-                note = noteDAO.findByTitle(title);
+                return noteDAO.findByTitle(title);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return note;
+            return null;
         }
 
         /**
@@ -118,13 +119,14 @@ namespace TODORoutine.database.note.dto {
          * return a list of notes for the author if it was found and an empty list otherwise
          **/
         public List<Note> getByAuthorName(String author) {
-            List<Note> notes = new List<Note>();
             try {
+                List<Note> notes = new List<Note>();
                 noteDAO.findByAuthorName(author).ForEach(id => notes.Add(noteDAO.findById(id)));
+                return notes;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notes;
+            return new List<Note>();
         }
 
         /**
@@ -134,14 +136,16 @@ namespace TODORoutine.database.note.dto {
          * 
          * return a list of notes by order of date created it it was found and an empty list otherwise
          **/
-        public List<Note> getAllByOrderOfDateCreated(String lastNoteId = "") {
-            List<Note> notes = new List<Note>();
+        public List<Note> getAllByOrderOfDateCreated(String lastNoteId = "1") {
             try {
-                noteDAO.findAllByOrderOfDateCreated(lastNoteId).ForEach(id => notes.Add(noteDAO.findById(id)));
+                List<String> ids = noteDAO.findAllByOrderOfDateCreated(lastNoteId);
+                List<Note> notes = new List<Note>();
+                foreach (String id in ids) notes.Add(getById(id));
+                return notes;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notes;
+            return new List<Note>();
         }
 
         /**
@@ -152,21 +156,15 @@ namespace TODORoutine.database.note.dto {
          * return a list of notes by order of date created if it was found and an empty list otherwise
          **/
         public List<Note> getAllByOrderOfLastModified(String lastNoteId = "") {
-            List<Note> notes = new List<Note>();
             try {
-                noteDAO.findAllByOrderOfLastModified(lastNoteId).ForEach(id => notes.Add(noteDAO.findById(id)));
+                List<Note> notes = new List<Note>();
+                noteDAO.findAllByOrderOfLastModified(lastNoteId).ForEach(id => notes.Add(getById(id)));
+                return notes;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notes;
+            return new List<Note>();
         }
-
-        /**
-         * Getting all the notes by order of it created date
-         * 
-         * return a list of notes by order of date created
-         **/
-        public List<Note> getAllNotes() => getAllByOrderOfLastModified();
 
         /**
          * Getting the Note Document
@@ -175,15 +173,13 @@ namespace TODORoutine.database.note.dto {
          * 
          * return a docuemnt if it was found and null otherwise
          **/
-        public Document getNoteDocument(String id) {
-            Document document = null;          
+        public Document getNoteDocument(String id) {       
             try {
-                document = DocumentDTOImplementation.getInstance().getById(noteDAO.findNoteDocument(id));
+                return DocumentDTOImplementation.getInstance().getById(noteDAO.findNoteDocument(id));
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return null;
             }
-            return document;
+            return null;
         }
     }
 }

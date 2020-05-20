@@ -42,14 +42,16 @@ namespace TODORoutine.Shared {
          * 
          * return an SQL Select Statment
          **/
-        public String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , int from = 0 , int to = 0 , bool isOrder = false , String orderColumn = "") {
+        public String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , bool range = false , int from = 1 , int to = 20 , bool isOrder = false , String orderColumn = "") {
             //Validation
-            if (from < 0 || to < 0 || (isOrder && orderColumn == null) || !DatabaseValidator.isValidParameters(tableName))
+            if ((range && (from <= 0 || to <= 0)) || (isOrder && orderColumn == null) || !DatabaseValidator.isValidParameters(tableName))
                 throw new ArgumentException("Invalid Parameters in getSelect\n" + Logging.paramenterLogging(nameof(getSelect)  , true 
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(condition) , condition)
                                             , new Pair(nameof(column) , column)
-                                            , new Pair(nameof(from) , from.ToString())));
+                                            , new Pair(nameof(from) , from.ToString())
+                                            , new Pair(nameof(to) , to.ToString())
+                                            , new Pair(nameof(range) , range.ToString())));
             //Logging
             Logging.paramenterLogging(nameof(getSelect) , false , new Pair(nameof(tableName) , tableName)
                                         , new Pair(nameof(filter) , filter) , new Pair(nameof(condition) , condition)
@@ -61,15 +63,15 @@ namespace TODORoutine.Shared {
             query.Append(" FROM ");
             query.Append(tableName);
             if (filter != "") query.Append(getWhere(filter , condition));
-            if (from > 0) {
-                query.Append(" Limit ");
-                query.Append(from);
-                query.Append(" , ");
-                query.Append(to);
-            }
-            if(isOrder) {
-                query.Append("ORDER BY ");
+            if (isOrder) {
+                query.Append(" ORDER BY ");
                 query.Append(orderColumn);
+            }
+            if (range) {
+                query.Append(" Limit ");
+                query.Append(from - 1);
+                query.Append(" , ");
+                query.Append(to + 1);
             }
             query.Append(";");
             return query.ToString();
@@ -103,7 +105,7 @@ namespace TODORoutine.Shared {
             return query.ToString();
         }
 
-        public String getLastAddedRecored(String tableName) { return "SELECT * FROM " + tableName + " ORDER BY column DESC LIMIT 1;"; }
+        public static String getLastAddedRecored(String tableName) { return "SELECT * FROM " + tableName + " ORDER BY " + DatabaseConstants.COLUMN_ID + " DESC LIMIT 1;"; }
 
         public abstract String getInsert(T t);
         public abstract String getUpdate(String tableName , String filter , String condition , T t , params String[] columns);

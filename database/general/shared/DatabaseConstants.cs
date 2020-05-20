@@ -8,6 +8,8 @@ namespace TODORoutine.database.parsers {
         //Trivaial Strings
         public readonly static String ALL = "*";
         public readonly static String RANGE = (20).ToString();
+        public readonly static String COLUMN_ID = "ID";
+        public readonly static String ID = COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,";
         //Messages
         public static Func<String , String> INVALID = (s) => "Invalid " + s;
         public static Func<String , String> NOT_FOUND = (s) => s + " was not found";
@@ -17,14 +19,13 @@ namespace TODORoutine.database.parsers {
         public readonly static String DATABASE_NAME = "TODORoutine.sqlite";
         public readonly static String CONNECTION_STRING = "Data Source = TODORoutine.sqlite; Version = 3;";
         //Table TODORoutine Strings
-        public readonly static String TABLE_TODOROUTINE = "TODORoutine";
-        public readonly static String COLUMN_USERID = "USERID";
+        public readonly static String TABLE_USER = "User";
         public readonly static String COLUMN_USERNAME = "USERNAME";
         public readonly static String COLUMN_NOTESID = "NOTESID";
         public readonly static String COLUMN_FULLNAME = "FULLNAME";
         public readonly static String COLUMN_AUTH = "AUTH";
-        public readonly static String CREATE_TODOROUTINE_TABLE = @"CREATE TABLE " + TABLE_TODOROUTINE + " ( "
-	                                                    + COLUMN_USERID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+        public readonly static String CREATE_TODOROUTINE_TABLE = @"CREATE TABLE " + TABLE_USER + " ( "
+	                                                    + ID
 	                                                    + COLUMN_USERNAME + " TEXT UNIQUE NOT NULL,"
 	                                                    + COLUMN_NOTESID +  " INTEGER UNIQUE,"
 	                                                    + COLUMN_FULLNAME + " TEXT NOT NULL,"
@@ -38,20 +39,20 @@ namespace TODORoutine.database.parsers {
         public readonly static String COLUMN_LASTMODIFIED = "LASTMODIFIED";
         public readonly static String COLUMN_DOCUMENTID = "DOCUMNETID";
         public readonly static String CREATE_NOTE_TABLE = @"CREATE TABLE " + TABLE_NOTE + " ( "
-                                                            + COLUMN_NOTEID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                                            + ID
                                                             + COLUMN_TITLE + " TEXT UNIQUE,"
                                                             + COLUMN_AUTHOR + " TEXT NOT NULL,"
                                                             + COLUMN_DATECREATED + " TEXT NOT NULL,"
                                                             + COLUMN_LASTMODIFIED + " TEXT,"
                                                             + COLUMN_DOCUMENTID + " TEXT);";
         //Table Document Strings
-        public readonly static String DOCUMENT_PARAMETER = ":Documents";
+        public readonly static String DOCUMENT_PARAMETER = "@Documents";
         public readonly static String TABLE_DOCUMENT = "Document";
         public readonly static String COLUMN_DOCUMENT = "DOCUMNET";
         public readonly static String COLUMN_OWENER = "OWENER";
         public readonly static String COLUMN_SHARED = "SHARED";
         public readonly static String CREATE_DOCUMENT_TABLE = @"CREATE TABLE " + TABLE_DOCUMENT + " ( "
-                                                            + COLUMN_DOCUMENTID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                                            + ID
                                                             + COLUMN_OWENER + " TEXT NOT NULL,"
                                                             + COLUMN_SHARED + " TEXT NOT NULL,"
                                                             + COLUMN_DOCUMENT + " BLOB);";
@@ -59,7 +60,7 @@ namespace TODORoutine.database.parsers {
         public readonly static String TABLE_NOTEBOOK = "Notebook";
         public readonly static String COLUMN_NOTEBOOKID = "NOTEBOOKID";
         public readonly static String CREATE_NOTEBOOK_TABLE = @"CREATE TABLE " + TABLE_NOTEBOOK + " ( "
-                                                            + COLUMN_NOTEBOOKID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                                                            + ID
                                                             + COLUMN_TITLE + " TEXT NOT NULL,"
                                                             + COLUMN_AUTHOR + " TEXT NOT NULL,"
                                                             + COLUMN_DATECREATED + " TEXT NOT NULL,"

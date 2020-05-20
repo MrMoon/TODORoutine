@@ -4,6 +4,8 @@ using System.IO;
 using TODORoutine.Shared;
 using TODORoutine.database.parsers;
 using TODORoutine.database.general;
+using TODORoutine.exceptions;
+using System.Data;
 
 namespace TODORoutine.Database {
 
@@ -53,10 +55,15 @@ namespace TODORoutine.Database {
         public void createTable(String query = "") {
             Logging.logInfo(false , "Creating Table " , query);
             setupDatabaseConnection();
-            command.CommandText = query.Equals("") ? DatabaseConstants.CREATE_TODOROUTINE_TABLE : query;
-            Console.WriteLine(query);
-            command.ExecuteNonQuery();
-            connection.Close();
+            try {
+                command.CommandText = query.Equals("") ? DatabaseConstants.CREATE_TODOROUTINE_TABLE : query;
+                Console.WriteLine(query);
+                command.ExecuteNonQuery();
+                connection.Close();
+            } catch(Exception e) {
+                if (e.Message.Contains("already exists")) Console.WriteLine("Table Exists");
+                Logging.logInfo(true , e.Message);
+            }
         }
         /**
          * Return a reader to the DAO Class to read Database Records
@@ -66,10 +73,15 @@ namespace TODORoutine.Database {
          * return SQLiteDataReader
          **/
         public SQLiteDataReader getReader(String query) {
-            setupDatabaseConnection();
-            command.CommandText = query;
-            reader = command.ExecuteReader();
-            return reader;
+            try {
+                setupDatabaseConnection();
+                command.CommandText = query;
+                reader = command.ExecuteReader();
+                return reader;
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }   
+            throw new DatabaseException(DatabaseConstants.INVALID("404"));
         }
 
         /**
@@ -83,11 +95,12 @@ namespace TODORoutine.Database {
             Logging.logInfo(false , "Executing Query " , query);
             int n = 0;
             setupDatabaseConnection();
-            command.CommandText = query;
             try {
+                command.CommandText = query;
                 command.ExecuteNonQuery();
             } catch (System.Data.SQLite.SQLiteException e) {
-                if (e.Message.Contains("constraint failed UNIQUE constraint failed")) return -1;
+                if (e.Message.Contains("constraint failed UNIQUE constraint failed"))
+                    Console.WriteLine("Record Exsists");
             } finally {
                 connection.Close();
                 Logging.logInfo(false , "Number of Effected Recorders is " , n.ToString());
@@ -95,5 +108,18 @@ namespace TODORoutine.Database {
             return n;
         }
 
+        public SQLiteCommand getBLOBCommand(SQLiteConnection connection , String query , String parameter , byte[] file) {
+            try {
+                command.Connection = connection;
+                connection.Open();
+                command.CommandText = query;
+                command.Parameters.Add(parameter , DbType.Binary , 20).Value = file;
+                return command;
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+
+            throw new DatabaseException("Something went Wrong");
+        }
     }
 }

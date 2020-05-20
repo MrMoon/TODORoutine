@@ -18,7 +18,7 @@ namespace TODORoutine.database.note.dao {
 
     class NoteDAOImlementation : DatabaseDAOImplementation<Note> , NoteDAO {
 
-        private readonly String idColumn = DatabaseConstants.COLUMN_NOTEID;
+        private readonly String idColumn = DatabaseConstants.COLUMN_ID;
         private readonly String tableName = DatabaseConstants.TABLE_NOTE;
         private static NoteDAO noteDAO = null;
         private DatabaseDriver driver = null;
@@ -27,6 +27,7 @@ namespace TODORoutine.database.note.dao {
         private NoteDAOImlementation() {
             parser = NoteParserImplementation.getInstance();
             driver = DatabaseDriverImplementation.getInstance();
+            driver.createTable(DatabaseConstants.CREATE_NOTE_TABLE);
         }
 
         public static NoteDAO getInsence() {
@@ -47,7 +48,8 @@ namespace TODORoutine.database.note.dao {
                 , new Pair(nameof(id) , id));
             //Deleting note from database
             try {
-                return driver.executeQuery(parser.getDelete(tableName , idColumn , id)) != -1;
+                driver.executeQuery(parser.getDelete(tableName , idColumn , id));
+                return true;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -58,16 +60,16 @@ namespace TODORoutine.database.note.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
-        public List<String> findAllByOrderOfDateCreated(String lastNoteId = "") {
+        public List<String> findAllByOrderOfDateCreated(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfDateCreated) , false , new Pair(nameof(lastNoteId) , lastNoteId));
-            return findAll(parser , tableName , DatabaseConstants.COLUMN_DATECREATED , idColumn , lastNoteId);
+            return findAll(parser , tableName , DatabaseConstants.COLUMN_DATECREATED , lastNoteId);
         }
 
-        public List<String> findAllByOrderOfLastModified(String lastNoteId = "") {
+        public List<String> findAllByOrderOfLastModified(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfLastModified) , false , new Pair(nameof(lastNoteId) , lastNoteId));
-            return findAll(parser , tableName , DatabaseConstants.COLUMN_LASTMODIFIED , idColumn , lastNoteId);
+            return findAll(parser , tableName , DatabaseConstants.COLUMN_LASTMODIFIED , lastNoteId);
         }
 
         public List<String> findByAuthorName(String author) {
@@ -102,10 +104,9 @@ namespace TODORoutine.database.note.dao {
             Logging.paramenterLogging(nameof(findById) , false , new Pair(nameof(id) , id));
             //Finding the note
             try {
-                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
-                                            DatabaseConstants.COLUMN_USERID , DatabaseConstants.ALL , id));
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , idColumn , "*" , id));
                 //Reading the the Record from the database
-                Note note = get(reader);
+                Note note = find(reader);
                 Logging.logInfo(false , nameof(findById) , DatabaseConstants.FOUND(id) , note.toString());
                 reader.Close();
                 return note;
@@ -123,13 +124,14 @@ namespace TODORoutine.database.note.dao {
             Logging.paramenterLogging(nameof(findByTitle) , false , new Pair(nameof(title) , title));
             //Finding the note
             try {
-                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
-                                            , DatabaseConstants.COLUMN_TITLE , "*" , title));
-                Note note = get(reader);
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName
+                                            , DatabaseConstants.COLUMN_TITLE , DatabaseConstants.ALL , title));
+                Note note = find(reader);
                 Logging.logInfo(false , note.toString());
                 reader.Close();
                 return note;
             } catch(Exception e) {
+                Console.WriteLine(e.Message);
                 Logging.logInfo(true , e.Message);
             }
             //Logging
@@ -138,14 +140,14 @@ namespace TODORoutine.database.note.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(title));
         }
 
-        public override Note get(SQLiteDataReader reader) {
+        public override Note find(SQLiteDataReader reader) {
             if(reader.Read()) {
                 Note note = new Note();
                 note.setAuthor(reader[DatabaseConstants.COLUMN_AUTHOR].ToString());
-                note.setDateCreated(reader[DatabaseConstants.COLUMN_DATECREATED].ToString());
-                note.setDocumentId(reader[DatabaseConstants.COLUMN_DOCUMENT].ToString());
+                note.setDocumentId(reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString());
                 note.setId(reader[idColumn].ToString());
                 note.setLastModified(reader[DatabaseConstants.COLUMN_LASTMODIFIED].ToString());
+                note.setDateCreated(reader[DatabaseConstants.COLUMN_DATECREATED].ToString());
                 note.setTitle(reader[DatabaseConstants.COLUMN_TITLE].ToString());
                 return note;
             }
@@ -187,7 +189,7 @@ namespace TODORoutine.database.note.dao {
             //Updating
             try {
                 return driver.executeQuery(parser.getUpdate(tableName ,
-                    DatabaseConstants.COLUMN_USERID , note.getId() , note , columns)) != -1;
+                    DatabaseConstants.COLUMN_ID , note.getId() , note , columns)) != -1;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -211,12 +213,10 @@ namespace TODORoutine.database.note.dao {
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
                                         , DatabaseConstants.COLUMN_DOCUMENTID , DatabaseConstants.COLUMN_DOCUMENTID , id));
-                if(reader.Read()) {
-                    String documentId = reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString();
-                    Logging.logInfo(false , documentId);
-                    reader.Close();
-                    return documentId;
-                }
+                String documentId = reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString();
+                Logging.logInfo(false , documentId);
+                reader.Close();
+                return documentId;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }

@@ -14,7 +14,7 @@ namespace TODORoutine.database.general.dao {
         bool save(T t);
         bool update(T t , params String[] columns);
         bool delete(String id);
-        T get(SQLiteDataReader reader);
-        List<String> findAll(DatabaseParser<T> parser , String tableName , String orderbyColumnName , String idColumnName , String lastId);
+        T find(SQLiteDataReader reader);
+        List<String> findAll(DatabaseParser<T> parser , String tableName , String orderbyColumnName , String lastId);
     }
 }

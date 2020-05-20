@@ -27,16 +27,17 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnSelect = new System.Windows.Forms.Button();
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.btnRegister = new System.Windows.Forms.Button();
-            this.txtId = new System.Windows.Forms.TextBox();
-            this.txtUsername = new System.Windows.Forms.TextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtOwner = new System.Windows.Forms.TextBox();
+            this.txtAuthor = new System.Windows.Forms.TextBox();
+            this.txtNoteId = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(12, 12);
+            this.btnInsert.Location = new System.Drawing.Point(23, 73);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(120, 37);
             this.btnInsert.TabIndex = 0;
@@ -46,7 +47,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(12, 73);
+            this.btnDelete.Location = new System.Drawing.Point(23, 134);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(120, 37);
             this.btnDelete.TabIndex = 1;
@@ -56,7 +57,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(12, 134);
+            this.btnUpdate.Location = new System.Drawing.Point(23, 195);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(120, 37);
             this.btnUpdate.TabIndex = 2;
@@ -66,7 +67,7 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(12, 196);
+            this.btnSelect.Location = new System.Drawing.Point(23, 257);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnSelect.Size = new System.Drawing.Size(120, 37);
@@ -75,57 +76,60 @@
             this.btnSelect.UseVisualStyleBackColor = true;
             this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
-            // btnLogin
+            // txtOwner
             // 
-            this.btnLogin.Location = new System.Drawing.Point(12, 257);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(120, 37);
-            this.btnLogin.TabIndex = 4;
-            this.btnLogin.Text = "Login";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            this.txtOwner.Location = new System.Drawing.Point(187, 26);
+            this.txtOwner.Name = "txtOwner";
+            this.txtOwner.Size = new System.Drawing.Size(196, 22);
+            this.txtOwner.TabIndex = 6;
+            this.txtOwner.TextChanged += new System.EventHandler(this.txtId_TextChanged);
             // 
-            // btnRegister
+            // txtAuthor
             // 
-            this.btnRegister.Location = new System.Drawing.Point(12, 316);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(120, 37);
-            this.btnRegister.TabIndex = 5;
-            this.btnRegister.Text = "Regiseter";
-            this.btnRegister.UseVisualStyleBackColor = true;
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            this.txtAuthor.Location = new System.Drawing.Point(187, 88);
+            this.txtAuthor.Name = "txtAuthor";
+            this.txtAuthor.Size = new System.Drawing.Size(196, 22);
+            this.txtAuthor.TabIndex = 7;
             // 
-            // txtId
+            // txtNoteId
             // 
-            this.txtId.Location = new System.Drawing.Point(187, 26);
-            this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(196, 22);
-            this.txtId.TabIndex = 6;
+            this.txtNoteId.Location = new System.Drawing.Point(187, 149);
+            this.txtNoteId.Name = "txtNoteId";
+            this.txtNoteId.Size = new System.Drawing.Size(196, 22);
+            this.txtNoteId.TabIndex = 8;
             // 
-            // txtUsername
+            // textBox1
             // 
-            this.txtUsername.Location = new System.Drawing.Point(187, 88);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(196, 22);
-            this.txtUsername.TabIndex = 7;
+            this.textBox1.Location = new System.Drawing.Point(187, 211);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(196, 22);
+            this.textBox1.TabIndex = 9;
             // 
-            // txtName
+            // textBox2
             // 
-            this.txtName.Location = new System.Drawing.Point(187, 149);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(196, 22);
-            this.txtName.TabIndex = 8;
+            this.textBox2.Location = new System.Drawing.Point(187, 272);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(196, 22);
+            this.textBox2.TabIndex = 10;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(187, 331);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(196, 22);
+            this.textBox3.TabIndex = 11;
             // 
             // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 372);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.txtId);
-            this.Controls.Add(this.btnRegister);
-            this.Controls.Add(this.btnLogin);
+            this.ClientSize = new System.Drawing.Size(579, 372);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtNoteId);
+            this.Controls.Add(this.txtAuthor);
+            this.Controls.Add(this.txtOwner);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
@@ -144,10 +148,11 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnSelect;
-        private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.Button btnRegister;
-        private System.Windows.Forms.TextBox txtId;
-        private System.Windows.Forms.TextBox txtUsername;
-        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtAuthor;
+        private System.Windows.Forms.TextBox txtNoteId;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtOwner;
     }
 }

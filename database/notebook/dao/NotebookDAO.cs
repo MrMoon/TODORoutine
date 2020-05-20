@@ -13,7 +13,7 @@ namespace TODORoutine.database.notebook.dao {
         Notebook findByTitle(String title);
         List<String> findNotes(String id);
         List<String> findByAuthorName(String author);
-        List<String> findAllByOrderOfDateCreated(String lastNoteId = "");
-        List<String> findAllByOrderOfLastModified(String lastNoteId = "");
+        List<String> findAllByOrderOfDateCreated(String lastNoteId = "1");
+        List<String> findAllByOrderOfLastModified(String lastNoteId = "1");
     }
 }

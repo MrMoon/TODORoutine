@@ -13,8 +13,8 @@ namespace TODORoutine.database.notebook.dto {
         Notebook getByTitle(String title);
         List<Note> getNotes(String id);
         List<Notebook> getByAuthorName(String author);
-        List<Notebook> getAllByOrderOfDateCreated(String lastNoteId = "");
-        List<Notebook> getAllByOrderOfLastModified(String lastNoteId = "");
+        List<Notebook> getAllByOrderOfDateCreated(String lastNoteId = "1");
+        List<Notebook> getAllByOrderOfLastModified(String lastNoteId = "1");
 
     }
 }

@@ -84,7 +84,8 @@ namespace TODORoutine.database.parsers.notes_parser {
         **/
         public override String getUpdate(String tableName , String filter , String condition , Note note , params String[] columns) {
             //Validation
-            if (columns.Count() == 0) throw new ArgumentException(DatabaseConstants.INVALID(DatabaseConstants.EMPTY_UPDATE) + Logging.paramenterLogging(nameof(getUpdate) , true
+            if (columns.Count() == 0) 
+                throw new ArgumentException(DatabaseConstants.INVALID(DatabaseConstants.EMPTY_UPDATE) + Logging.paramenterLogging(nameof(getUpdate) , true
                 , new Pair(nameof(columns) , columns.ToString())));
 
             if (!DatabaseValidator.isValidParameters(tableName , filter , condition)

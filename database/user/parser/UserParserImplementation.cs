@@ -36,7 +36,7 @@ namespace TODORoutine.database.parsers.user_parsers {
             //Building the SQL Statment 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("INSERT INTO ");
-            stringBuilder.Append(DatabaseConstants.TABLE_TODOROUTINE);
+            stringBuilder.Append(DatabaseConstants.TABLE_USER);
             stringBuilder.Append(" ( ");
             stringBuilder.Append(DatabaseConstants.COLUMN_USERNAME);
             stringBuilder.Append(" , ");
@@ -120,7 +120,7 @@ namespace TODORoutine.database.parsers.user_parsers {
             //Finding user filed
             if (column.Equals(DatabaseConstants.COLUMN_FULLNAME)) return user.getFullName();
             if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return user.getNotesId();
-            if (column.Equals(DatabaseConstants.COLUMN_USERID)) return user.getId();
+            if (column.Equals(DatabaseConstants.COLUMN_ID)) return user.getId();
             if (column.Equals(DatabaseConstants.COLUMN_USERNAME)) return user.getUsername();
             //Column is invalid
             throw new DatabaseException(DatabaseConstants.INVALID(column));

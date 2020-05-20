@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using TODORoutine.database.general.dao;
 using TODORoutine.database.note.dao;
 using TODORoutine.database.notebook.dao;
+using TODORoutine.database.parsers;
 using TODORoutine.models;
 using TODORoutine.Shared;
 
@@ -34,12 +36,11 @@ namespace TODORoutine.database.notebook.dto {
          **/
         public bool delete(String id) {
             try {
-                notebookDAO.delete(id);
+                return notebookDAO.delete(id);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
@@ -49,14 +50,15 @@ namespace TODORoutine.database.notebook.dto {
          * 
          * return a list of notebooks
          **/
-        public List<Notebook> getAllByOrderOfDateCreated(String lastNoteId = "") {
-            List<Notebook> notebooks = new List<Notebook>();
+        public List<Notebook> getAllByOrderOfDateCreated(String lastNoteId = "1") {
             try {
+                List<Notebook> notebooks = new List<Notebook>();
                 notebookDAO.findAllByOrderOfDateCreated(lastNoteId).ForEach(id => notebooks.Add(notebookDAO.findById(id)));
+                return notebooks;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notebooks;
+            return new List<Notebook>();
         }
 
         /**
@@ -66,14 +68,15 @@ namespace TODORoutine.database.notebook.dto {
          * 
          * return a list of notebooks
          **/
-        public List<Notebook> getAllByOrderOfLastModified(String lastNoteId = "") {
-            List<Notebook> notebooks = new List<Notebook>();
+        public List<Notebook> getAllByOrderOfLastModified(String lastNoteId = "1") {
             try {
+                List<Notebook> notebooks = new List<Notebook>();
                 notebookDAO.findAllByOrderOfLastModified(lastNoteId).ForEach(id => notebooks.Add(notebookDAO.findById(id)));
+                return notebooks;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notebooks;
+            return new List<Notebook>();
         }
 
         /**
@@ -84,13 +87,14 @@ namespace TODORoutine.database.notebook.dto {
          * return a list of notebooks
          **/
         public List<Notebook> getByAuthorName(String author) {
-            List<Notebook> notebooks = new List<Notebook>();
             try {
+                List<Notebook> notebooks = new List<Notebook>();
                 notebookDAO.findByAuthorName(author).ForEach(id => notebooks.Add(notebookDAO.findById(id)));
+                return notebooks;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notebooks;
+            return new List<Notebook>();
         }
 
         /**
@@ -101,13 +105,12 @@ namespace TODORoutine.database.notebook.dto {
          * return a of notebook if it was found and null otherwise
          **/
         public Notebook getByTitle(String title) {
-            Notebook notebook = null;
             try {
-                notebook = notebookDAO.findByTitle(title);
+                return notebookDAO.findByTitle(title);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notebook;
+            return null;
         }
 
         /**
@@ -118,13 +121,14 @@ namespace TODORoutine.database.notebook.dto {
          * return a list of notes
          **/
         public List<Note> getNotes(String id) {
-            List<Note> notes = new List<Note>();
             try {
+                List<Note> notes = new List<Note>();
                 notebookDAO.findNotes(id).ForEach(ID => notes.Add(NoteDAOImlementation.getInsence().findById(ID)));
+                return notes;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notes;
+            return new List<Note>();
         }
 
         /**
@@ -135,48 +139,49 @@ namespace TODORoutine.database.notebook.dto {
          * return a of notebook if it was found and null otherwise
          **/
         public Notebook getById(String id) {
-            Notebook notebook = null;
             try {
-                notebook = notebookDAO.findById(id);
+                return notebookDAO.findById(id);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            return notebook;
+            return null;
         }
 
         /**
          * Saving the notebook to the database
          * 
-         * @t : the notebook object to save
+         * @notebook : the notebook object to save
          * 
          * return true if and only if the save operation was done successfully and false otherwise
          **/
-        public bool save(Notebook t) {
+        public bool save(Notebook notebook) {
             try {
-                notebookDAO.save(t);
+                bool flag = notebookDAO.save(notebook);
+                if(flag) {
+                    notebook.setId(DatabaseDAOImplementation<Notebook>.getLastId(DatabaseConstants.TABLE_NOTEBOOK));
+                    return true;
+                }
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
 
         /**
          * Updating the notebook in the database
          * 
-         * @t : the notebook object to save
+         * @notebook : the notebook object to save
          * @columns : the columns to update
          * 
          * return true if and only if the update operation was done successfully and false otherwise
          **/
-        public bool update(Notebook t , params String[] columns) {
+        public bool update(Notebook notebook , params String[] columns) {
             try {
-                notebookDAO.update(t);
+                return notebookDAO.update(notebook , columns);
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
-                return false;
             }
-            return true;
+            return false;
         }
     }
 }

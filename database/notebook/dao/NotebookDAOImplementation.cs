@@ -18,7 +18,7 @@ namespace TODORoutine.database.notebook.dao {
      **/
     class NotebookDAOImplementation : DatabaseDAOImplementation<Notebook> , NotebookDAO {
 
-        private readonly String idColumn = DatabaseConstants.COLUMN_NOTEBOOKID;
+        private readonly String idColumn = DatabaseConstants.COLUMN_ID;
         private readonly String tableName = DatabaseConstants.TABLE_NOTEBOOK;
         private static NotebookDAO notebookDAO = null;
         private NotebookParser parser = null;
@@ -27,6 +27,7 @@ namespace TODORoutine.database.notebook.dao {
         private NotebookDAOImplementation() {
             driver = DatabaseDriverImplementation.getInstance();
             parser = NotebookParserImplementation.getInstance();
+            driver.createTable(DatabaseConstants.CREATE_NOTEBOOK_TABLE);
         }
 
         public static NotebookDAO getInstance() {
@@ -46,7 +47,8 @@ namespace TODORoutine.database.notebook.dao {
             Logging.paramenterLogging(nameof(delete) , false , new Pair(nameof(id) , id));
             //Deleting the Notebook from database
             try {
-                return driver.executeQuery(parser.getDelete(tableName , idColumn , id)) != -1;
+                driver.executeQuery(parser.getDelete(tableName , idColumn , id));
+                return true;
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -63,10 +65,10 @@ namespace TODORoutine.database.notebook.dao {
          * 
          * return a list of notebooks ids
          **/
-        public List<String> findAllByOrderOfDateCreated(String lastNoteId = "") {
+        public List<String> findAllByOrderOfDateCreated(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfDateCreated) , false , new Pair(nameof(lastNoteId) , lastNoteId));
-            return findAll(parser , tableName , DatabaseConstants.COLUMN_DATECREATED , idColumn , lastNoteId);
+            return findAll(parser , tableName , DatabaseConstants.COLUMN_DATECREATED , lastNoteId);
         }
 
         /**
@@ -76,10 +78,10 @@ namespace TODORoutine.database.notebook.dao {
          * 
          * return a list of notebooks ids
          **/
-        public List<String> findAllByOrderOfLastModified(String lastNoteId = "") {
+        public List<String> findAllByOrderOfLastModified(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfLastModified) , false , new Pair(nameof(lastNoteId) , lastNoteId));
-            return findAll(parser , tableName , DatabaseConstants.COLUMN_LASTMODIFIED , idColumn , lastNoteId);
+            return findAll(parser , tableName , DatabaseConstants.COLUMN_LASTMODIFIED , lastNoteId);
         }
 
         /**
@@ -93,8 +95,8 @@ namespace TODORoutine.database.notebook.dao {
             //Logging
             Logging.paramenterLogging(nameof(findByAuthorName) , false , new Pair(nameof(author) , author));
             //Finding the notebook
-            List<String> notebooksIds = new List<String>();
             try {
+                List<String> notebooksIds = new List<String>();
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName
                         , DatabaseConstants.COLUMN_AUTHOR , idColumn , author));
                 while (reader.Read()) notebooksIds.Add(reader[idColumn].ToString());
@@ -121,9 +123,8 @@ namespace TODORoutine.database.notebook.dao {
             Logging.paramenterLogging(nameof(findById) , false , new Pair(nameof(id) , id));
             //Finding the notebook
             try {
-                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
-                                        , idColumn , DatabaseConstants.ALL , id));
-                Notebook notebook = get(reader);
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , idColumn , DatabaseConstants.ALL , id));
+                Notebook notebook = find(reader);
                 reader.Close();
                 return notebook;
             } catch(Exception e) {
@@ -149,7 +150,7 @@ namespace TODORoutine.database.notebook.dao {
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
                                         , DatabaseConstants.COLUMN_TITLE , DatabaseConstants.ALL , title));
-                Notebook notebook = get(reader);
+                Notebook notebook = find(reader);
                 reader.Close();
                 return notebook;
             } catch (Exception e) {
@@ -168,11 +169,10 @@ namespace TODORoutine.database.notebook.dao {
          * 
          * return a notebook from the reader
          **/
-        public override Notebook get(SQLiteDataReader reader) {
+        public override Notebook find(SQLiteDataReader reader) {
             if(reader.Read()) {
-                Notebook notebook = null;
+                Notebook notebook = new Notebook();
                 notebook.setAuthor(reader[DatabaseConstants.COLUMN_AUTHOR].ToString());
-                notebook.setDateCreated(reader[DatabaseConstants.COLUMN_DATECREATED].ToString());
                 notebook.setId(reader[idColumn].ToString());
                 notebook.setLastModified(reader[DatabaseConstants.COLUMN_LASTMODIFIED].ToString());
                 notebook.setNotes(CSVParser.CSV2List(reader[DatabaseConstants.COLUMN_NOTESID].ToString()));

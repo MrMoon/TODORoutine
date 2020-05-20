@@ -34,11 +34,11 @@ namespace TODORoutine.Database.Shared {
          * 
          * return true if and only if the user is valid according to the @isValidParameters
          **/
-        public static bool isValidUser(User user) => user != null && isValidParameters(user.getUsername() , user.getFullName());
+        public static bool isValidUser(User user) => user != null;
 
         public static bool isValidNote(Note note) => note != null;
 
-        public static bool isValidDocument(Document document) => document != null && isValidParameters(document.getOwner());
+        public static bool isValidDocument(Document document) => document != null;
 
         public static bool isValidNotebook(Notebook notebook) => notebook != null;
 
