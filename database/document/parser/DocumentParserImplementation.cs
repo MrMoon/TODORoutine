@@ -97,7 +97,7 @@ namespace TODORoutine.database.document {
                 , new Pair(nameof(columns) , columns.ToString())));
 
             if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValidDocument(document))
+                || !DatabaseValidator.isValid<Document>(document))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(document) , document.toString())

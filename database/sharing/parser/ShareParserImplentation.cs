@@ -60,7 +60,7 @@ namespace TODORoutine.database.sharing.parser {
         **/
         public override String getInsert(Share share) {
             //Validation
-            if (!DatabaseValidator.isValidShare(share))
+            if (!DatabaseValidator.isValid<Share>(share))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(note) , share.toString())));
 
@@ -102,7 +102,7 @@ namespace TODORoutine.database.sharing.parser {
                 , new Pair(nameof(columns) , columns.ToString())));
 
             if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValidShare(share))
+                || !DatabaseValidator.isValid<Share>(share))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(note) , share.toString())

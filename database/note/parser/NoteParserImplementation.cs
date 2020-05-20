@@ -36,7 +36,7 @@ namespace TODORoutine.database.parsers.notes_parser {
        **/
         public override String getInsert(Note note) {
             //Validation
-            if (!DatabaseValidator.isValidNote(note))
+            if (!DatabaseValidator.isValid<Note>(note))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(note) , note.toString())));
 
@@ -90,7 +90,7 @@ namespace TODORoutine.database.parsers.notes_parser {
                 , new Pair(nameof(columns) , columns.ToString())));
 
             if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValidNote(note))
+                || !DatabaseValidator.isValid<Note>(note))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(note) , note.toString())

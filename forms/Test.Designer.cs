@@ -23,81 +23,56 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.btnInsert = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnSelect = new System.Windows.Forms.Button();
-            this.txtUserId = new System.Windows.Forms.TextBox();
-            this.txtDocumentIds = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // btnInsert
+            // btnLogin
             // 
-            this.btnInsert.Location = new System.Drawing.Point(23, 73);
-            this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(120, 37);
-            this.btnInsert.TabIndex = 0;
-            this.btnInsert.Text = "Insert";
-            this.btnInsert.UseVisualStyleBackColor = true;
-            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
+            this.btnLogin.Location = new System.Drawing.Point(23, 127);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(120, 37);
+            this.btnLogin.TabIndex = 0;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnInsert_Click);
             // 
-            // btnDelete
+            // btnRegister
             // 
-            this.btnDelete.Location = new System.Drawing.Point(23, 134);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(120, 37);
-            this.btnDelete.TabIndex = 1;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnRegister.Location = new System.Drawing.Point(23, 195);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(120, 37);
+            this.btnRegister.TabIndex = 1;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // btnUpdate
+            // txtUsername
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(23, 195);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(120, 37);
-            this.btnUpdate.TabIndex = 2;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.txtUsername.Location = new System.Drawing.Point(187, 134);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(196, 22);
+            this.txtUsername.TabIndex = 6;
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtId_TextChanged);
             // 
-            // btnSelect
+            // txtPassword
             // 
-            this.btnSelect.Location = new System.Drawing.Point(23, 257);
-            this.btnSelect.Name = "btnSelect";
-            this.btnSelect.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnSelect.Size = new System.Drawing.Size(120, 37);
-            this.btnSelect.TabIndex = 3;
-            this.btnSelect.Text = "Select";
-            this.btnSelect.UseVisualStyleBackColor = true;
-            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
-            // 
-            // txtUserId
-            // 
-            this.txtUserId.Location = new System.Drawing.Point(187, 134);
-            this.txtUserId.Name = "txtUserId";
-            this.txtUserId.Size = new System.Drawing.Size(196, 22);
-            this.txtUserId.TabIndex = 6;
-            this.txtUserId.TextChanged += new System.EventHandler(this.txtId_TextChanged);
-            // 
-            // txtDocumentIds
-            // 
-            this.txtDocumentIds.Location = new System.Drawing.Point(187, 202);
-            this.txtDocumentIds.Name = "txtDocumentIds";
-            this.txtDocumentIds.Size = new System.Drawing.Size(196, 22);
-            this.txtDocumentIds.TabIndex = 7;
+            this.txtPassword.Location = new System.Drawing.Point(187, 202);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(196, 22);
+            this.txtPassword.TabIndex = 7;
             // 
             // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(418, 372);
-            this.Controls.Add(this.txtDocumentIds);
-            this.Controls.Add(this.txtUserId);
-            this.Controls.Add(this.btnSelect);
-            this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnInsert);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.txtUsername);
+            this.Controls.Add(this.btnRegister);
+            this.Controls.Add(this.btnLogin);
             this.Name = "Test";
             this.Text = "Test";
             this.Load += new System.EventHandler(this.Test_Load);
@@ -108,11 +83,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnInsert;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnSelect;
-        private System.Windows.Forms.TextBox txtDocumentIds;
-        private System.Windows.Forms.TextBox txtUserId;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtUsername;
     }
 }

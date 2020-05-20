@@ -11,12 +11,9 @@ namespace TODORoutine.authentication {
      **/
     class Authenticate {
 
-        private readonly static Random random = new Random();
-        private readonly static int KEY = random.Next(10);
+        private readonly static int KEY = 16;
         public String username { get; set; }
         public String password { get; set; }
-        private Login login;
-        private Register register;
 
         public Authenticate(String username , String password) {
             this.username = username;

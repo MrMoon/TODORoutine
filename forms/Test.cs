@@ -22,33 +22,28 @@ using TODORoutine.Models;
 namespace TODORoutine.forms {
     public partial class Test : Form {
 
-        private Share share;
-        private ShareDTO dto = null;
+        private Authenticate auth;
 
         public Test() {
             InitializeComponent();
         }
 
         private void Test_Load(object sender , EventArgs e) {
-            share = new Share();
-            dto = ShareDTOImplentation.getInstance();
+            
         }
 
         private void btnInsert_Click(object sender , EventArgs e) {
-            share = new Share();
-            share.userId = txtUserId.Text;
-            share.documentsIds.Add(txtDocumentIds.Text);
-            Console.WriteLine(dto.save(share));
-
+            auth = new Authenticate(txtUsername.Text , txtPassword.Text);
+            MessageBox.Show(auth.authentication(true).ToString());
         }
 
         private void btnDelete_Click(object sender , EventArgs e) {
-
+            auth = new Authenticate(txtUsername.Text , txtPassword.Text);
+            MessageBox.Show(auth.authentication(false).ToString());
         }
 
         private void btnUpdate_Click(object sender , EventArgs e) {
-            share.documentsIds.Add(txtDocumentIds.Text);
-            Console.WriteLine(dto.update(share , DatabaseConstants.COLUMN_DOCUMENTSIDS));
+            
         }
 
         private void btnSelect_Click(object sender , EventArgs e) {
