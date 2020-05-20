@@ -54,7 +54,7 @@ namespace TODORoutine.database.notebook {
         **/
         public override String getInsert(Notebook notebook) {
             //Validation
-            if (!DatabaseValidator.isValidNotebook((notebook)))
+            if (!DatabaseValidator.isValid<Notebook>((notebook)))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(notebook) , notebook.toString())));
 
@@ -99,7 +99,7 @@ namespace TODORoutine.database.notebook {
                 , new Pair(nameof(columns) , columns.ToString())));
 
             if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValidNotebook(notebook))
+                || !DatabaseValidator.isValid<Notebook>(notebook))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(notebook) , notebook.toString())

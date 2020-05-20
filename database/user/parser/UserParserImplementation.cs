@@ -27,7 +27,7 @@ namespace TODORoutine.database.parsers.user_parsers {
         **/
         public override String getInsert(User user) {
             //Validation
-            if (!DatabaseValidator.isValidUser((user)))
+            if (!DatabaseValidator.isValid<User>((user)))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(user) , user.toString())));
 
@@ -71,7 +71,7 @@ namespace TODORoutine.database.parsers.user_parsers {
                 , new Pair(nameof(columns) , columns.ToString())));
 
             if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValidUser(user))
+                || !DatabaseValidator.isValid<User>(user))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(user) , user.toString())

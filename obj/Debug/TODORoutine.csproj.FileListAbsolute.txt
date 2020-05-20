@@ -55,3 +55,5 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csproj.C
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.exe
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.pdb
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.forms.Test.resources
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Security.Cryptography.ProtectedData.dll
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Security.Cryptography.ProtectedData.xml

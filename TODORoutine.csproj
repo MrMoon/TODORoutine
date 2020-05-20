@@ -128,8 +128,6 @@
     <Compile Include="authentication\Register.cs" />
     <Compile Include="database\authentication\dao\AuthDAO.cs" />
     <Compile Include="database\authentication\dao\AuthDAOImplentation.cs" />
-    <Compile Include="database\authentication\dto\AuthDTO.cs" />
-    <Compile Include="database\authentication\dto\AuthDTOImplentation.cs" />
     <Compile Include="database\authentication\parser\AuthParser.cs" />
     <Compile Include="database\authentication\parser\AuthParserImplementation.cs" />
     <Compile Include="database\document\dao\DocumentDAO.cs" />
