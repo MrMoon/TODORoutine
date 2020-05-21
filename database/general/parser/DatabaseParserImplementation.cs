@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using TODORoutine.database.parsers;
 using TODORoutine.Database.Shared;
+using TODORoutine.exceptions;
 
 namespace TODORoutine.Shared {
 
@@ -105,10 +107,63 @@ namespace TODORoutine.Shared {
             return query.ToString();
         }
 
-        public static String getLastAddedRecored(String tableName) { return "SELECT * FROM " + tableName + " ORDER BY " + DatabaseConstants.COLUMN_ID + " DESC LIMIT 1;"; }
+        /**
+        * This method is a generic SQL Note Update Query statment
+        * 
+        * @tableName : The Table Name in the Database
+        * @filter : the filter for the Where Statment
+        * @condition : the condition for the Where statment
+        * @column : the column name in the database
+        * @t : the object that will be updated
+        * 
+        * It Throws and Exception when one of the parameters are invalid
+        * 
+        * return an SQL Update Statment
+        **/
+        public String getUpdate(String tableName , String filter , String condition , T t , params String[] columns) {
+            //Validation
+            if (columns.Count() == 0)
+                throw new ArgumentException(DatabaseConstants.INVALID(DatabaseConstants.EMPTY_UPDATE) + Logging.paramenterLogging(nameof(getUpdate) , true
+                , new Pair(nameof(columns) , columns.ToString())));
 
+            if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
+                || !DatabaseValidator.isValid<T>(t))
+                throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
+                                            , new Pair(nameof(tableName) , tableName)
+                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(t) , t.ToString())
+                                            , new Pair(nameof(condition) , condition)));
+            //Logging
+            Logging.paramenterLogging(nameof(getUpdate) , false
+                                            , new Pair(nameof(tableName) , tableName)
+                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(t) , t.ToString())
+                                            , new Pair(nameof(condition) , condition));
+            //Building SQL Statment
+            StringBuilder query = new StringBuilder();
+            query.Append("UPDATE ");
+            query.Append(tableName);
+            query.Append(" SET ");
+            String val = "", prefix = "";
+            foreach (String columnName in columns) {
+                query.Append(prefix);
+                prefix = ",";
+                query.Append(columnName);
+                query.Append(" = '");
+                try {
+                    val = getFieldFromColumn(columnName , t);
+                } catch (DatabaseException e) {
+                    Logging.logInfo(true , e.Message);
+                    return null;
+                }
+                query.Append(val);
+                query.Append("'");
+            }
+            query.Append(getWhere(filter , condition));
+            query.Append(";");
+            return query.ToString();
+        }
+
+        public static String getLastAddedRecored(String tableName) { return "SELECT * FROM " + tableName + " ORDER BY " + DatabaseConstants.COLUMN_ID + " DESC LIMIT 1;"; }
         public abstract String getInsert(T t);
-        public abstract String getUpdate(String tableName , String filter , String condition , T t , params String[] columns);
         public abstract String getFieldFromColumn(String column , T t);
     }
 }

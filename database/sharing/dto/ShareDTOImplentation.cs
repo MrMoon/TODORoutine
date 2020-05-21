@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TODORoutine.database.document.dao;
 using TODORoutine.database.document.dto;
-using TODORoutine.database.parsers;
 using TODORoutine.database.sharing.dao;
 using TODORoutine.models;
-using TODORoutine.Models;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.sharing.dto {

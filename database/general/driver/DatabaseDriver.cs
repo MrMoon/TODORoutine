@@ -10,7 +10,7 @@ namespace TODORoutine.database.general {
     interface DatabaseDriver {
         void initDatabase();
         void setupDatabaseConnection();
-        void createTable(String query = "");
+        void createTable(String query);
         SQLiteDataReader getReader(String query);
         SQLiteCommand getBLOBCommand(SQLiteConnection connection , String query , String parameter , byte[] file);
         int executeQuery(String query);

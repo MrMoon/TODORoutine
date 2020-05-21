@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
@@ -29,10 +28,10 @@ namespace TODORoutine.database.parsers.user_parsers {
             //Validation
             if (!DatabaseValidator.isValid<User>((user)))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
-                    new Pair(nameof(user) , user.toString())));
+                    new Pair(nameof(user) , user.ToString())));
 
             //Logging
-            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(user) , user.toString()));
+            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(user) , user.ToString()));
             //Building the SQL Statment 
             StringBuilder query = new StringBuilder();
             query.Append("INSERT INTO ");
@@ -54,59 +53,6 @@ namespace TODORoutine.database.parsers.user_parsers {
         }
 
         /**
-        * This method is a generic SQL User Update Query statment
-        * 
-        * @tableName : The Table Name in the Database
-        * @filter : the filter for the Where Statment
-        * @condition : the condition for the Where statment
-        * @column : the column name in the database
-        * 
-        * It Throws and Exception when one of the parameters are invalid
-        * 
-        * return an SQL Update Statment
-        **/
-        public override String getUpdate(String tableName , String filter , String condition , User user , params String[] columns) {
-            //Validation
-            if (columns.Count() == 0) throw new ArgumentException("There is Nothing to Update\n" + Logging.paramenterLogging(nameof(getUpdate) , true
-                , new Pair(nameof(columns) , columns.ToString())));
-
-            if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValid<User>(user))
-                throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(user) , user.toString())
-                                            , new Pair(nameof(condition) , condition)));
-            //Logging
-            Logging.paramenterLogging(nameof(getUpdate) , false
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(user) , user.toString())
-                                            , new Pair(nameof(condition) , condition));
-            //Building SQL Statment
-            StringBuilder query = new StringBuilder();
-            query.Append("UPDATE ");
-            query.Append(tableName);
-            query.Append(" SET ");
-            String val = "" , prefix = "";
-            foreach (String columnName in columns) {
-                query.Append(prefix);
-                prefix = ",";
-                query.Append(columnName);
-                query.Append(" = '");
-                try {
-                    val = getFieldFromColumn(columnName , user);
-                } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Message);
-                    return null;
-                }
-                query.Append(val);
-                query.Append("'");
-            }
-            query.Append(getWhere(filter , condition));
-            query.Append(";");
-            return query.ToString();
-        }
-
-        /**
         * Column name in the database into a user filed
         * 
         * @column : the column in the database
@@ -117,7 +63,7 @@ namespace TODORoutine.database.parsers.user_parsers {
         public override String getFieldFromColumn(String column , User user) {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
-                    , new Pair(nameof(column) , column) , new Pair(nameof(user) , user.toString()));
+                    , new Pair(nameof(column) , column) , new Pair(nameof(user) , user.ToString()));
             //Finding user filed
             if (column.Equals(DatabaseConstants.COLUMN_FULLNAME)) return user.getFullName();
             if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return user.getNotesId();

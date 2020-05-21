@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
 using System.Text;
 
 namespace TODORoutine.models {
@@ -29,7 +27,7 @@ namespace TODORoutine.models {
         public void setNotes(HashSet<String> notes) { this.notes = notes; }
         public void addNote(String noteId) { this.notes.Add(noteId); }
         public void removeNote(String noteId) { this.notes.Remove(noteId); }
-        public String toString() {
+        public override String ToString() {
             String prefix = "";
             StringBuilder sb = new StringBuilder();
             sb.Append("{ ID : ");

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using TODORoutine.database.parsers;
 using TODORoutine.Database.Shared;
@@ -32,13 +31,13 @@ namespace TODORoutine.database.document {
         public override String getFieldFromColumn(String column , Document document) {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
-                    , new Pair(nameof(column) , column) , new Pair(nameof(document) , document.toString()));
+                    , new Pair(nameof(column) , column) , new Pair(nameof(document) , document.ToString()));
             //Finding document filed
             if (column.Equals(DatabaseConstants.COLUMN_DOCUMENTID)) return document.getId();
             if (column.Equals(DatabaseConstants.COLUMN_OWENER)) return document.getOwner();
             //Column is invalid
             Logging.paramenterLogging(nameof(getFieldFromColumn) , true
-                    , new Pair(nameof(column) , column) , new Pair(nameof(document) , document.toString()));
+                    , new Pair(nameof(column) , column) , new Pair(nameof(document) , document.ToString()));
             throw new DatabaseException(DatabaseConstants.INVALID(column));
         }
 
@@ -55,10 +54,10 @@ namespace TODORoutine.database.document {
             //Validation
             if (!DatabaseValidator.isValid<Document>(document))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
-                    new Pair(nameof(document) , document.toString())));
+                    new Pair(nameof(document) , document.ToString())));
 
             //Logging
-            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(document) , document.toString()));
+            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(document) , document.ToString()));
             //Building the SQL Statment 
             StringBuilder query = new StringBuilder();
             query.Append("INSERT INTO ");
@@ -78,59 +77,5 @@ namespace TODORoutine.database.document {
             query.Append(");");
             return query.ToString();
         }
-
-        /**
-        * This method is a generic SQL Update Query statment
-        *
-        * @tableName : The Table Name in the Database
-        * @filter : the filter for the Where Statment
-        * @condition : the condition for the Where statment
-        * @column : the column name in the database
-        * @id : Document id that will be updated
-        * It Throws and Exception when one of the parameters are invalid
-        *
-        * return an SQL Document Update Statment
-        **/
-        public override String getUpdate(String tableName , String filter , String condition , Document document , params String[] columns) {
-            //Validation
-            if (columns.Count() == 0) throw new ArgumentException(DatabaseConstants.EMPTY_UPDATE + Logging.paramenterLogging(nameof(getUpdate) , true
-                , new Pair(nameof(columns) , columns.ToString())));
-
-            if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValid<Document>(document))
-                throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(document) , document.toString())
-                                            , new Pair(nameof(condition) , condition)));
-            //Logging
-            Logging.paramenterLogging(nameof(getUpdate) , false
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(document) , document.toString())
-                                            , new Pair(nameof(condition) , condition));
-            //Building SQL Statment
-            StringBuilder query = new StringBuilder();
-            query.Append("UPDATE ");
-            query.Append(tableName);
-            query.Append(" SET ");
-            String val = "" , prefix = "";
-            foreach (String columnName in columns) {
-                query.Append(prefix);
-                prefix = ",";
-                query.Append(columnName);
-                query.Append(" = '");
-                try {
-                    val = getFieldFromColumn(columnName , document);
-                } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Message);
-                    return null;
-                }
-                query.Append(val);
-                query.Append("'");
-            }
-            query.Append(getWhere(filter , condition));
-            query.Append(";");
-            return query.ToString();
-        }
-
     }
 }

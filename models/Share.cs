@@ -12,7 +12,7 @@ namespace TODORoutine.models {
             documentsIds = new HashSet<String>();
         }
 
-        public String toString() {
+        public override String ToString() {
             String prefix = "";
             StringBuilder sb = new StringBuilder();
             sb.Append("{ UserId : ");

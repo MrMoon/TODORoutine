@@ -1,7 +1,5 @@
-﻿using System;
-using TODORoutine.database.parsers;
+﻿using TODORoutine.database.parsers;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.document {
 

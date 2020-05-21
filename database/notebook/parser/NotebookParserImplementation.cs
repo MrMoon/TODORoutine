@@ -31,7 +31,7 @@ namespace TODORoutine.database.notebook {
         public override String getFieldFromColumn(String column , Notebook notebook) {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
-                    , new Pair(nameof(column) , column) , new Pair(nameof(notebook) , notebook.toString()));
+                    , new Pair(nameof(column) , column) , new Pair(nameof(notebook) , notebook.ToString()));
             //Finding notebook filed
             if (column.Equals(DatabaseConstants.COLUMN_NOTEBOOKID)) return notebook.getId();
             if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return CSVParser.CSV2String(notebook.getNotes().ToList());
@@ -56,10 +56,10 @@ namespace TODORoutine.database.notebook {
             //Validation
             if (!DatabaseValidator.isValid<Notebook>((notebook)))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
-                    new Pair(nameof(notebook) , notebook.toString())));
+                    new Pair(nameof(notebook) , notebook.ToString())));
 
             //Logging
-            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(notebook) , notebook.toString()));
+            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(notebook) , notebook.ToString()));
             //Building the SQL Statment 
             StringBuilder query = new StringBuilder();
             query.Append("INSERT INTO ");
@@ -81,56 +81,6 @@ namespace TODORoutine.database.notebook {
             query.Append("','");
             query.Append(notebook.getLastModified());
             query.Append("');");
-            return query.ToString();
-        }
-
-        /**
-         * This method is a generic SQL Note Insert Query statment
-         * 
-         * @notebook : the notebook object to be inserted in the database
-         * 
-         * It Throws and Exception when one of the parameters are invalid
-         * 
-         * return an SQL Note Insert Statment
-         **/
-        public override String getUpdate(String tableName , String filter , String condition , Notebook notebook , params String[] columns) {
-            //Validation
-            if (columns.Count() == 0) throw new ArgumentException(DatabaseConstants.INVALID(DatabaseConstants.EMPTY_UPDATE) + Logging.paramenterLogging(nameof(getUpdate) , true
-                , new Pair(nameof(columns) , columns.ToString())));
-
-            if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValid<Notebook>(notebook))
-                throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(notebook) , notebook.toString())
-                                            , new Pair(nameof(condition) , condition)));
-            //Logging
-            Logging.paramenterLogging(nameof(getUpdate) , false
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(notebook) , notebook.toString())
-                                            , new Pair(nameof(condition) , condition));
-            //Building SQL Statment
-            StringBuilder query = new StringBuilder();
-            query.Append("UPDATE ");
-            query.Append(tableName);
-            query.Append(" SET ");
-            String val = "" , prefix = "";
-            foreach (String columnName in columns) {
-                query.Append(prefix);
-                prefix = ",";
-                query.Append(columnName);
-                query.Append(" = '");
-                try {
-                    val = getFieldFromColumn(columnName , notebook);
-                } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Message);
-                    return null;
-                }
-                query.Append(val);
-                query.Append("'");
-            }
-            query.Append(getWhere(filter , condition));
-            query.Append(";");
             return query.ToString();
         }
     }

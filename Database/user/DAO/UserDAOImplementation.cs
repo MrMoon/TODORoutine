@@ -25,6 +25,7 @@ namespace TODORoutine.Database.user.DAO {
         private UserDAOImplementation() {
             driver = DatabaseDriverImplementation.getInstance();
             parser = UserParserImplementation.getInstance();
+            driver.createTable(DatabaseConstants.TABLE_USER);
         }
 
         public static UserDAO getInstance() {
@@ -89,7 +90,7 @@ namespace TODORoutine.Database.user.DAO {
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , idColumn , DatabaseConstants.ALL , id));
                 User user = find(reader);
-                Logging.logInfo(false , user.toString());
+                Logging.logInfo(false , user.ToString());
                 reader.Close();
                 return user;
             } catch(Exception e) {
@@ -116,7 +117,7 @@ namespace TODORoutine.Database.user.DAO {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
                                             , DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.ALL , username));
                 User user = find(reader);
-                Logging.logInfo(false , user.toString());
+                Logging.logInfo(false , user.ToString());
                 reader.Close();
                 return user;
             } catch(Exception e) {
@@ -246,7 +247,7 @@ namespace TODORoutine.Database.user.DAO {
          **/
         public override bool save(User user) {
             //Logging 
-            Logging.paramenterLogging(nameof(save) , false , new Pair(nameof(user) , user.toString()));
+            Logging.paramenterLogging(nameof(save) , false , new Pair(nameof(user) , user.ToString()));
             //Saving the user
             try {
                 return driver.executeQuery(parser.getInsert(user)) != -1;
@@ -266,7 +267,7 @@ namespace TODORoutine.Database.user.DAO {
          **/
         public override bool update(User user , params String[] columns) {
             //Logging 
-            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(user) , user.toString()));
+            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(user) , user.ToString()));
             //Saving the user
             try {
                 return driver.executeQuery(parser.getUpdate(tableName , idColumn , user.getId() , user , columns)) != -1;

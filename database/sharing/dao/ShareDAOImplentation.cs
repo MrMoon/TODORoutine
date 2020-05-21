@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
@@ -61,7 +58,7 @@ namespace TODORoutine.database.sharing.dao {
          * 
          * return true if and only if the delete operation was successfull
          **/
-        public override bool delete(string userId) {
+        public override bool delete(String  userId) {
             //Logging
             Logging.paramenterLogging(nameof(delete) , false , new Pair(nameof(userId) , userId));
             //Deleting the Notebook from database
@@ -84,7 +81,7 @@ namespace TODORoutine.database.sharing.dao {
          * 
          * return a list of ids
          **/
-        public List<string> findAllDocumentsIds(string userId) {
+        public List<String > findAllDocumentsIds(String  userId) {
             //Logging
             Logging.paramenterLogging(nameof(findAllDocumentsIds) , false , new Pair(nameof(userId) , userId));
             //Getting all ids
@@ -109,7 +106,7 @@ namespace TODORoutine.database.sharing.dao {
          * 
          * return share if it was found and throw an Exception otherwise
          **/
-        public override Share findById(string userId) {
+        public override Share findById(String  userId) {
             //Logging
             Logging.paramenterLogging(nameof(findById) , false , new Pair(nameof(userId) , userId));
             //Getting all ids
@@ -136,7 +133,7 @@ namespace TODORoutine.database.sharing.dao {
         **/
         public override bool save(Share share) {
             //Logging
-            Logging.paramenterLogging(nameof(save) , false , new Pair(nameof(share) , share.toString()));
+            Logging.paramenterLogging(nameof(save) , false , new Pair(nameof(share) , share.ToString()));
             //Getting all ids
             try {
                 return driver.executeQuery(parser.getInsert(share)) != -1;
@@ -154,9 +151,9 @@ namespace TODORoutine.database.sharing.dao {
         * 
         * return true if and only if the update was successfull and false otherwise
         **/
-        public override bool update(Share share , params string[] columns) {
+        public override bool update(Share share , params String [] columns) {
             //Logging
-            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(share) , share.toString()));
+            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(share) , share.ToString()));
             //Updating the notebook
             try {
                 return driver.executeQuery(parser.getUpdate(tableName , idColumn , share.userId , share , columns)) != -1;
@@ -164,9 +161,9 @@ namespace TODORoutine.database.sharing.dao {
                 Logging.logInfo(true , e.Message);
             }
             //Logging
-            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(share) , share.toString()));
+            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(share) , share.ToString()));
             //Notebook was not found
-            throw new DatabaseException(DatabaseConstants.NOT_FOUND(share.toString()));
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(share.ToString()));
         }
     }
 }
