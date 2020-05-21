@@ -30,7 +30,7 @@ namespace TODORoutine.Models {
 
         public void setIsAuthenticated(int isAuthenticated) { this.isAuthenticated = isAuthenticated; }
 
-        public String toString() {
+        public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append("{ ID : ");
             sb.Append(userId);

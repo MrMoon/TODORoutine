@@ -19,7 +19,7 @@ namespace TODORoutine.models {
         public String getDocumentContent() { return System.Text.Encoding.Default.GetString(document); }
         public byte[] setDocument(String document) { return Encoding.Default.GetBytes(document); }
 
-        public String toString() {
+        public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append("{ ID : ");
             sb.Append(id);

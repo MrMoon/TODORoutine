@@ -106,7 +106,7 @@ namespace TODORoutine.database.note.dao {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , idColumn , "*" , id));
                 //Reading the the Record from the database
                 Note note = find(reader);
-                Logging.logInfo(false , nameof(findById) , DatabaseConstants.FOUND(id) , note.toString());
+                Logging.logInfo(false , nameof(findById) , DatabaseConstants.FOUND(id) , note.ToString());
                 reader.Close();
                 return note;
             } catch(Exception e) {
@@ -126,7 +126,7 @@ namespace TODORoutine.database.note.dao {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName
                                             , DatabaseConstants.COLUMN_TITLE , DatabaseConstants.ALL , title));
                 Note note = find(reader);
-                Logging.logInfo(false , note.toString());
+                Logging.logInfo(false , note.ToString());
                 reader.Close();
                 return note;
             } catch(Exception e) {
@@ -164,7 +164,7 @@ namespace TODORoutine.database.note.dao {
         public override bool save(Note note) {
             //Logging
             Logging.paramenterLogging(nameof(save) , false
-                , new Pair(nameof(note) , note.toString()));
+                , new Pair(nameof(note) , note.ToString()));
             //Inserting User into the Database
             try {
                 return driver.executeQuery(parser.getInsert(note)) != -1;
@@ -184,7 +184,7 @@ namespace TODORoutine.database.note.dao {
          **/
         public override bool update(Note note , params String[] columns) {
             //Logging
-            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(note) , note.toString()));
+            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(note) , note.ToString()));
             //Updating
             try {
                 return driver.executeQuery(parser.getUpdate(tableName ,
@@ -193,9 +193,9 @@ namespace TODORoutine.database.note.dao {
                 Logging.logInfo(true , e.Message);
             }
             //Logging
-            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(note) , note.toString()));
+            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(note) , note.ToString()));
             //Note was not found
-            throw new DatabaseException(DatabaseConstants.NOT_FOUND(note.toString()));
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(note.ToString()));
         }
 
         /**

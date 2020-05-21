@@ -193,7 +193,7 @@ namespace TODORoutine.database.notebook.dao {
          **/
         public override bool save(Notebook notebook) {
             //Logging
-            Logging.paramenterLogging(nameof(save) , false , new Pair(nameof(notebook) , notebook.toString()));
+            Logging.paramenterLogging(nameof(save) , false , new Pair(nameof(notebook) , notebook.ToString()));
             //Saving the notebook
             try {
                 return driver.executeQuery(parser.getInsert(notebook)) != -1;
@@ -213,7 +213,7 @@ namespace TODORoutine.database.notebook.dao {
          **/
         public override bool update(Notebook notebook , params String[] columns) {
             //Logging
-            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(notebook) , notebook.toString()));
+            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(notebook) , notebook.ToString()));
             //Updating the notebook
             try {
                 return driver.executeQuery(parser.getUpdate(tableName 
@@ -222,9 +222,9 @@ namespace TODORoutine.database.notebook.dao {
                 Logging.logInfo(true , e.Message);
             }
             //Logging
-            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(notebook) , notebook.toString()));
+            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(columns) , columns.ToString()) , new Pair(nameof(notebook) , notebook.ToString()));
             //Notebook was not found
-            throw new DatabaseException(DatabaseConstants.NOT_FOUND(notebook.toString()));
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(notebook.ToString()));
         }
 
         /**

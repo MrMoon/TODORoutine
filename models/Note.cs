@@ -22,7 +22,7 @@ namespace TODORoutine.models {
         public void setLastModified(String lastModified) { this.lastModified = lastModified; }
         public void setDocumentId(String documentId) { this.documentId = documentId; }
         public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
-        public String toString() {
+        public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append("{ ID : ");
             sb.Append(id);

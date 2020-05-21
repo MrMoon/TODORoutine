@@ -34,7 +34,6 @@ namespace TODORoutine.Database {
             if (!File.Exists(DatabaseConstants.DATABASE_NAME)) {
                 Logging.logInfo(false , "Database File Doesn't Exsist , Creart a new One");
                 SQLiteConnection.CreateFile(DatabaseConstants.DATABASE_NAME);
-                createTable();
             } else setupDatabaseConnection();
         }
 
@@ -52,13 +51,11 @@ namespace TODORoutine.Database {
         /**
          * Creating Main Database Table
          **/
-        public void createTable(String query = "") {
+        public void createTable(String query) {
             Logging.logInfo(false , "Creating Table " , query);
             setupDatabaseConnection();
             try {
-                command.CommandText = query.Equals("") ? DatabaseConstants.CREATE_USER_TABLE : query;
-                command.ExecuteNonQuery();
-                connection.Close();
+                executeQuery(query);
             } catch(Exception e) {
                 if (e.Message.Contains("already exists")) Console.WriteLine("Table Exists");
                 Logging.logInfo(true , e.Message);
@@ -100,7 +97,9 @@ namespace TODORoutine.Database {
             } catch (System.Data.SQLite.SQLiteException e) {
                 if (e.Message.Contains("constraint failed UNIQUE constraint failed")) {
                     Console.WriteLine("Record Exsists");
-                    return -1;
+                    return -11;
+                } else if(e.Message.Contains("already exists")) {
+                    Console.WriteLine("Table Exsists");
                 }
             } finally {
                 connection.Close();

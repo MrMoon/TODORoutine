@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
@@ -38,10 +37,10 @@ namespace TODORoutine.database.parsers.notes_parser {
             //Validation
             if (!DatabaseValidator.isValid<Note>(note))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
-                    new Pair(nameof(note) , note.toString())));
+                    new Pair(nameof(note) , note.ToString())));
 
             //Logging
-            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(note) , note.toString()));
+            Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(note) , note.ToString()));
             //Building the SQL Statment 
             StringBuilder query = new StringBuilder();
             query.Append("INSERT INTO ");
@@ -71,61 +70,6 @@ namespace TODORoutine.database.parsers.notes_parser {
         }
 
         /**
-        * This method is a generic SQL Note Update Query statment
-        * 
-        * @tableName : The Table Name in the Database
-        * @filter : the filter for the Where Statment
-        * @condition : the condition for the Where statment
-        * @column : the column name in the database
-        * @note : the note that will be updated
-        * 
-        * It Throws and Exception when one of the parameters are invalid
-        * 
-        * return an SQL Update Statment
-        **/
-        public override String getUpdate(String tableName , String filter , String condition , Note note , params String[] columns) {
-            //Validation
-            if (columns.Count() == 0) 
-                throw new ArgumentException(DatabaseConstants.INVALID(DatabaseConstants.EMPTY_UPDATE) + Logging.paramenterLogging(nameof(getUpdate) , true
-                , new Pair(nameof(columns) , columns.ToString())));
-
-            if (!DatabaseValidator.isValidParameters(tableName , filter , condition)
-                || !DatabaseValidator.isValid<Note>(note))
-                throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(note) , note.toString())
-                                            , new Pair(nameof(condition) , condition)));
-            //Logging
-            Logging.paramenterLogging(nameof(getUpdate) , false
-                                            , new Pair(nameof(tableName) , tableName)
-                                            , new Pair(nameof(filter) , filter) , new Pair(nameof(note) , note.toString())
-                                            , new Pair(nameof(condition) , condition));
-            //Building SQL Statment
-            StringBuilder query = new StringBuilder();
-            query.Append("UPDATE ");
-            query.Append(tableName);
-            query.Append(" SET ");
-            String val = "" , prefix = "";
-            foreach (String columnName in columns) {
-                query.Append(prefix);
-                prefix = ",";
-                query.Append(columnName);
-                query.Append(" = '");
-                try {
-                    val = getFieldFromColumn(columnName , note);
-                } catch (DatabaseException e) {
-                    Logging.logInfo(true , e.Message);
-                    return null;
-                }
-                query.Append(val);
-                query.Append("'");
-            }
-            query.Append(getWhere(filter , condition));
-            query.Append(";");
-            return query.ToString();
-        }
-
-        /**
         * Column name in the database into a note filed
         * 
         * @column : the column in the database
@@ -136,7 +80,7 @@ namespace TODORoutine.database.parsers.notes_parser {
         public override String getFieldFromColumn(String column , Note note) {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
-                    , new Pair(nameof(column) , column) , new Pair(nameof(note) , note.toString()));
+                    , new Pair(nameof(column) , column) , new Pair(nameof(note) , note.ToString()));
             //Finding note filed
             if (column.Equals(DatabaseConstants.COLUMN_AUTHOR)) return note.getAuthor();
             if (column.Equals(DatabaseConstants.COLUMN_NOTEID)) return note.getId();
@@ -146,7 +90,7 @@ namespace TODORoutine.database.parsers.notes_parser {
             if (column.Equals(DatabaseConstants.COLUMN_DOCUMENTID)) return note.getDocumentId();
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , true
-                    , new Pair(nameof(column) , column) , new Pair(nameof(note) , note.toString()));
+                    , new Pair(nameof(column) , column) , new Pair(nameof(note) , note.ToString()));
             //Column is invalid
             throw new DatabaseException(DatabaseConstants.INVALID(column));
         }

@@ -118,7 +118,7 @@ namespace TODORoutine.database.document.dao {
         public override bool save(Document document) {
             //Logging
             Logging.paramenterLogging(nameof(save) , false
-                , new Pair(nameof(document) , document.toString()));
+                , new Pair(nameof(document) , document.ToString()));
             //Inserting User into the Database
             try {
                 SQLiteConnection connection = new SQLiteConnection(DatabaseConstants.CONNECTION_STRING);
@@ -142,7 +142,7 @@ namespace TODORoutine.database.document.dao {
          **/
         public override bool update(Document document , params String[] columns) {
             //Logging
-            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(document) , document.toString()));
+            Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(document) , document.ToString()));
             //Updating
             try {
                 return driver.executeQuery(parser.getUpdate(tableName ,
@@ -151,9 +151,9 @@ namespace TODORoutine.database.document.dao {
                 Logging.logInfo(true , e.Message);
             }
             //Logging
-            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(document) , document.toString()));
+            Logging.paramenterLogging(nameof(update) , true , new Pair(nameof(document) , document.ToString()));
             //Documnet was not found
-            throw new DatabaseException(DatabaseConstants.NOT_FOUND(document.toString()));
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(document.ToString()));
         }
 
         /**

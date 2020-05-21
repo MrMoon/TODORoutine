@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using TODORoutine.Database.user.DTO;
-using TODORoutine.Models;
 
 namespace TODORoutine {
     public partial class StartupForm : Form {

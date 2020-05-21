@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using TODORoutine.models;
-using TODORoutine.Models;
 
 namespace TODORoutine.Database.Shared {
 

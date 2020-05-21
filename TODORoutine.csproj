@@ -123,13 +123,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="authentication\Authenticate.cs" />
-    <Compile Include="authentication\Login.cs" />
-    <Compile Include="authentication\Register.cs" />
-    <Compile Include="database\authentication\dao\AuthDAO.cs" />
-    <Compile Include="database\authentication\dao\AuthDAOImplentation.cs" />
-    <Compile Include="database\authentication\parser\AuthParser.cs" />
-    <Compile Include="database\authentication\parser\AuthParserImplementation.cs" />
+    <Compile Include="database\authentication\dao\AuthenticationDAO.cs" />
+    <Compile Include="database\authentication\dao\AuthenticationDAOImplentation.cs" />
+    <Compile Include="database\authentication\dto\AuthenticationDTO.cs" />
+    <Compile Include="database\authentication\dto\AuthenticationDTOImplentation.cs" />
+    <Compile Include="database\authentication\parser\AuthenticationParser.cs" />
+    <Compile Include="database\authentication\parser\AuthenticationParserImplentation.cs" />
+    <Compile Include="models\Authentication.cs" />
     <Compile Include="database\document\dao\DocumentDAO.cs" />
     <Compile Include="database\document\dao\DocumentDAOImplementation.cs" />
     <Compile Include="database\document\dto\DocumentDTO.cs" />

@@ -16,7 +16,7 @@ namespace TODORoutine.Shared {
         public String first { get; set; }
         public String second { get; set; }
 
-        public String toString() {
+        public override String ToString() {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("{ ");
             stringBuilder.Append(first);
