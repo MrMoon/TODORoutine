@@ -8,6 +8,10 @@ using TODORoutine.exceptions;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.authentication {
+
+    /**
+     * Main Authentication Data Layer Implentation
+     **/
     class AuthenticationDAOImplentation : AuthenticationDAO {
 
         private readonly int KEY = 17;
@@ -26,6 +30,13 @@ namespace TODORoutine.database.authentication {
             return authDAO;
         }
 
+        /**
+         * Login for the user
+         * 
+         * @auth : the usernamae and password for the user
+         * 
+         * return true if and only if the operation was done successfully
+         **/
         public bool login(Authentication auth) {
             //Logging
             Logging.paramenterLogging(nameof(login) , false , new Pair(nameof(auth) , auth.ToString()));
@@ -42,6 +53,13 @@ namespace TODORoutine.database.authentication {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(auth.ToString()));
         }
 
+        /**
+         * Register for the user
+         * 
+         * @auth : the usernamae and password for the user
+         * 
+         * return true if and only if the operation was done successfully
+         **/
         public bool register(Authentication auth) {
             //Logging
             Logging.paramenterLogging(nameof(register) , false , new Pair(nameof(auth) , auth.ToString()));
@@ -57,16 +75,39 @@ namespace TODORoutine.database.authentication {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(auth.ToString()));
         }
 
+        /**
+         * Basic Encryption based on the Caesar Cipher
+         * 
+         * @text : the text to encrypt
+         * @key : the key of encryption
+         * 
+         * return an encrypted String
+         **/
         public String encrypt(String text , int key = 17) {
             String output = "";
             foreach (char c in text) output += cipher(c , key);
             return output;
         }
 
+        /**
+        * Basic Decryption based on the Caesar Cipher
+        * 
+        * @text : the text to encrypt
+        * 
+        * retunr an derypted String
+        **/
         public String derypt(String text) {
             return encrypt(text , 26 - KEY);
         }
 
+        /**
+         * The Caesar Cipher algorithm
+         * 
+         * @ch : the character the encrypt
+         * @key : the key of encryption
+         * 
+         * return the encrypted character
+         **/
         public char cipher(char ch , int key) {
             if (!char.IsLetter(ch)) return ch;
             char c = char.IsUpper(ch) ? 'A' : 'a';

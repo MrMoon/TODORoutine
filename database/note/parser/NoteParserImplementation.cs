@@ -35,7 +35,7 @@ namespace TODORoutine.database.parsers.notes_parser {
        **/
         public override String getInsert(Note note) {
             //Validation
-            if (!DatabaseValidator.isValid<Note>(note))
+            if (note == null)
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(note) , note.ToString())));
 

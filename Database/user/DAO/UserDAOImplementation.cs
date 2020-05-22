@@ -25,7 +25,7 @@ namespace TODORoutine.Database.user.DAO {
         private UserDAOImplementation() {
             driver = DatabaseDriverImplementation.getInstance();
             parser = UserParserImplementation.getInstance();
-            driver.createTable(DatabaseConstants.TABLE_USER);
+            driver.createTable(DatabaseConstants.CREATE_USER_TABLE);
         }
 
         public static UserDAO getInstance() {

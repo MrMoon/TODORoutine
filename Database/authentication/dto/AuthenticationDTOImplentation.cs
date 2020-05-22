@@ -2,6 +2,10 @@
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.authentication.dto {
+
+    /**
+     * Main Authentication Transfer Layer Implenetation
+     **/
     class AuthenticationDTOImplentation : AuthenticationDTO {
 
         private static AuthenticationDTO authDTO = null;
@@ -16,6 +20,14 @@ namespace TODORoutine.database.authentication.dto {
             return authDTO;
         }
 
+        /**
+         * Authenticating user 
+         * 
+         * @auth : user auth (username and password)
+         * @islogin : a flag to indicate the operation
+         * 
+         * return true if and only if the operation was done successfully and false other wise
+         **/
         public bool authenticate(Authentication auth , bool isLogin = false) {
             try {
                 if (isLogin) return authDAO.login(auth);
