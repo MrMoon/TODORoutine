@@ -1,0 +1,292 @@
+2020-05-21 23:03:03.8662|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-21 23:03:04.2089|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:03:04.7761|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:03:04.7916|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:03:04.8068|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:03:04.8217|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:03:05.0042|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-21 23:04:07.1685|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-21 23:04:07.3069|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:04:07.6673|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:04:07.6899|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:04:07.7204|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:04:07.7453|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:04:08.0139|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-21 23:05:48.6089|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-21 23:05:49.3089|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:05:49.5838|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:05:49.6008|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:05:49.6221|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:05:49.6392|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:05:49.8625|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-21 23:08:06.4496|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-21 23:08:06.5919|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:08:06.9162|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:08:07.3199|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:08:07.3535|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:08:07.3819|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:08:07.6278|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-21 23:09:11.9127|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-21 23:09:12.0189|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:09:12.3086|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:09:12.3336|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:09:12.3625|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-21 23:09:12.3835|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:09:12.6096|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-21 23:09:40.8926|INFO|TODORoutine.Shared.Logging|Method register
+{ auth - { Username : MrMoon11 , Password : 1234567890 } }
+2020-05-21 23:09:40.9204|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ note - { Username : MrMoon11 , Password : 1234567890 } }
+2020-05-21 23:09:40.9427|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO Authenticate ( USERNAME , PASSWORD) VALUES ('MrMoon11','1234567890');
+2020-05-21 23:09:40.9719|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-21 23:09:41.1023|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 1
+2020-05-22 00:37:13.5546|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-22 00:37:14.6493|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:37:14.8956|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:37:14.9185|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:37:14.9440|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:37:14.9610|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:37:15.1446|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 00:37:40.2868|INFO|TODORoutine.Shared.Logging|Method register
+{ auth - { Username : MIAHDG , Password : 1234567890 } }
+2020-05-22 00:37:40.3225|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ note - { Username : MIAHDG , Password : 1234567890 } }
+2020-05-22 00:37:40.3588|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO Authenticate ( USERNAME , PASSWORD) VALUES ('MIAHDG','1234567890');
+2020-05-22 00:37:40.3835|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:37:40.5694|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 1
+2020-05-22 00:38:51.8540|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-22 00:38:51.9543|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:38:52.2695|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:38:52.3019|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:38:52.3354|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:38:52.3647|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:38:52.6117|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 00:40:25.4403|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-22 00:40:25.5259|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:40:25.7925|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:40:25.8111|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:40:25.8375|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:40:25.8568|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:40:26.0835|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 00:56:01.1193|INFO|TODORoutine.Shared.Logging|Method register
+{ auth - { Username : NotMrMoon , Password : NotMrMoon } }
+2020-05-22 00:56:01.1272|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ note - { Username : NotMrMoon , Password : EfkDiDffe } }
+2020-05-22 00:56:01.1272|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO Authenticate ( USERNAME , PASSWORD) VALUES ('NotMrMoon','EfkDiDffe');
+2020-05-22 00:56:01.1272|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:56:01.3031|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 1
+2020-05-22 00:57:06.6983|INFO|TODORoutine.Shared.Logging|{ Creating Table  , User
+2020-05-22 00:57:06.6983|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:57:06.7093|INFO|TODORoutine.Shared.Logging|{ Executing Query  , User
+2020-05-22 00:57:06.7093|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:57:06.7392|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 00:57:06.7392|INFO|TODORoutine.Shared.Logging|Method save
+{ user - { ID :  , Username : NotMrMoon , Full Name : Mohammad Ibrahim , Notes Id :  , isAuthenticated : 1 }
+ }
+2020-05-22 00:57:06.7392|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ user - { ID :  , Username : NotMrMoon , Full Name : Mohammad Ibrahim , Notes Id :  , isAuthenticated : 1 }
+ }
+2020-05-22 00:57:06.7552|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO User ( USERNAME , FULLNAME , AUTH) VALUES ('NotMrMoon','Mohammad Ibrahim','1');
+2020-05-22 00:57:06.7552|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:57:06.7791|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 00:57:06.7851|INFO|TODORoutine.Shared.Logging|Method getLastId
+{ tableName - User }
+2020-05-22 00:57:06.7851|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:57:06.8130|ERROR|TODORoutine.Shared.Logging|{ SQL logic error
+no such table: User
+2020-05-22 00:57:06.8180|ERROR|TODORoutine.Shared.Logging|Method DatabaseException
+{ message - Invalid 404 }
+2020-05-22 00:57:06.8320|ERROR|TODORoutine.Shared.Logging|{ Invalid 404
+2020-05-22 00:57:06.8320|ERROR|TODORoutine.Shared.Logging|Method getLastId
+{ tableName - User }
+2020-05-22 00:57:06.8320|ERROR|TODORoutine.Shared.Logging|Method DatabaseException
+{ message - EMPTY was not found }
+2020-05-22 00:57:06.8549|ERROR|TODORoutine.Shared.Logging|{ EMPTY was not found
+2020-05-22 00:59:38.6521|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-22 00:59:38.6761|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:59:38.7358|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:59:38.7358|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:59:38.7358|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 00:59:38.7358|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 00:59:38.8124|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 01:12:28.6568|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-22 01:12:28.6877|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:12:28.7645|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 01:12:28.7714|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:12:28.7714|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 01:12:28.7845|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:12:28.8492|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 01:13:43.1351|INFO|TODORoutine.Shared.Logging|Method register
+{ auth - { Username : MrMoonNewAccount , Password : 1234567890 } }
+2020-05-22 01:13:43.1421|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ note - { Username : MrMoonNewAccount , Password : 1234567890 } }
+2020-05-22 01:13:43.1421|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO Authenticate ( USERNAME , PASSWORD) VALUES ('MrMoonNewAccount','1234567890');
+2020-05-22 01:13:43.1421|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:13:43.2418|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 1
+2020-05-22 01:13:43.2817|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-22 01:13:43.2887|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:13:43.2996|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-22 01:13:43.2996|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:13:43.3667|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 01:13:43.3667|INFO|TODORoutine.Shared.Logging|Method save
+{ user - { ID :  , Username : MrMoonNewAccount , Full Name : Mohammad Abu-Amara , Notes Id :  , isAuthenticated : 1 }
+ }
+2020-05-22 01:13:43.3786|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ user - { ID :  , Username : MrMoonNewAccount , Full Name : Mohammad Abu-Amara , Notes Id :  , isAuthenticated : 1 }
+ }
+2020-05-22 01:13:43.3786|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO User ( USERNAME , FULLNAME , AUTH) VALUES ('MrMoonNewAccount','Mohammad Abu-Amara','1');
+2020-05-22 01:13:43.3786|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:13:43.4540|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 1
+2020-05-22 01:13:43.4660|INFO|TODORoutine.Shared.Logging|Method getLastId
+{ tableName - User }
+2020-05-22 01:13:43.4780|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:17:23.4372|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-22 01:17:23.4661|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:17:23.5480|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 01:17:23.5480|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:17:23.5480|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 01:17:23.5678|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:17:23.6317|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 01:20:59.7989|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-22 01:20:59.8318|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:20:59.9186|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 01:20:59.9246|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:20:59.9246|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-22 01:20:59.9425|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:21:00.0044|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 01:21:12.6249|INFO|TODORoutine.Shared.Logging|Method login
+{ auth - { Username : MrMoonNewAccount , Password : 1234567890 } }
+2020-05-22 01:21:12.6339|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - Authenticate , filter - USERNAME , condition - MrMoonNewAccount , column - PASSWORD }
+2020-05-22 01:21:12.6339|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - MrMoonNewAccount }
+2020-05-22 01:21:12.6478|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:21:12.6977|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-22 01:21:12.7047|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:21:12.7047|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-22 01:21:12.7047|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:21:12.7426|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-22 01:21:12.7426|INFO|TODORoutine.Shared.Logging|Method findByUsername
+{ username - MrMoonNewAccount }
+2020-05-22 01:21:12.7526|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - User , filter - USERNAME , condition - MrMoonNewAccount , column - * }
+2020-05-22 01:21:12.7526|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - MrMoonNewAccount }
+2020-05-22 01:21:12.7526|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-22 01:21:12.7676|INFO|TODORoutine.Shared.Logging|{ { ID : 1 , Username : MrMoonNewAccount , Full Name : Mohammad Abu-Amara , Notes Id :  , isAuthenticated : 1 }
+
+2020-05-23 01:33:30.3930|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-23 01:33:30.4856|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:33:31.0139|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:33:31.0359|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:33:31.0588|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:33:31.0769|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:33:31.2739|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:33:48.8219|INFO|TODORoutine.Shared.Logging|Method register
+{ auth - { Username : NewAccountPlease , Password : NewAccountPlease } }
+2020-05-23 01:33:49.4580|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ note - { Username : NewAccountPlease , Password : EvnRttflekGcvrjv } }
+2020-05-23 01:33:49.5079|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO Authenticate ( USERNAME , PASSWORD) VALUES ('NewAccountPlease','EvnRttflekGcvrjv');
+2020-05-23 01:33:49.5321|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:33:50.4382|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 1
+2020-05-23 01:33:50.4804|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:33:50.4974|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:33:50.5583|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:33:50.5842|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:33:50.7054|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:33:50.9369|INFO|TODORoutine.Shared.Logging|Method save
+{ user - { ID :  , Username : NewAccountPlease , Full Name : Mohammad Ibrahim , Notes Id :  , isAuthenticated : 1 }
+ }
+2020-05-23 01:33:50.9572|INFO|TODORoutine.Shared.Logging|Method getInsert
+{ user - { ID :  , Username : NewAccountPlease , Full Name : Mohammad Ibrahim , Notes Id :  , isAuthenticated : 1 }
+ }
+2020-05-23 01:33:50.9788|INFO|TODORoutine.Shared.Logging|{ Executing Query  , INSERT INTO User ( USERNAME , FULLNAME , AUTH) VALUES ('NewAccountPlease','Mohammad Ibrahim','1');
+2020-05-23 01:33:50.9952|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:33:51.0856|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 1
+2020-05-23 01:33:51.1049|INFO|TODORoutine.Shared.Logging|Method getLastId
+{ tableName - User }
+2020-05-23 01:33:51.1239|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:49.5251|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-23 01:35:49.6351|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:49.9522|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:35:49.9754|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:50.0095|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:35:50.0355|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:50.2695|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:35:53.5485|INFO|TODORoutine.Shared.Logging|Method login
+{ auth - { Username : NewAccountPlease , Password : NewAccountPlease } }
+2020-05-23 01:35:53.5665|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - Authenticate , filter - USERNAME , condition - NewAccountPlease , column - PASSWORD }
+2020-05-23 01:35:53.5841|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - NewAccountPlease }
+2020-05-23 01:35:53.6030|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:53.6705|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:35:53.6938|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:53.7312|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:35:53.7621|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:53.8839|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:35:54.2044|INFO|TODORoutine.Shared.Logging|Method findByUsername
+{ username - NewAccountPlease }
+2020-05-23 01:35:54.2341|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - User , filter - USERNAME , condition - NewAccountPlease , column - * }
+2020-05-23 01:35:54.2651|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - NewAccountPlease }
+2020-05-23 01:35:54.2914|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:35:54.3262|INFO|TODORoutine.Shared.Logging|{ { ID : 2 , Username : NewAccountPlease , Full Name : Mohammad Ibrahim , Notes Id :  , isAuthenticated : 1 }
+
+2020-05-23 01:38:45.7762|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-23 01:38:45.8840|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:38:46.2091|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:38:46.2321|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:38:46.2641|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:38:46.2863|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:38:46.5318|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:39:32.1040|INFO|TODORoutine.Shared.Logging|Method login
+{ auth - { Username : NewAccountPlease , Password : NewAccountPlease } }
+2020-05-23 01:39:32.1357|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - Authenticate , filter - USERNAME , condition - NewAccountPlease , column - PASSWORD }
+2020-05-23 01:39:32.1629|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - NewAccountPlease }
+2020-05-23 01:39:32.1844|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:39:32.2625|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:39:32.2879|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:39:32.3193|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:39:32.3533|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:39:32.4739|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:39:32.7456|INFO|TODORoutine.Shared.Logging|Method findByUsername
+{ username - NewAccountPlease }
+2020-05-23 01:39:32.7592|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - User , filter - USERNAME , condition - NewAccountPlease , column - * }
+2020-05-23 01:39:32.7778|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - NewAccountPlease }
+2020-05-23 01:39:32.7997|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:39:32.8284|INFO|TODORoutine.Shared.Logging|{ { ID : 2 , Username : NewAccountPlease , Full Name : Mohammad Ibrahim , Notes Id :  , isAuthenticated : 1 }
+
+2020-05-23 01:42:43.8887|INFO|TODORoutine.Shared.Logging|{ Inititating Database
+2020-05-23 01:42:43.9838|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:42:44.2728|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:42:44.2998|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:42:44.3307|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE Authenticate ( USERNAME TEXT UNIQUE NOT NULL,PASSWORD TEXT NOT NULL);
+2020-05-23 01:42:44.3505|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:42:44.5892|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:43:13.2817|INFO|TODORoutine.Shared.Logging|Method login
+{ auth - { Username : NewAccountPlease , Password : NewAccountPlease } }
+2020-05-23 01:43:13.2958|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - Authenticate , filter - USERNAME , condition - NewAccountPlease , column - PASSWORD }
+2020-05-23 01:43:13.3106|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - NewAccountPlease }
+2020-05-23 01:43:13.3345|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:43:13.4105|INFO|TODORoutine.Shared.Logging|{ Creating Table  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:43:13.4404|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:43:13.4763|INFO|TODORoutine.Shared.Logging|{ Executing Query  , CREATE TABLE User ( ID INTEGER PRIMARY KEY AUTOINCREMENT,USERNAME TEXT UNIQUE NOT NULL,NOTESID INTEGER UNIQUE,FULLNAME TEXT NOT NULL,AUTH INTEGER);
+2020-05-23 01:43:13.5077|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:43:13.6236|INFO|TODORoutine.Shared.Logging|{ Number of Effected Recorders is  , 0
+2020-05-23 01:43:13.8504|INFO|TODORoutine.Shared.Logging|Method findByUsername
+{ username - NewAccountPlease }
+2020-05-23 01:43:13.8689|INFO|TODORoutine.Shared.Logging|Method getSelect
+{ tableName - User , filter - USERNAME , condition - NewAccountPlease , column - * }
+2020-05-23 01:43:13.8866|INFO|TODORoutine.Shared.Logging|Method getWhere
+{ filter - USERNAME , condition - NewAccountPlease }
+2020-05-23 01:43:13.9097|INFO|TODORoutine.Shared.Logging|{ Setting up Database Connection
+2020-05-23 01:43:13.9326|INFO|TODORoutine.Shared.Logging|{ { ID : 2 , Username : NewAccountPlease , Full Name : Mohammad Ibrahim , Notes Id :  , isAuthenticated : 1 }
+

@@ -5,6 +5,10 @@ using TODORoutine.exceptions;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.authentication.parser {
+
+    /**
+     * Main Authentication SQL Statment Parser Implentation
+     **/
     class AuthenticationParserImplentation : DatabaseParserImplementation<Authentication> , AuthenticationParser {
 
         private static AuthenticationParser authenticationParser = null;

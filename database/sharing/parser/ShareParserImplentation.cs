@@ -58,7 +58,7 @@ namespace TODORoutine.database.sharing.parser {
         **/
         public override String getInsert(Share share) {
             //Validation
-            if (!DatabaseValidator.isValid<Share>(share))
+            if (share == null)
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(note) , share.ToString())));
 

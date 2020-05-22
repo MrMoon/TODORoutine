@@ -52,7 +52,7 @@ namespace TODORoutine.database.document {
         **/
         public override String getInsert(Document document) {
             //Validation
-            if (!DatabaseValidator.isValid<Document>(document))
+            if (document == null)
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(document) , document.ToString())));
 

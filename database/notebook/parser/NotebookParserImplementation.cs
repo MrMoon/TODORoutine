@@ -54,7 +54,7 @@ namespace TODORoutine.database.notebook {
         **/
         public override String getInsert(Notebook notebook) {
             //Validation
-            if (!DatabaseValidator.isValid<Notebook>((notebook)))
+            if (notebook == null)
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(notebook) , notebook.ToString())));
 

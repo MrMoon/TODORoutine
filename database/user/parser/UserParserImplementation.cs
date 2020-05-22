@@ -26,7 +26,7 @@ namespace TODORoutine.database.parsers.user_parsers {
         **/
         public override String getInsert(User user) {
             //Validation
-            if (!DatabaseValidator.isValid<User>((user)))
+            if (user == null)
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
                     new Pair(nameof(user) , user.ToString())));
 
