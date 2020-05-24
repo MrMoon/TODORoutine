@@ -1,10 +1,7 @@
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\x86\sqlite3.dll
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\x64\sqlite3.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\TODORoutine.exe.config
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\TODORoutine.exe
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\TODORoutine.pdb
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Data.Sqlite.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Configuration.Binder.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Configuration.dll
@@ -14,9 +11,7 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Logging.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Options.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Primitives.dll
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Newtonsoft.Json.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\NLog.dll
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\SQLitePCLRaw.core.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Buffers.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.ComponentModel.Annotations.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Data.SQLite.dll
@@ -26,7 +21,6 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Runtime.Compi
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Security.Cryptography.ProtectedData.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Threading.Tasks.Extensions.dll
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Data.Sqlite.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Configuration.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Configuration.Abstractions.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Configuration.Binder.xml
@@ -36,7 +30,6 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Options.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Microsoft.Extensions.Primitives.xml
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\Newtonsoft.Json.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\NLog.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Buffers.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Data.SQLite.xml
@@ -47,7 +40,6 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Runtime.Compi
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Security.Cryptography.ProtectedData.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\System.Threading.Tasks.Extensions.xml
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csprojAssemblyReference.cache
-E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\MainTextEditor.TextEditor.resources
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.AuthForm.resources
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.Properties.Resources.resources
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csproj.GenerateResource.cache
@@ -55,3 +47,9 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csproj.C
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csproj.CopyComplete
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.exe
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.pdb
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.forms.TaskForm.resources
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\MainTextEditor.TextEditorForm.resources
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\EntityFramework.dll
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\EntityFramework.SqlServer.dll
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\EntityFramework.xml
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\bin\Debug\EntityFramework.SqlServer.xml

@@ -14,6 +14,5 @@ namespace TODORoutine.database.note.dao {
         String findNoteDocument(String id);
         List<String> findAllByOrderOfDateCreated(String lastNoteId = "1");
         List<String> findAllByOrderOfLastModified(String lastNoteId = "1");
-
     }
 }

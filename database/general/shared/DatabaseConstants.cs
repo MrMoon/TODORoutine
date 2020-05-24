@@ -64,7 +64,7 @@ namespace TODORoutine.database.parsers {
                                                             + COLUMN_AUTHOR + " TEXT NOT NULL,"
                                                             + COLUMN_DATECREATED + " TEXT NOT NULL,"
                                                             + COLUMN_LASTMODIFIED + " TEXT NOT NULL,"
-                                                            + COLUMN_DOCUMENTID + " TEXT);";
+                                                            + COLUMN_DOCUMENTID + " TEXT,);";
         //Table Document Strings
         public readonly static String DOCUMENT_PARAMETER = "@Documents";
         public readonly static String TABLE_DOCUMENT = "Document";
@@ -99,5 +99,16 @@ namespace TODORoutine.database.parsers {
         public readonly static String CREATE_AUTHENTICATE_TABLE = @"CREATE TABLE " + TABLE_AUTHENTICATE + " ( "
                                                             + COLUMN_USERNAME + " TEXT UNIQUE NOT NULL,"
                                                             + COLUMN_PASSWORD + " TEXT NOT NULL);";
+        //Table Task Strings
+        public readonly static String TABLE_TASK = "Task";
+        public readonly static String COLUMN_DUEDATE = "DUEDATE";
+        public readonly static String COLUMN_STATUS = "STATUS";
+        public readonly static String COLUMN_PRIORITY = "PRIORITY";
+        public readonly static String CREATE_TASK_TABLE = @"CREATE TABLE " + TABLE_TASK + " ( "
+                                                            + ID
+                                                            + COLUMN_PRIORITY + " TEXT NOT NULL,"
+                                                            + COLUMN_NOTEID + " TEXT NOT NULL,"
+                                                            + COLUMN_DUEDATE + " TEXT NOT NULL,"
+                                                            + COLUMN_STATUS + " TEXT NOT NULL);";
     }
 }

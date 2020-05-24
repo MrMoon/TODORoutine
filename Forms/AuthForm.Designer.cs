@@ -25,10 +25,10 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuthForm));
             this.btnLogin = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.btnRegister = new System.Windows.Forms.Button();
             this.lblUserName = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
             this.lblConfirmPassword = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblUsernameMessage = new System.Windows.Forms.Label();
@@ -39,7 +39,7 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -52,15 +52,15 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // pictureBox1
+            // picLogo
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(193, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(149, 120);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
+            this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
+            this.picLogo.Location = new System.Drawing.Point(193, 12);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(149, 120);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLogo.TabIndex = 8;
+            this.picLogo.TabStop = false;
             // 
             // btnRegister
             // 
@@ -81,14 +81,14 @@
             this.lblUserName.TabIndex = 10;
             this.lblUserName.Text = "Username";
             // 
-            // label1
+            // lblPassword
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 195);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 17);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Password";
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(29, 195);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(69, 17);
+            this.lblPassword.TabIndex = 11;
+            this.lblPassword.Text = "Password";
             // 
             // lblConfirmPassword
             // 
@@ -113,7 +113,7 @@
             // lblUsernameMessage
             // 
             this.lblUsernameMessage.AutoSize = true;
-            this.lblUsernameMessage.Location = new System.Drawing.Point(416, 156);
+            this.lblUsernameMessage.Location = new System.Drawing.Point(362, 161);
             this.lblUsernameMessage.Name = "lblUsernameMessage";
             this.lblUsernameMessage.Size = new System.Drawing.Size(0, 17);
             this.lblUsernameMessage.TabIndex = 16;
@@ -121,7 +121,7 @@
             // lblPasswordMessage
             // 
             this.lblPasswordMessage.AutoSize = true;
-            this.lblPasswordMessage.Location = new System.Drawing.Point(416, 195);
+            this.lblPasswordMessage.Location = new System.Drawing.Point(362, 197);
             this.lblPasswordMessage.Name = "lblPasswordMessage";
             this.lblPasswordMessage.Size = new System.Drawing.Size(0, 17);
             this.lblPasswordMessage.TabIndex = 17;
@@ -129,7 +129,7 @@
             // lblConfirmMessage
             // 
             this.lblConfirmMessage.AutoSize = true;
-            this.lblConfirmMessage.Location = new System.Drawing.Point(416, 234);
+            this.lblConfirmMessage.Location = new System.Drawing.Point(362, 239);
             this.lblConfirmMessage.Name = "lblConfirmMessage";
             this.lblConfirmMessage.Size = new System.Drawing.Size(0, 17);
             this.lblConfirmMessage.TabIndex = 18;
@@ -137,7 +137,7 @@
             // lblNameMessage
             // 
             this.lblNameMessage.AutoSize = true;
-            this.lblNameMessage.Location = new System.Drawing.Point(416, 271);
+            this.lblNameMessage.Location = new System.Drawing.Point(362, 275);
             this.lblNameMessage.Name = "lblNameMessage";
             this.lblNameMessage.Size = new System.Drawing.Size(0, 17);
             this.lblNameMessage.TabIndex = 19;
@@ -156,7 +156,7 @@
             this.txtPassword.Location = new System.Drawing.Point(159, 192);
             this.txtPassword.MaxLength = 255;
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.PasswordChar = '•';
             this.txtPassword.Size = new System.Drawing.Size(197, 22);
             this.txtPassword.TabIndex = 21;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
@@ -166,7 +166,7 @@
             this.txtConfirmPassword.Location = new System.Drawing.Point(159, 234);
             this.txtConfirmPassword.MaxLength = 255;
             this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '*';
+            this.txtConfirmPassword.PasswordChar = '•';
             this.txtConfirmPassword.Size = new System.Drawing.Size(197, 22);
             this.txtConfirmPassword.TabIndex = 22;
             this.txtConfirmPassword.Visible = false;
@@ -197,15 +197,16 @@
             this.Controls.Add(this.lblUsernameMessage);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblConfirmPassword);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.btnRegister);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picLogo);
             this.Controls.Add(this.btnLogin);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AuthForm";
             this.Text = "Welcome to TODO Routine";
-            this.Load += new System.EventHandler(this.StartupForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Load += new System.EventHandler(this.AuthForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,10 +215,10 @@
         #endregion
 
         private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picLogo;
         private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.Label lblUserName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblConfirmPassword;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Label lblUsernameMessage;

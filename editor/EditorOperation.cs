@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TODORoutine.editor {
@@ -21,16 +17,16 @@ namespace TODORoutine.editor {
 
         public void addTab(ContextMenuStrip menuStrip) {
 
-            RichTextBox body = new RichTextBox();
-
-            body.Name = "Body";
-            body.Dock = DockStyle.Fill;
-            body.ContextMenuStrip = menuStrip;
+            RichTextBox body = new RichTextBox {
+                Name = "Body" ,
+                Dock = DockStyle.Fill ,
+                ContextMenuStrip = menuStrip
+            };
 
             TabPage newPage = new TabPage();
             tabCounter += 1;
 
-            string documentText = "Document " + tabCounter;
+            String documentText = "Document " + tabCounter;
             newPage.Name = documentText;
             newPage.Text = documentText;
             newPage.Controls.Add(body);
@@ -80,10 +76,10 @@ namespace TODORoutine.editor {
 
         public void open(OpenFileDialog openFileDialog) {
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            openFileDialog.Filter = "RTF|*.rtf|Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
+            openFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                if (openFileDialog.FileName.Length > 9) getCurrentDocument.LoadFile(openFileDialog.FileName , RichTextBoxStreamType.RichText);
+                if (openFileDialog.FileName.Length > 9) getCurrentDocument.LoadFile(openFileDialog.FileName , RichTextBoxStreamType.PlainText);
             }
         }
 
@@ -106,8 +102,50 @@ namespace TODORoutine.editor {
         }
 
         public void populateFontSizes(ToolStripComboBox toolStripComboBox) {
-            for (int i = 1 ; i <= 75 ; i++) toolStripComboBox.Items.Add(i);
-            toolStripComboBox.SelectedIndex = 11;
+            for (int i = 1 ; i <= 75 ; ++i) toolStripComboBox.Items.Add(i);
+            toolStripComboBox.SelectedIndex = 15;
+        }
+
+        private void find(String word , Color highlightColor , Color defaultColor) {
+            if (word == "") return;
+            unfind(defaultColor);
+            int s_start = getCurrentDocument.SelectionStart, startIndex = 0, index;
+            while ((index = getCurrentDocument.Text.IndexOf(word , startIndex)) != -1) {
+                getCurrentDocument.Select(index , word.Length);
+                getCurrentDocument.SelectionColor = highlightColor;
+                startIndex = index + word.Length;
+            }
+        }
+
+        private void unfind(Color color) {
+            getCurrentDocument.SelectionStart = 0;
+            getCurrentDocument.SelectionLength = getCurrentDocument.TextLength;
+            getCurrentDocument.SelectionColor = color;
+        }
+
+        private void replace(String s , String t) { getCurrentDocument.Text = getCurrentDocument.Text.Replace(s , t); }
+
+        public void findDialog(Color colorHighlight , Color defaultColor) {
+            Form findDialog = new Form { Width = 500 , Height = 160 , Text = "Find and Replace" };
+            Label lblFind = new Label() { Left = 10 , Top = 20 , Text = "Find :" , Width = 100 };
+            Label lblReplace = new Label() { Left = 10 , Top = 50 , Text = "Replace :" , Width = 100 };
+            TextBox txtFind = new TextBox() { Left = 150 , Top = 20 , Width = 300 };
+            TextBox txtReplace = new TextBox() { Left = 150 , Top = 50 , Width = 300 };
+            Button btnFind = new Button() { Text = "Find" , Left = 350 , Width = 100 , Top = 90 };
+            Button btnReplace = new Button() { Text = "Replace" , Left = 250 , Width = 100 , Top = 90 };
+
+            btnFind.Click += (object sender , EventArgs e) => find(txtFind.Text , colorHighlight , defaultColor);
+            btnReplace.Click += (object sender , EventArgs e) => replace(txtFind.Text , txtReplace.Text);
+
+            findDialog.Controls.Add(btnFind);
+            findDialog.Controls.Add(btnReplace);
+            findDialog.Controls.Add(lblFind);
+            findDialog.Controls.Add(lblReplace);
+            findDialog.Controls.Add(txtFind);
+            findDialog.Controls.Add(txtReplace);
+            findDialog.Show();
+
+            findDialog.FormClosed += (object sender , FormClosedEventArgs e) => unfind(defaultColor);
         }
     }
 }

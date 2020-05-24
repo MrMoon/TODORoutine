@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using TODORoutine.database.parsers;
-using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
 using TODORoutine.models;
 using TODORoutine.shared.csv;

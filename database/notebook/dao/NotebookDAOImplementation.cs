@@ -48,7 +48,8 @@ namespace TODORoutine.database.notebook.dao {
                 Notebook notebook = new Notebook();
                 notebook.setAuthor(reader[DatabaseConstants.COLUMN_AUTHOR].ToString());
                 notebook.setId(reader[idColumn].ToString());
-                notebook.setLastModified(reader[DatabaseConstants.COLUMN_LASTMODIFIED].ToString());
+                notebook.setDateCreated(DateTime.Parse(reader[DatabaseConstants.COLUMN_DATECREATED].ToString()));
+                notebook.setLastModified(DateTime.Parse(reader[DatabaseConstants.COLUMN_LASTMODIFIED].ToString()));
                 notebook.setNotes(CSVParser.CSV2List(reader[DatabaseConstants.COLUMN_NOTESID].ToString()).ToHashSet());
                 notebook.setTitle(reader[DatabaseConstants.COLUMN_TITLE].ToString());
                 return notebook;

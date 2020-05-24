@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
 using TODORoutine.models;
 using TODORoutine.Shared;
@@ -55,6 +54,8 @@ namespace TODORoutine.database.parsers.notes_parser {
             query.Append(DatabaseConstants.COLUMN_LASTMODIFIED);
             query.Append(" , ");
             query.Append(DatabaseConstants.COLUMN_DOCUMENTID);
+            query.Append(" , ");
+            query.Append(" , ");
             query.Append(") VALUES ('");
             query.Append(note.getAuthor());
             query.Append("','");
@@ -85,8 +86,8 @@ namespace TODORoutine.database.parsers.notes_parser {
             if (column.Equals(DatabaseConstants.COLUMN_AUTHOR)) return note.getAuthor();
             if (column.Equals(DatabaseConstants.COLUMN_NOTEID)) return note.getId();
             if (column.Equals(DatabaseConstants.COLUMN_TITLE)) return note.getTitle();
-            if (column.Equals(DatabaseConstants.COLUMN_LASTMODIFIED)) return note.getLastModified();
-            if (column.Equals(DatabaseConstants.COLUMN_DATECREATED)) return note.getDateCreated();
+            if (column.Equals(DatabaseConstants.COLUMN_LASTMODIFIED)) return note.getLastModified().ToString();
+            if (column.Equals(DatabaseConstants.COLUMN_DATECREATED)) return note.getDateCreated().ToString();
             if (column.Equals(DatabaseConstants.COLUMN_DOCUMENTID)) return note.getDocumentId();
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , true
