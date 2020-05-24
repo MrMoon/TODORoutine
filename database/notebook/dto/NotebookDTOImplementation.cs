@@ -123,7 +123,7 @@ namespace TODORoutine.database.notebook.dto {
         public List<Note> getNotes(String id) {
             try {
                 List<Note> notes = new List<Note>();
-                notebookDAO.findNotes(id).ForEach(ID => notes.Add(NoteDAOImlementation.getInsence().findById(ID)));
+                notebookDAO.findNotes(id).ForEach(ID => notes.Add(NoteDAOImplentation.getInsence().findById(ID)));
                 return notes;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);

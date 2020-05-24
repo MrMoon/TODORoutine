@@ -1,10 +1,6 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SQLite;
-using System.IO;
-using System.Text;
 using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;

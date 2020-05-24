@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using TODORoutine.database.parsers;
-using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
 using TODORoutine.models;
 using TODORoutine.shared.csv;
@@ -37,8 +36,8 @@ namespace TODORoutine.database.notebook {
             if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return CSVParser.CSV2String(notebook.getNotes().ToList());
             if (column.Equals(DatabaseConstants.COLUMN_TITLE)) return notebook.getTitle();
             if (column.Equals(DatabaseConstants.COLUMN_AUTHOR)) return notebook.getAuthor();
-            if (column.Equals(DatabaseConstants.COLUMN_LASTMODIFIED)) return notebook.getLastModified();
-            if (column.Equals(DatabaseConstants.COLUMN_DATECREATED)) return notebook.getDateCreated();
+            if (column.Equals(DatabaseConstants.COLUMN_LASTMODIFIED)) return notebook.getLastModified().ToString();
+            if (column.Equals(DatabaseConstants.COLUMN_DATECREATED)) return notebook.getDateCreated().ToString();
             //Column is invalid
             throw new DatabaseException(DatabaseConstants.INVALID(column));
         }

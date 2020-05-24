@@ -4,24 +4,26 @@ using System.Text;
 namespace TODORoutine.models {
     public class Note {
 
-        private String id , title , author , dateCreated, lastModified , documentId;
+        private String id , title , author , documentId;
+        private DateTime dateCreated, lastModified;
 
         public Note() {
-            dateCreated = DateTime.Now.ToString() ;
+            dateCreated = DateTime.Now ;
         }
 
         public String getId() { return id; }
         public String getTitle() { return title; }
         public String getAuthor() { return author; }
-        public String getDateCreated() { return dateCreated; }
-        public String getLastModified() { return lastModified; }
+        public DateTime getDateCreated() { return dateCreated; }
+        public DateTime getLastModified() { return lastModified; }
         public String getDocumentId() { return documentId; }
         public void setId(String id) { this.id = id; }
         public void setTitle(String title) { this.title = title; }
         public void setAuthor(String author) { this.author = author; }
-        public void setLastModified(String lastModified) { this.lastModified = lastModified; }
+        public void setLastModified(DateTime lastModified) { this.lastModified = lastModified; }
+        public void setDateCreated(DateTime dateCreated) { this.dateCreated = dateCreated; }
         public void setDocumentId(String documentId) { this.documentId = documentId; }
-        public void setDateCreated(String dateCreated) { this.dateCreated = dateCreated; }
+
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append("{ ID : ");
@@ -31,7 +33,7 @@ namespace TODORoutine.models {
             sb.Append(" , Title : ");
             sb.Append(title);
             sb.Append(" , Date Created : ");
-            sb.Append(dateCreated);
+            sb.Append(dateCreated.ToString());
             sb.Append(" , Last Modified : ");
             sb.Append(lastModified);
             sb.Append(" , Document ID : ");

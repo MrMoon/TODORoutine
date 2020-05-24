@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace TODORoutine.Database.Shared {
@@ -18,7 +17,6 @@ namespace TODORoutine.Database.Shared {
          * return true if and only if none of the Strings don't have extra white spaces, not Empty and not NULL
          **/
         public static bool isValidParameters(params String[] args) {
-            String temp;
             foreach (String s in args) {
                 if (String.IsNullOrEmpty(s)) return false;
                 if (String.IsNullOrWhiteSpace(s)) return false;

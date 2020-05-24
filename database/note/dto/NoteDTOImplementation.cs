@@ -18,7 +18,7 @@ namespace TODORoutine.database.note.dto {
         private static NoteDTO noteDTO = null;
 
         private NoteDTOImplementation() {
-            noteDAO = NoteDAOImlementation.getInsence();
+            noteDAO = NoteDAOImplentation.getInsence();
         }
 
         public static NoteDTO getInstance() {

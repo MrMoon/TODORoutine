@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Windows.Forms;
+using TODORoutine.database.parsers;
 using TODORoutine.Database.user.DTO;
 using TODORoutine.editor;
+using TODORoutine.forms;
 using TODORoutine.Models;
 
 namespace MainTextEditor {
 
-    public partial class TextEditor : Form {
+    public partial class TextEditorForm : Form {
 
         private readonly User user = null;
+        private Color color = Color.Black;
+        private readonly EditorOperation operation = null;
         private readonly UserDTO userDTO = null;
-        private readonly EditorOperation operation;
 
-        public TextEditor(User user , bool isLogin = false) {
+        public TextEditorForm(User user , bool isLogin = false) {
             userDTO = UserDTOImplementation.getInstance();
             InitializeComponent();
             if (isLogin) user = userDTO.getByUsername(user.getUsername());
@@ -22,10 +24,10 @@ namespace MainTextEditor {
             operation = new EditorOperation(textTabControl);
         }
 
-        private void TextEditor_Load(object sender , EventArgs e) {
+        private void TextEditorForm_Load(object sender , EventArgs e) {
             operation.addTab(contextMenuStrip1);
-            operation.getFontCollection(toolStripComboBox1);
-            operation.populateFontSizes(toolStripComboBox2);
+            operation.getFontCollection(fonts);
+            operation.populateFontSizes(sizes);
         }
 
         #region EventBinding
@@ -36,11 +38,11 @@ namespace MainTextEditor {
 
         private void newToolStripMenuItem_Click(object sender , EventArgs e) { operation.addTab(contextMenuStrip1); }
 
-        private void openToolStripMenuItem_Click(object sender , EventArgs e) { operation.open(openFileDialog1); }
+        private void openToolStripMenuItem_Click(object sender , EventArgs e) { operation.open(openFileDialog); }
 
-        private void saveToolStripMenuItem_Click(object sender , EventArgs e) { operation.save(saveFileDialog1); }
+        private void saveToolStripMenuItem_Click(object sender , EventArgs e) { operation.save(saveFileDialog); }
 
-        private void saveAsToolStripMenuItem_Click(object sender , EventArgs e) { operation.saveAs(saveFileDialog1); }
+        private void saveAsToolStripMenuItem_Click(object sender , EventArgs e) { operation.saveAs(saveFileDialog); }
 
         private void exitToolStripMenuItem_Click(object sender , EventArgs e) { Application.Exit(); }
 
@@ -58,73 +60,106 @@ namespace MainTextEditor {
 
         private void closeToolStripMenuItem_Click(object sender , EventArgs e) { operation.removeTab(contextMenuStrip1); }
 
-        private void toolStripButton1_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionFont = operation.getCurrentDocument.SelectionFont.Bold ?
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Regular)  :
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Bold);
+        private void btnBold_Click(object sender , EventArgs e) {
+            System.Drawing.FontStyle fontStyle = FontStyle.Regular;
+            if (operation.getCurrentDocument.SelectionFont.Bold) fontStyle |= FontStyle.Regular;
+            else fontStyle |= FontStyle.Bold;
+            if (operation.getCurrentDocument.SelectionFont.Italic) fontStyle |= FontStyle.Italic;
+            if (operation.getCurrentDocument.SelectionFont.Underline) fontStyle |= FontStyle.Underline;
+            if (operation.getCurrentDocument.SelectionFont.Strikeout) fontStyle |= FontStyle.Strikeout;
+            btnBold.Checked = flip(btnBold.Checked);
+            operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
+                operation.getCurrentDocument.SelectionFont.Size , fontStyle);
         }
 
-        private void toolStripButton2_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionFont = operation.getCurrentDocument.SelectionFont.Italic ? 
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Regular) :
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Italic);
+        private void btnItalic_Click(object sender , EventArgs e) {
+            System.Drawing.FontStyle fontStyle = FontStyle.Regular;
+            if (operation.getCurrentDocument.SelectionFont.Italic) fontStyle |= FontStyle.Regular;
+            else fontStyle |= FontStyle.Italic;
+            if (operation.getCurrentDocument.SelectionFont.Underline) fontStyle |= FontStyle.Underline;
+            if (operation.getCurrentDocument.SelectionFont.Bold) fontStyle |= FontStyle.Bold;
+            if (operation.getCurrentDocument.SelectionFont.Strikeout) fontStyle |= FontStyle.Strikeout;
+            btnItalic.Checked = flip(btnItalic.Checked);
+            operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
+                operation.getCurrentDocument.SelectionFont.Size , fontStyle);
         }
 
-        private void toolStripButton3_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionFont = operation.getCurrentDocument.SelectionFont.Underline ? 
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Regular) :
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Underline);
+        private void btnUnderline_Click(object sender , EventArgs e) {
+            System.Drawing.FontStyle fontStyle = FontStyle.Regular;
+            if (operation.getCurrentDocument.SelectionFont.Underline) fontStyle |= FontStyle.Regular;
+            else fontStyle |= FontStyle.Underline;
+            if (operation.getCurrentDocument.SelectionFont.Italic) fontStyle |= FontStyle.Italic;
+            if (operation.getCurrentDocument.SelectionFont.Bold) fontStyle |= FontStyle.Bold;
+            if (operation.getCurrentDocument.SelectionFont.Strikeout) fontStyle |= FontStyle.Strikeout;
+            btnUnderline.Checked = flip(btnUnderline.Checked);
+            operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
+                operation.getCurrentDocument.SelectionFont.Size , fontStyle);
         }
 
-        private void toolStripButton4_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionFont = operation.getCurrentDocument.SelectionFont.Strikeout ?
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Regular) :
-                new Font(operation.getCurrentDocument.SelectionFont.FontFamily , operation.getCurrentDocument.SelectionFont.SizeInPoints , FontStyle.Strikeout);
+        private void btnStrikeout_Click(object sender , EventArgs e) {
+            System.Drawing.FontStyle fontStyle = FontStyle.Regular;
+            if (operation.getCurrentDocument.SelectionFont.Strikeout) fontStyle |= FontStyle.Regular;
+            else fontStyle |= FontStyle.Strikeout;
+            if (operation.getCurrentDocument.SelectionFont.Italic) fontStyle |= FontStyle.Italic;
+            if (operation.getCurrentDocument.SelectionFont.Bold) fontStyle |= FontStyle.Bold;
+            if (operation.getCurrentDocument.SelectionFont.Underline) fontStyle |= FontStyle.Underline;
+            btnStrikeout.Checked = flip(btnStrikeout.Checked);
+            operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
+                operation.getCurrentDocument.SelectionFont.Size , fontStyle);
+            
         }
 
 
-        private void toolStripButton5_Click(object sender , EventArgs e) {
+        private void btnUppercase_Click(object sender , EventArgs e) {
             operation.getCurrentDocument.SelectedText = operation.getCurrentDocument.SelectedText.ToUpper();
         }
 
-        private void toolStripButton6_Click(object sender , EventArgs e) {
+        private void btnLowercase_Click(object sender , EventArgs e) {
             operation.getCurrentDocument.SelectedText = operation.getCurrentDocument.SelectedText.ToLower();
         }
 
-        private void toolStripButton7_Click(object sender , EventArgs e) {
+        private void btnSizeUp_Click(object sender , EventArgs e) {
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.Name ,
                 operation.getCurrentDocument.SelectionFont.SizeInPoints + 2 , operation.getCurrentDocument.SelectionFont.Style);
+            int selectedTemp = sizes.SelectedIndex;
+            if (sizes.SelectedIndex + 2 >= sizes.Items.Count) for (int i = sizes.SelectedIndex + 1 ; i <= (sizes.Items.Count << 1) ; ++i) sizes.Items.Add(i);
+            sizes.SelectedIndex = selectedTemp + 2;
         }
 
-        private void toolStripButton8_Click(object sender , EventArgs e) {
+        private void btnSizeDown_Click(object sender , EventArgs e) {
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.Name ,
                 operation.getCurrentDocument.SelectionFont.SizeInPoints - 2 , operation.getCurrentDocument.SelectionFont.Style);
+            if (sizes.SelectedIndex - 2 < 0) sizes.SelectedIndex = 0;
+            else sizes.SelectedIndex -= 2;
         }
 
-        private void toolStripButton9_Click(object sender , EventArgs e) {
-            if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK) operation.getCurrentDocument.SelectionColor = colorDialog1.Color;
+        private void btnColor_Click(object sender , EventArgs e) {
+            if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                color = colorDialog.Color;
+                operation.getCurrentDocument.SelectionColor = color;
+            }
         }
 
         private void HighlighGreen_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionBackColor = Color.LightGreen;
+            operation.getCurrentDocument.SelectionBackColor = (HighlighGreen.Checked) ? color : Color.LightGreen;
         }
 
         private void HighlighOrange_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionBackColor = Color.Orange;
+            operation.getCurrentDocument.SelectionBackColor = (HighlighOrange.Checked) ? color : Color.Orange;
         }
 
         private void HighlighYellow_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionBackColor = Color.Yellow;
+            operation.getCurrentDocument.SelectionBackColor = (HighlighOrange.Checked) ? color : Color.Yellow;
         }
 
-        private void toolStripComboBox1_SelectedIndexChanged(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionFont = new Font(toolStripComboBox1.SelectedItem.ToString() ,
+        private void size_SelectedIndexChanged(object sender , EventArgs e) {
+            operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.Name
+                , float.Parse(sizes.SelectedItem.ToString()) , operation.getCurrentDocument.SelectionFont.Style);
+        }
+
+        private void fonts_SelectedIndexChanged(object sender , EventArgs e) {
+            operation.getCurrentDocument.SelectionFont = new Font(fonts.SelectedItem.ToString() ,
                 operation.getCurrentDocument.SelectionFont.Size , operation.getCurrentDocument.SelectionFont.Style);
-        }
-
-        private void toolStripComboBox2_SelectedIndexChanged(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.Name ,
-                float.Parse(toolStripComboBox2.SelectedItem.ToString()) , operation.getCurrentDocument.SelectionFont.Style);
         }
 
         private void newToolStripButton_Click(object sender , EventArgs e) {
@@ -136,11 +171,11 @@ namespace MainTextEditor {
         }
 
         private void openToolStripButton_Click(object sender , EventArgs e) {
-            operation.open(openFileDialog1);
+            operation.open(openFileDialog);
         }
 
         private void saveToolStripButton_Click(object sender , EventArgs e) {
-            operation.save(saveFileDialog1);
+            operation.save(saveFileDialog);
         }
 
         private void cutToolStripButton_Click(object sender , EventArgs e) {
@@ -176,7 +211,7 @@ namespace MainTextEditor {
         }
 
         private void saveToolStripMenuItem1_Click(object sender , EventArgs e) {
-            operation.save(saveFileDialog1);
+            operation.save(saveFileDialog);
         }
 
         private void closeAllToolStripMenuItem_Click(object sender , EventArgs e) {
@@ -186,6 +221,28 @@ namespace MainTextEditor {
         private void closeAllButThisToolStripMenuItem_Click(object sender , EventArgs e) {
             operation.removeAllTabsButThis();
         }
-        #endregion 
+        #endregion
+
+        private void aboutToolStripMenuItem_Click(object sender , EventArgs e) {
+            MessageBox.Show(DatabaseConstants.ALL);
+        }
+
+        private void findToolStripMenuItem_Click(object sender , EventArgs e) {
+            operation.findDialog(operation.getCurrentDocument.BackColor.Equals(HighlighGreen.BackColor) ? Color.OrangeRed : Color.Green , color);
+        }
+
+        private bool flip(bool flag) {
+            return flag ? false : true;
+        }
+
+        private void btnTask_Click(object sender , EventArgs e) {
+            TaskForm taskForm = new TaskForm(user);
+            taskForm.Show();
+        }
+
+        private void taskToolStripMenuItem_Click(object sender , EventArgs e) {
+            TaskForm taskForm = new TaskForm(user);
+            taskForm.Show();
+        }
     }
 }

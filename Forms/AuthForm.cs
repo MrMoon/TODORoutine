@@ -1,10 +1,10 @@
 ﻿using MainTextEditor;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using TODORoutine.database;
 using TODORoutine.database.authentication.dto;
 using TODORoutine.Database.Shared;
-using TODORoutine.Database.user.DTO;
 using TODORoutine.general;
 using TODORoutine.Models;
 
@@ -18,8 +18,9 @@ namespace TODORoutine {
             InitializeComponent();
         }
 
-        private void StartupForm_Load(object sender , System.EventArgs e) {
+        private void AuthForm_Load(object sender , System.EventArgs e) {
             auth = AuthenticationDTOImplentation.getInstance();
+            this.ActiveControl = txtUsername;
         }
 
         /**
@@ -34,7 +35,7 @@ namespace TODORoutine {
                     this.Hide();
                     User user = new User();
                     user.setUsername(txtUsername.Text);
-                    TextEditor textEditor = new TextEditor(user , true);
+                    TextEditorForm textEditor = new TextEditorForm(user , true);
                     textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                     textEditor.Show();
                 } else MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Password and Username"));
@@ -69,7 +70,7 @@ namespace TODORoutine {
                             user.setUsername(txtUsername.Text);
                             user.setFullName(txtName.Text);
                             user.setIsAuthenticated(1);
-                            TextEditor textEditor = new TextEditor(user);
+                            TextEditorForm textEditor = new TextEditorForm(user);
                             textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                             textEditor.Show();
                         } else MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Username Might be taken"));
@@ -86,12 +87,19 @@ namespace TODORoutine {
             if (txtPassword.Focused) txtPassword.BackColor = Color.White;
         }
 
+        private void txtPassword_KeyDown(object sender , KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) btnLogin_Click(this , new EventArgs());
+        } 
+
         private void txtConfirmPassword_TextChanged(object sender , System.EventArgs e) {
             if (txtConfirmPassword.Focused) txtConfirmPassword.BackColor = Color.White;
         }
 
         private void txtName_TextChanged(object sender , System.EventArgs e) {
             if (txtName.Focused) txtName.BackColor = Color.White;
+        }
+        private void txtName_KeyDown(object sender , KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) btnRegister_Click(this , new EventArgs());
         }
     }
 }
