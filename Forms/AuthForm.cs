@@ -6,6 +6,7 @@ using TODORoutine.database;
 using TODORoutine.database.authentication.dto;
 using TODORoutine.Database.Shared;
 using TODORoutine.general;
+using TODORoutine.general.constants;
 using TODORoutine.Models;
 
 namespace TODORoutine {
@@ -34,7 +35,7 @@ namespace TODORoutine {
                     textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                     textEditor.Show();
                 } else {
-                    MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Password and Username"));
+                    MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG(UserMessages.USERNAME_PASSWORD));
                     txtUsername.Focus();
                 }
             }
@@ -72,7 +73,7 @@ namespace TODORoutine {
                             textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                             textEditor.Show();
                         } else {
-                            MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Username Might be taken"));
+                            MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG(UserMessages.USERNAME_TAKEN));
                             txtUsername.Focus();
                         }
                     }

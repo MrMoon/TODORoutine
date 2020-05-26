@@ -54,3 +54,4 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csproj.C
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.exe
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.pdb
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csprojAssemblyReference.cache
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.forms.SortForm.resources

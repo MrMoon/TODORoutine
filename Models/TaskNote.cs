@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
 using TODORoutine.general;
 using TODORoutine.general.enums;
 
@@ -38,6 +36,5 @@ namespace TODORoutine.models {
             sb.Append(dueDate.ToString());
             return sb.ToString();
         }
-
     }
 }

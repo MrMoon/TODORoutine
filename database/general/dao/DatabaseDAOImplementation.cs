@@ -19,7 +19,7 @@ namespace TODORoutine.database.general.dao {
          * 
          * Return a list of ids
          **/
-        public List<String> findAll(DatabaseParser<T> parser , String tableName , String orderbyColumnName , String lastTId = "1") {
+        public List<String> findAll(DatabaseParser<T> parser , String tableName , String orderbyColumnName  = "", String lastTId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAll) , false 
                 , new Pair(nameof(orderbyColumnName) , orderbyColumnName) , new Pair(nameof(tableName) , tableName)
@@ -28,9 +28,13 @@ namespace TODORoutine.database.general.dao {
             List<String> ids = new List<String>();
             try {
                 int lastId = int.Parse(lastTId), range = int.Parse(DatabaseConstants.RANGE);
-                SQLiteDataReader reader = DatabaseDriverImplementation.getInstance().getReader(parser.getSelect(tableName , ""
+                String query = "";
+                if (orderbyColumnName.Equals("-1")) query = "SELECT ID FROM " + tableName + " WHERE ID BETWEEN " + lastTId + " AND " + (int.Parse(lastTId) + 20).ToString();
+                else query = parser.getSelect(tableName , ""
                                             , DatabaseConstants.COLUMN_ID , "" , true
-                                            , lastId , lastId + 20 , orderbyColumnName != "" , orderbyColumnName != "" ? orderbyColumnName : ""));
+                                            , lastId , lastId + 20 , orderbyColumnName != "" , orderbyColumnName );
+                SQLiteDataReader reader = DatabaseDriverImplementation.getInstance()
+                            .getReader(query);
                 while (reader.Read()) ids.Add(reader[DatabaseConstants.COLUMN_ID].ToString());
                 reader.Close();
                 return ids;

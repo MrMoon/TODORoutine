@@ -5,6 +5,7 @@ using TODORoutine.database.parsers;
 using TODORoutine.Database.user.DTO;
 using TODORoutine.editor;
 using TODORoutine.forms;
+using TODORoutine.general.constants;
 using TODORoutine.models;
 using TODORoutine.Models;
 
@@ -85,7 +86,7 @@ namespace MainTextEditor {
             if (operation.getCurrentDocument.SelectionFont.Italic) fontStyle |= FontStyle.Italic;
             if (operation.getCurrentDocument.SelectionFont.Underline) fontStyle |= FontStyle.Underline;
             if (operation.getCurrentDocument.SelectionFont.Strikeout) fontStyle |= FontStyle.Strikeout;
-            btnBold.Checked = flip(btnBold.Checked);
+            btnBold.Checked = TypesConstants.FLIP(btnBold.Checked);
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
                 operation.getCurrentDocument.SelectionFont.Size , fontStyle);
         }
@@ -97,7 +98,7 @@ namespace MainTextEditor {
             if (operation.getCurrentDocument.SelectionFont.Underline) fontStyle |= FontStyle.Underline;
             if (operation.getCurrentDocument.SelectionFont.Bold) fontStyle |= FontStyle.Bold;
             if (operation.getCurrentDocument.SelectionFont.Strikeout) fontStyle |= FontStyle.Strikeout;
-            btnItalic.Checked = flip(btnItalic.Checked);
+            btnItalic.Checked = TypesConstants.FLIP(btnItalic.Checked);
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
                 operation.getCurrentDocument.SelectionFont.Size , fontStyle);
         }
@@ -109,7 +110,7 @@ namespace MainTextEditor {
             if (operation.getCurrentDocument.SelectionFont.Italic) fontStyle |= FontStyle.Italic;
             if (operation.getCurrentDocument.SelectionFont.Bold) fontStyle |= FontStyle.Bold;
             if (operation.getCurrentDocument.SelectionFont.Strikeout) fontStyle |= FontStyle.Strikeout;
-            btnUnderline.Checked = flip(btnUnderline.Checked);
+            btnUnderline.Checked = TypesConstants.FLIP(btnUnderline.Checked);
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
                 operation.getCurrentDocument.SelectionFont.Size , fontStyle);
         }
@@ -121,7 +122,7 @@ namespace MainTextEditor {
             if (operation.getCurrentDocument.SelectionFont.Italic) fontStyle |= FontStyle.Italic;
             if (operation.getCurrentDocument.SelectionFont.Bold) fontStyle |= FontStyle.Bold;
             if (operation.getCurrentDocument.SelectionFont.Underline) fontStyle |= FontStyle.Underline;
-            btnStrikeout.Checked = flip(btnStrikeout.Checked);
+            btnStrikeout.Checked = TypesConstants.FLIP(btnStrikeout.Checked);
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.FontFamily ,
                 operation.getCurrentDocument.SelectionFont.Size , fontStyle);
             
@@ -135,7 +136,8 @@ namespace MainTextEditor {
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.Name ,
                 operation.getCurrentDocument.SelectionFont.SizeInPoints + 2 , operation.getCurrentDocument.SelectionFont.Style);
             int selectedTemp = sizes.SelectedIndex;
-            if (sizes.SelectedIndex + 2 >= sizes.Items.Count) for (int i = sizes.SelectedIndex + 1 ; i <= (sizes.Items.Count << 1) ; ++i) sizes.Items.Add(i);
+            if (sizes.SelectedIndex + 2 >= sizes.Items.Count) 
+                for (int i = sizes.SelectedIndex + 1 ; i <= (sizes.Items.Count << 1) ; ++i) sizes.Items.Add(i);
             sizes.SelectedIndex = selectedTemp + 2;
         }
 
@@ -205,10 +207,8 @@ namespace MainTextEditor {
             operation.findDialog(operation.getCurrentDocument
                 .BackColor.Equals(HighlighGreen.BackColor) ? Color.OrangeRed : Color.Green , color);
 
-        private bool flip(bool flag) => !flag;
-
         private void btnTask_Click(object sender , EventArgs e) {
-            
+            openTaskForm();
         }
 
         private void openTaskForm() {
@@ -218,12 +218,15 @@ namespace MainTextEditor {
             taskForm.FormClosed += (o , e) => this.Show();
         }
 
-        private void taskToolStripMenuItem_Click(object sender , EventArgs e) {
-            openTaskForm();
+        private void sortToolStripMenuItem_Click(object sender , EventArgs e) {
+            SortForm sortForm = new SortForm();
+            sortForm.Show();
+            this.Hide();
+            sortForm.FormClosed += (o , eve) => this.Show();
         }
 
-        private void sortToolStripMenuItem_Click(object sender , EventArgs e) {
-
+        private void taskToolStripMenuItem_Click(object sender , EventArgs e) {
+            openTaskForm();
         }
     }
 }

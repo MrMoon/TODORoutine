@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TODORoutine.database.document.dto;
-using TODORoutine.database.general.dto;
 using TODORoutine.database.note.dto;
+using TODORoutine.database.parsers;
 using TODORoutine.database.task.dto;
 using TODORoutine.Database.Shared;
-using TODORoutine.editor;
 using TODORoutine.general;
+using TODORoutine.general.constants;
 using TODORoutine.general.enums;
 using TODORoutine.models;
 using TODORoutine.Models;
@@ -23,7 +17,6 @@ namespace TODORoutine.forms {
     public partial class AddTaskDialog : Form {
 
         private readonly User user = null;
-        public HashSet<TaskNote> taskNotes = new HashSet<TaskNote>();
 
         public AddTaskDialog(User user) {
             InitializeComponent();
@@ -32,20 +25,21 @@ namespace TODORoutine.forms {
             statusComboBox.DataSource = Enum.GetValues(typeof(Status));
         }
 
-        public HashSet<TaskNote> getTaskNotes() => taskNotes;
-
         private void btnBrowesFile_Click(object sender , EventArgs e) {
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            openFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
+            openFileDialog.Filter = TypesConstants.FILE_TYPES;
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 if (openFileDialog.FileName.Length > 4) txtNote.Text = File.ReadAllText(openFileDialog.FileName);
-                else MessageBox.Show("Invalid File");
+                else MessageBox.Show(DatabaseConstants.INVALID("File"));
             }
         }
 
         private void btnAdd_Click(object sender , EventArgs e) {
             if (!Validator.isValidTexts(txtNote , txtTitle , statusComboBox , priorityComboBox)) return;
-            if (dueDatePicker.Text.Length == 0) MessageBox.Show("Please Select a Due Date");
+            if (dueDatePicker.Text.Length == 0) {
+                MessageBox.Show("Please Select a Due Date");
+                return;
+            }
             saveTask();
         }
 
@@ -66,7 +60,6 @@ namespace TODORoutine.forms {
             task.noteId = note.getId();
             task.dueDate = dueDatePicker.Value;
             TaskDTOImplentation.getInstance().save(task);
-            taskNotes.Add(task);
         }
 
         private void txtNote_TextChanged(object sender , EventArgs e) {
