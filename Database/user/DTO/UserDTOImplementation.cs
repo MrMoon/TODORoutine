@@ -13,11 +13,9 @@ namespace TODORoutine.Database.user.DTO {
     class UserDTOImplementation : UserDTO {
 
         private static UserDTO userDTO = null;
-        private UserDAO userDAO = null;
+        private readonly UserDAO userDAO = null;
         
-        private UserDTOImplementation() {
-            userDAO = UserDAOImplementation.getInstance();
-        }
+        private UserDTOImplementation() => userDAO = UserDAOImplementation.getInstance();
 
         public static UserDTO getInstance() {
             if (userDTO == null) userDTO = new UserDTOImplementation();

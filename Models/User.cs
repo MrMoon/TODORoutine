@@ -12,23 +12,20 @@ namespace TODORoutine.Models {
 
         public User() { }
 
-        public String getId() { return userId; }
+        public String getId() => userId; 
 
-        public String getUsername() { return username; }
+        public String getUsername() => username; 
 
-        public String getNotesId() { return notesId; }
+        public String getNotesId() => notesId; 
 
-        public String getFullName() { return fullName; }
+        public String getFullName() => fullName; 
 
-        public int getIsAuthenticated() { return isAuthenticated; }
-        public void setUsername(String username) { this.username = username; }
-
-        public void setNotesId(String notesId) { this.notesId = notesId; }
-
-        public void setFullName(String fullName) { this.fullName = fullName; }
-        public void setId(String userId) { this.userId = userId; }
-
-        public void setIsAuthenticated(int isAuthenticated) { this.isAuthenticated = isAuthenticated; }
+        public int getIsAuthenticated() => isAuthenticated; 
+        public void setUsername(String username) => this.username = username; 
+        public void setNotesId(String notesId) => this.notesId = notesId; 
+        public void setFullName(String fullName) => this.fullName = fullName; 
+        public void setId(String userId) => this.userId = userId; 
+        public void setIsAuthenticated(int isAuthenticated) => this.isAuthenticated = isAuthenticated; 
 
         public override String ToString() {
             StringBuilder sb = new StringBuilder();

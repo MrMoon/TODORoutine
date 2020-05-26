@@ -209,13 +209,14 @@ namespace TODORoutine.database.note.dao {
             //Logging
             Logging.paramenterLogging(nameof(findByTitle) , false , new Pair(nameof(id) , id));
             //Finding the note
-            try {
-                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
-                                        , DatabaseConstants.COLUMN_DOCUMENTID , DatabaseConstants.COLUMN_DOCUMENTID , id));
-                String documentId = reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString();
-                Logging.logInfo(false , documentId);
-                reader.Close();
-                return documentId;
+            try {   
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , idColumn , DatabaseConstants.COLUMN_DOCUMENTID , id));
+                if(reader.Read()) {
+                    String documentId = reader[DatabaseConstants.COLUMN_DOCUMENTID].ToString();
+                    Logging.logInfo(false , documentId);
+                    reader.Close();
+                    return documentId;
+                }
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }

@@ -10,14 +10,14 @@ namespace TODORoutine.models {
 
         public Document() { }
 
-        public String getId() { return id; }
-        public Byte[] getDocument() { return document; }
-        public String getOwner() { return ownerId; }
-        public void setId(String id) { this.id = id; }
-        public void setOwner(String owner) { this.ownerId = owner; }
-        public void setDocument(Byte[] data) { this.document = data; }
-        public String getDocumentContent() { return System.Text.Encoding.Default.GetString(document); }
-        public byte[] setDocument(String document) { return Encoding.Default.GetBytes(document); }
+        public String getId() => id; 
+        public Byte[] getDocument() => document; 
+        public String getOwner() => ownerId; 
+        public String getDocumentContent() => System.Text.Encoding.Default.GetString(document);
+        public void setId(String id) => this.id = id; 
+        public void setOwner(String owner) => this.ownerId = owner; 
+        public void setDocument(Byte[] data) => this.document = data; 
+        public void setDocument(String document) => this.document = Encoding.Default.GetBytes(document); 
 
         public override String ToString() {
             StringBuilder sb = new StringBuilder();

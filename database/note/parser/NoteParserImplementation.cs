@@ -54,8 +54,6 @@ namespace TODORoutine.database.parsers.notes_parser {
             query.Append(DatabaseConstants.COLUMN_LASTMODIFIED);
             query.Append(" , ");
             query.Append(DatabaseConstants.COLUMN_DOCUMENTID);
-            query.Append(" , ");
-            query.Append(" , ");
             query.Append(") VALUES ('");
             query.Append(note.getAuthor());
             query.Append("','");

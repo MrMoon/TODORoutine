@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using TODORoutine.database.document.dao;
 using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
@@ -14,12 +15,10 @@ namespace TODORoutine.database.document.dto {
      **/
     class DocumentDTOImplementation : DocumentDTO {
 
-        private DocumentDAO documentDAO = null;
+        private readonly DocumentDAO documentDAO = null;
         private static DocumentDTO documentDTO = null;
 
-        private DocumentDTOImplementation() {
-            documentDAO = DocumentDAOImplementation.getInstance();
-        }
+        private DocumentDTOImplementation() => documentDAO = DocumentDAOImplementation.getInstance();
 
         public static DocumentDTO getInstance() {
             if (documentDTO == null) documentDTO = new DocumentDTOImplementation();
@@ -129,6 +128,15 @@ namespace TODORoutine.database.document.dto {
                 Logging.logInfo(true , e.Message);
             }
             return new List<Document>();
+        }
+
+        public String getDocuement(String id) {
+            try {
+                return Encoding.Default.GetString(documentDAO.findDocumentBytes(id));
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            return null;
         }
     }
 }

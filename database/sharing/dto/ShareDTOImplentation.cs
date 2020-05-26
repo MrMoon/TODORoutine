@@ -9,8 +9,8 @@ namespace TODORoutine.database.sharing.dto {
     class ShareDTOImplentation : ShareDTO {
 
         private static ShareDTO shareDTO = null;
-        private ShareDAO shareDAO = null;
-        private DocumentDTO documentDTO = null;
+        private readonly ShareDAO shareDAO = null;
+        private readonly DocumentDTO documentDTO = null;
 
         private ShareDTOImplentation() {
             shareDAO = ShareDAOImplentation.getInstance();

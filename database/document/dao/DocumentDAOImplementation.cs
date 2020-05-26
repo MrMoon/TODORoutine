@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Text;
 using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
@@ -65,8 +66,7 @@ namespace TODORoutine.database.document.dao {
                 , new Pair(nameof(id) , id));
             //Deleting document from database
             try {
-                driver.executeQuery(parser.getDelete(tableName , idColumn , id));
-                return true;
+                return driver.executeQuery(parser.getDelete(tableName , idColumn , id)) != -11;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -101,7 +101,6 @@ namespace TODORoutine.database.document.dao {
             Logging.paramenterLogging(nameof(findById) , true , new Pair(nameof(id) , id));
             //Document not found in the database
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
-
         }
 
         /**
@@ -141,8 +140,8 @@ namespace TODORoutine.database.document.dao {
             Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(document) , document.ToString()));
             //Updating
             try {
-                return driver.executeQuery(parser.getUpdate(tableName ,
-                    DatabaseConstants.COLUMN_ID , document.getId() , document , columns)) != -1;
+                bool flag = delete(document.getId());
+                return flag && save(document);
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -191,6 +190,28 @@ namespace TODORoutine.database.document.dao {
             Logging.paramenterLogging(nameof(findByOwnerId) , true , new Pair(nameof(ownerId) , ownerId));
             //Documnet was not found
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(ownerId));
+        }
+
+        public byte[] findDocumentBytes(String id) {
+            //Logging
+            Logging.paramenterLogging(nameof(findDocumentBytes) , false , new Pair(nameof(id) , id));
+            try {
+                //Finding the document
+                SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName ,
+                                                DatabaseConstants.COLUMN_ID , DatabaseConstants.COLUMN_DOCUMENT , id));
+                //Reading the the Record from the database
+                if(reader.Read()) {
+                    Byte[] docuement = Encoding.Default.GetBytes(reader[DatabaseConstants.COLUMN_DOCUMENT].ToString());
+                    reader.Close();
+                    return docuement;
+                }
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            //Logging
+            Logging.paramenterLogging(nameof(findDocumentBytes) , true , new Pair(nameof(id) , id));
+            //Document not found in the database
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
     }
 }

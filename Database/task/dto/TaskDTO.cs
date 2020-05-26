@@ -10,6 +10,7 @@ namespace TODORoutine.database.task.dto {
         List<TaskNote> getAllByPriority(Priority priority);
         List<TaskNote> getAllByStatus(Status status);
         Note getNote(String taskId);
-        List<TaskNote> getTasksAllOrderByDueDate(String lastTaskId = "1");
+        List<TaskNote> getAllTasksOrderByDueDate(String lastTaskId = "1");
+        List<TaskNote> getAllTasks(String lastTaskId = "1");
     }
 }

@@ -200,10 +200,16 @@ namespace TODORoutine.database.task.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(taskId));
         }
 
-        public List<string> findAllByOrderOfDueDate(string lastTaskId = "1") {
+        public List<String> findAllByOrderOfDueDate(String lastTaskId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfDueDate) , false , new Pair(nameof(lastTaskId) , lastTaskId));
             return findAll(parser , tableName , DatabaseConstants.COLUMN_DUEDATE , lastTaskId);
+        }
+
+        public List<String> findAll(String lastTaskId = "1") {
+            //Logging
+            Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastTaskId) , lastTaskId));
+            return findAll(parser , tableName , idColumn , lastTaskId);
         }
     }
 }

@@ -11,5 +11,6 @@ namespace TODORoutine.database.document.dao {
     interface DocumentDAO : DatabaseDAO<Document> {
         List<String> findByOwnerId(String ownerId);
         List<String> findAllDocuments(String lastId = "1");
+        Byte[] findDocumentBytes(String id);
     }
 }

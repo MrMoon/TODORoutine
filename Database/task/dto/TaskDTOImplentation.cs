@@ -13,11 +13,9 @@ namespace TODORoutine.database.task.dto {
     class TaskDTOImplentation : TaskDTO {
 
         private static TaskDTO taskDTO = null;
-        private TaskDAO taskDAO = null;
+        private readonly TaskDAO taskDAO = null;
 
-        private TaskDTOImplentation() {
-            taskDAO = TaskDAOImplementation.getInstance();
-        }
+        private TaskDTOImplentation() => taskDAO = TaskDAOImplementation.getInstance();
 
         public static TaskDTO getInstance() {
             if (taskDTO == null) taskDTO = new TaskDTOImplentation();
@@ -124,12 +122,23 @@ namespace TODORoutine.database.task.dto {
             }
         }
 
-        public List<TaskNote> getTasksAllOrderByDueDate(string lastTaskId = "1") {
+        public List<TaskNote> getAllTasksOrderByDueDate(String lastTaskId = "1") {
             try {
                 List<TaskNote> taskNotes = new List<TaskNote>();
                 taskDAO.findAllByOrderOfDueDate(lastTaskId).ForEach(id => taskNotes.Add(getById(id)));
                 return taskNotes;
             } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+                return new List<TaskNote>();
+            }
+        }
+
+        public List<TaskNote> getAllTasks(String lastTaskId = "1") {
+            try {
+                List<TaskNote> taskNotes = new List<TaskNote>();
+                taskDAO.findAll(lastTaskId).ForEach(id => taskNotes.Add(getById(id)));
+                return taskNotes;
+            } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
                 return new List<TaskNote>();
             }

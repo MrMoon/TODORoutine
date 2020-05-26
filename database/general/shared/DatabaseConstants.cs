@@ -4,7 +4,7 @@ using TODORoutine.Shared;
 
 namespace TODORoutine.database.parsers {
     /**
-     * Main Database Constants Class that has all the important strings so it would be easier to edit and scale
+     * Main Database Constants Class that has all the important Strings so it would be easier to edit and scale
      **/
     public abstract class DatabaseConstants {
         //Trivaial Strings
@@ -64,7 +64,7 @@ namespace TODORoutine.database.parsers {
                                                             + COLUMN_AUTHOR + " TEXT NOT NULL,"
                                                             + COLUMN_DATECREATED + " TEXT NOT NULL,"
                                                             + COLUMN_LASTMODIFIED + " TEXT NOT NULL,"
-                                                            + COLUMN_DOCUMENTID + " TEXT,);";
+                                                            + COLUMN_DOCUMENTID + " TEXT);";
         //Table Document Strings
         public readonly static String DOCUMENT_PARAMETER = "@Documents";
         public readonly static String TABLE_DOCUMENT = "Document";

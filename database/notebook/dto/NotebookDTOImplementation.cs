@@ -16,11 +16,9 @@ namespace TODORoutine.database.notebook.dto {
     class NotebookDTOImplementation : NotebookDTO {
 
         private static NotebookDTO notebookDTO = null;
-        private NotebookDAO notebookDAO = null;
+        private readonly NotebookDAO notebookDAO = null;
 
-        private NotebookDTOImplementation() {
-            notebookDAO = NotebookDAOImplementation.getInstance();
-        }
+        private NotebookDTOImplementation() => notebookDAO = NotebookDAOImplementation.getInstance();
 
         public static NotebookDTO getInstance() {
             if (notebookDTO == null) notebookDTO = new NotebookDTOImplementation();

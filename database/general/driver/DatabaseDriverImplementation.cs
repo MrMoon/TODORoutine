@@ -20,7 +20,7 @@ namespace TODORoutine.Database {
         private static SQLiteCommand command = null;
         private static SQLiteDataReader reader = null;
         
-        private DatabaseDriverImplementation() { initDatabase();  }
+        private DatabaseDriverImplementation() => initDatabase();
 
         public static DatabaseDriverImplementation getInstance() {
             if (driver == null) driver = new DatabaseDriverImplementation();

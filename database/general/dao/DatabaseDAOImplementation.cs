@@ -30,8 +30,7 @@ namespace TODORoutine.database.general.dao {
                 int lastId = int.Parse(lastTId), range = int.Parse(DatabaseConstants.RANGE);
                 SQLiteDataReader reader = DatabaseDriverImplementation.getInstance().getReader(parser.getSelect(tableName , ""
                                             , DatabaseConstants.COLUMN_ID , "" , true
-                                            , lastId , lastId + 20
-                                            , orderbyColumnName != "" , orderbyColumnName != "" ? orderbyColumnName : ""));
+                                            , lastId , lastId + 20 , orderbyColumnName != "" , orderbyColumnName != "" ? orderbyColumnName : ""));
                 while (reader.Read()) ids.Add(reader[DatabaseConstants.COLUMN_ID].ToString());
                 reader.Close();
                 return ids;

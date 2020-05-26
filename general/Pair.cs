@@ -3,7 +3,7 @@ using System.Text;
 
 namespace TODORoutine.Shared {
     /**
-     * Pair Class that handle strings that are connected 
+     * Pair Class that handle Strings that are connected 
      **/
     public class Pair {
         public Pair() { }
@@ -17,13 +17,13 @@ namespace TODORoutine.Shared {
         public String second { get; set; }
 
         public override String ToString() {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("{ ");
-            stringBuilder.Append(first);
-            stringBuilder.Append(" , ");
-            stringBuilder.Append(second);
-            stringBuilder.Append(" }");
-            return stringBuilder.ToString();
+            StringBuilder StringBuilder = new StringBuilder();
+            StringBuilder.Append("{ ");
+            StringBuilder.Append(first);
+            StringBuilder.Append(" , ");
+            StringBuilder.Append(second);
+            StringBuilder.Append(" }");
+            return StringBuilder.ToString();
         }
     }
 }

@@ -64,7 +64,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontsbar = new System.Windows.Forms.ToolStrip();
             this.btnBold = new System.Windows.Forms.ToolStripButton();
             this.btnItalic = new System.Windows.Forms.ToolStripButton();
@@ -102,7 +101,9 @@
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.routinesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.LeftToolStripPanel.SuspendLayout();
@@ -289,8 +290,7 @@
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.taskToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.routinesToolStripMenuItem});
             this.toolbar.Location = new System.Drawing.Point(0, 0);
             this.toolbar.Name = "toolbar";
             this.toolbar.Size = new System.Drawing.Size(952, 28);
@@ -456,13 +456,6 @@
             this.selectAllToolStripMenuItem.Text = "Select &All";
             this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
-            this.aboutToolStripMenuItem.Text = "&About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
             // fontsbar
             // 
             this.fontsbar.Dock = System.Windows.Forms.DockStyle.None;
@@ -627,21 +620,21 @@
             // 
             this.HighlighGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.HighlighGreen.Name = "HighlighGreen";
-            this.HighlighGreen.Size = new System.Drawing.Size(82, 26);
+            this.HighlighGreen.Size = new System.Drawing.Size(224, 26);
             this.HighlighGreen.Click += new System.EventHandler(this.HighlighGreen_Click);
             // 
             // HighlighOrange
             // 
             this.HighlighOrange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.HighlighOrange.Name = "HighlighOrange";
-            this.HighlighOrange.Size = new System.Drawing.Size(82, 26);
+            this.HighlighOrange.Size = new System.Drawing.Size(224, 26);
             this.HighlighOrange.Click += new System.EventHandler(this.HighlighOrange_Click);
             // 
             // HighlighYellow
             // 
             this.HighlighYellow.BackColor = System.Drawing.Color.Yellow;
             this.HighlighYellow.Name = "HighlighYellow";
-            this.HighlighYellow.Size = new System.Drawing.Size(82, 26);
+            this.HighlighYellow.Size = new System.Drawing.Size(224, 26);
             this.HighlighYellow.Click += new System.EventHandler(this.HighlighYellow_Click);
             // 
             // toolStripSeparator9
@@ -779,14 +772,31 @@
             this.saveFileDialog.DefaultExt = "txt";
             this.saveFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
             // 
+            // routinesToolStripMenuItem
+            // 
+            this.routinesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.taskToolStripMenuItem,
+            this.sortToolStripMenuItem});
+            this.routinesToolStripMenuItem.Name = "routinesToolStripMenuItem";
+            this.routinesToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            this.routinesToolStripMenuItem.Text = "Routines";
+            // 
             // taskToolStripMenuItem
             // 
             this.taskToolStripMenuItem.Name = "taskToolStripMenuItem";
             this.taskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.T)));
-            this.taskToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
+            this.taskToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.taskToolStripMenuItem.Text = "&Task";
-            this.taskToolStripMenuItem.Click += new System.EventHandler(this.taskToolStripMenuItem_Click);
+            // 
+            // sortToolStripMenuItem
+            // 
+            this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            this.sortToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.S)));
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.sortToolStripMenuItem.Text = "&Sort";
+            this.sortToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
             // 
             // TextEditorForm
             // 
@@ -894,11 +904,12 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripLabel lblBrainstorm;
         private System.Windows.Forms.ToolStripButton btnTask;
         private System.Windows.Forms.TabControl textTabControl;
+        private System.Windows.Forms.ToolStripMenuItem routinesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem taskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
     }
 }
 

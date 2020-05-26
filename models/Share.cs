@@ -8,9 +8,7 @@ namespace TODORoutine.models {
         public String userId { get; set; }
         public HashSet<String> documentsIds { get; set; }
 
-        public Share() {
-            documentsIds = new HashSet<String>();
-        }
+        public Share() => documentsIds = new HashSet<String>();
 
         public override String ToString() {
             String prefix = "";

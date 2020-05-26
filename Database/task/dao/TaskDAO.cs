@@ -15,5 +15,6 @@ namespace TODORoutine.database.task.dao {
         List<String> findAllByOrderOfDueDate(String lastTaskId = "1");
         List<String> findAllByPriority(Priority priority);
         List<String> findAllByStatus(Status status);
+        List<String> findAll(String lastTaskId = "1");
     }
 }

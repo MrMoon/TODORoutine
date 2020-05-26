@@ -5,6 +5,7 @@ using TODORoutine.database.parsers;
 using TODORoutine.Database.user.DTO;
 using TODORoutine.editor;
 using TODORoutine.forms;
+using TODORoutine.models;
 using TODORoutine.Models;
 
 namespace MainTextEditor {
@@ -12,15 +13,18 @@ namespace MainTextEditor {
     public partial class TextEditorForm : Form {
 
         private readonly User user = null;
+        private Document document = null;
         private Color color = Color.Black;
         private readonly EditorOperation operation = null;
-        private readonly UserDTO userDTO = null;
+        private readonly UserDTO userDTO = UserDTOImplementation.getInstance();
 
         public TextEditorForm(User user , bool isLogin = false) {
-            userDTO = UserDTOImplementation.getInstance();
             InitializeComponent();
-            if (isLogin) user = userDTO.getByUsername(user.getUsername());
-            else userDTO.save(user);
+            if (isLogin) this.user = userDTO.getByUsername(user.getUsername());
+            else {
+                this.user = user;
+                userDTO.save(this.user);
+            }
             operation = new EditorOperation(textTabControl);
         }
 
@@ -30,35 +34,49 @@ namespace MainTextEditor {
             operation.populateFontSizes(sizes);
         }
 
-        #region EventBinding
-
-        private void timer1_Tick(object sender , EventArgs e) {
-            if (operation.getCurrentDocument.Text.Length > 0) toolStripStatusLabel1.Text = operation.getCurrentDocument.Text.Length.ToString();
+        private void saveDocument() {
+            document = new Document();
+            document.setOwner(user.getUsername());
+            document.setDocument(operation.getCurrentDocument.Text);
+            operation.save(saveFileDialog , true , document);
         }
 
-        private void newToolStripMenuItem_Click(object sender , EventArgs e) { operation.addTab(contextMenuStrip1); }
+        private void updateDocument() {
+            if (document == null) saveDocument();
+            else {
+                document.setDocument(operation.getCurrentDocument.Text);
+                operation.save(saveFileDialog , false , document);
+            }
+        }
 
-        private void openToolStripMenuItem_Click(object sender , EventArgs e) { operation.open(openFileDialog); }
+        #region EventBinding
 
-        private void saveToolStripMenuItem_Click(object sender , EventArgs e) { operation.save(saveFileDialog); }
+        private void saveToolStripMenuItem_Click(object sender , EventArgs e) => updateDocument();
 
-        private void saveAsToolStripMenuItem_Click(object sender , EventArgs e) { operation.saveAs(saveFileDialog); }
+        private void saveAsToolStripMenuItem_Click(object sender , EventArgs e) => updateDocument();
 
-        private void exitToolStripMenuItem_Click(object sender , EventArgs e) { Application.Exit(); }
+        private void timer1_Tick(object sender , EventArgs e) => 
+            toolStripStatusLabel1.Text = (operation.getCurrentDocument.Text.Length > 0) ?  operation.getCurrentDocument.Text.Length.ToString() : "0";
 
-        private void undoToolStripMenuItem_Click(object sender , EventArgs e) { operation.undo(); }
+        private void newToolStripMenuItem_Click(object sender , EventArgs e) => operation.addTab(contextMenuStrip1);
 
-        private void redoToolStripMenuItem_Click(object sender , EventArgs e) { operation.redo(); }
+        private void openToolStripMenuItem_Click(object sender , EventArgs e) => operation.open(openFileDialog); 
 
-        private void cutToolStripMenuItem_Click(object sender , EventArgs e) { operation.cut(); }
+        private void exitToolStripMenuItem_Click(object sender , EventArgs e) => Application.Exit();
 
-        private void copyToolStripMenuItem_Click(object sender , EventArgs e) { operation.copy(); }
+        private void undoToolStripMenuItem_Click(object sender , EventArgs e) => operation.undo(); 
 
-        private void pasteToolStripMenuItem_Click(object sender , EventArgs e) { operation.paste(); }
+        private void redoToolStripMenuItem_Click(object sender , EventArgs e) => operation.redo(); 
 
-        private void selectAllToolStripMenuItem_Click(object sender , EventArgs e) { operation.selectAll(); }
+        private void cutToolStripMenuItem_Click(object sender , EventArgs e) => operation.cut(); 
 
-        private void closeToolStripMenuItem_Click(object sender , EventArgs e) { operation.removeTab(contextMenuStrip1); }
+        private void copyToolStripMenuItem_Click(object sender , EventArgs e) => operation.copy();
+
+        private void pasteToolStripMenuItem_Click(object sender , EventArgs e) => operation.paste();
+
+        private void selectAllToolStripMenuItem_Click(object sender , EventArgs e) => operation.selectAll();
+
+        private void closeToolStripMenuItem_Click(object sender , EventArgs e) => operation.removeTab(contextMenuStrip1);
 
         private void btnBold_Click(object sender , EventArgs e) {
             System.Drawing.FontStyle fontStyle = FontStyle.Regular;
@@ -109,14 +127,9 @@ namespace MainTextEditor {
             
         }
 
+        private void btnUppercase_Click(object sender , EventArgs e) => operation.getCurrentDocument.SelectedText = operation.getCurrentDocument.SelectedText.ToUpper();
 
-        private void btnUppercase_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectedText = operation.getCurrentDocument.SelectedText.ToUpper();
-        }
-
-        private void btnLowercase_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectedText = operation.getCurrentDocument.SelectedText.ToLower();
-        }
+        private void btnLowercase_Click(object sender , EventArgs e) => operation.getCurrentDocument.SelectedText = operation.getCurrentDocument.SelectedText.ToLower();
 
         private void btnSizeUp_Click(object sender , EventArgs e) {
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.Name ,
@@ -140,109 +153,77 @@ namespace MainTextEditor {
             }
         }
 
-        private void HighlighGreen_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionBackColor = (HighlighGreen.Checked) ? color : Color.LightGreen;
-        }
+        private void HighlighGreen_Click(object sender , EventArgs e) => operation.getCurrentDocument.SelectionBackColor = (HighlighGreen.Checked) ? color : Color.LightGreen;
 
-        private void HighlighOrange_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionBackColor = (HighlighOrange.Checked) ? color : Color.Orange;
-        }
+        private void HighlighOrange_Click(object sender , EventArgs e) => operation.getCurrentDocument.SelectionBackColor = (HighlighOrange.Checked) ? color : Color.Orange;
 
-        private void HighlighYellow_Click(object sender , EventArgs e) {
-            operation.getCurrentDocument.SelectionBackColor = (HighlighOrange.Checked) ? color : Color.Yellow;
-        }
+        private void HighlighYellow_Click(object sender , EventArgs e) => operation.getCurrentDocument.SelectionBackColor = (HighlighOrange.Checked) ? color : Color.Yellow;
 
-        private void size_SelectedIndexChanged(object sender , EventArgs e) {
+        private void size_SelectedIndexChanged(object sender , EventArgs e) =>
             operation.getCurrentDocument.SelectionFont = new Font(operation.getCurrentDocument.SelectionFont.Name
                 , float.Parse(sizes.SelectedItem.ToString()) , operation.getCurrentDocument.SelectionFont.Style);
-        }
 
-        private void fonts_SelectedIndexChanged(object sender , EventArgs e) {
+        private void fonts_SelectedIndexChanged(object sender , EventArgs e) =>
             operation.getCurrentDocument.SelectionFont = new Font(fonts.SelectedItem.ToString() ,
                 operation.getCurrentDocument.SelectionFont.Size , operation.getCurrentDocument.SelectionFont.Style);
-        }
+        
 
-        private void newToolStripButton_Click(object sender , EventArgs e) {
-            operation.addTab(contextMenuStrip1);
-        }
+        private void newToolStripButton_Click(object sender , EventArgs e) => operation.addTab(contextMenuStrip1);
+        
+        private void RemoveTabToolStripButton_Click(object sender , EventArgs e) => operation.removeTab(contextMenuStrip1);
+        
+        private void openToolStripButton_Click(object sender , EventArgs e) => operation.open(openFileDialog);
 
-        private void RemoveTabToolStripButton_Click(object sender , EventArgs e) {
-            operation.removeTab(contextMenuStrip1);
-        }
+        private void saveToolStripButton_Click(object sender , EventArgs e) => updateDocument();
+        
+        private void cutToolStripButton_Click(object sender , EventArgs e) => operation.cut();
+        
+        private void copyToolStripButton_Click(object sender , EventArgs e) => operation.copy();
+        
+        private void pasteToolStripButton_Click(object sender , EventArgs e) => operation.paste();
 
-        private void openToolStripButton_Click(object sender , EventArgs e) {
-            operation.open(openFileDialog);
-        }
+        private void undoToolStripMenuItem1_Click(object sender , EventArgs e) => operation.undo();
 
-        private void saveToolStripButton_Click(object sender , EventArgs e) {
-            operation.save(saveFileDialog);
-        }
+        private void redoToolStripMenuItem1_Click(object sender , EventArgs e) => operation.redo();
+        
+        private void cutToolStripMenuItem1_Click(object sender , EventArgs e) => operation.cut();
+        
+        private void copyToolStripMenuItem1_Click(object sender , EventArgs e) => operation.copy();
+        
+        private void pasteToolStripMenuItem1_Click(object sender , EventArgs e) => operation.paste();
+        
+        private void saveToolStripMenuItem1_Click(object sender , EventArgs e) => updateDocument();
+        
+        private void closeAllToolStripMenuItem_Click(object sender , EventArgs e) => operation.removeAllTabs(contextMenuStrip1);
+        
+        private void closeAllButThisToolStripMenuItem_Click(object sender , EventArgs e) => operation.removeAllTabsButThis();
 
-        private void cutToolStripButton_Click(object sender , EventArgs e) {
-            operation.cut();
-        }
-
-        private void copyToolStripButton_Click(object sender , EventArgs e) {
-            operation.copy();
-        }
-
-        private void pasteToolStripButton_Click(object sender , EventArgs e) {
-            operation.paste();
-        }
-
-        private void undoToolStripMenuItem1_Click(object sender , EventArgs e) {
-            operation.undo();
-        }
-
-        private void redoToolStripMenuItem1_Click(object sender , EventArgs e) {
-            operation.redo();
-        }
-
-        private void cutToolStripMenuItem1_Click(object sender , EventArgs e) {
-            operation.cut();
-        }
-
-        private void copyToolStripMenuItem1_Click(object sender , EventArgs e) {
-            operation.copy();
-        }
-
-        private void pasteToolStripMenuItem1_Click(object sender , EventArgs e) {
-            operation.paste();
-        }
-
-        private void saveToolStripMenuItem1_Click(object sender , EventArgs e) {
-            operation.save(saveFileDialog);
-        }
-
-        private void closeAllToolStripMenuItem_Click(object sender , EventArgs e) {
-            operation.removeAllTabs(contextMenuStrip1);
-        }
-
-        private void closeAllButThisToolStripMenuItem_Click(object sender , EventArgs e) {
-            operation.removeAllTabsButThis();
-        }
         #endregion
+        private void aboutToolStripMenuItem_Click(object sender , EventArgs e) => MessageBox.Show(DatabaseConstants.ALL);
 
-        private void aboutToolStripMenuItem_Click(object sender , EventArgs e) {
-            MessageBox.Show(DatabaseConstants.ALL);
-        }
+        private void findToolStripMenuItem_Click(object sender , EventArgs e) =>
+            operation.findDialog(operation.getCurrentDocument
+                .BackColor.Equals(HighlighGreen.BackColor) ? Color.OrangeRed : Color.Green , color);
 
-        private void findToolStripMenuItem_Click(object sender , EventArgs e) {
-            operation.findDialog(operation.getCurrentDocument.BackColor.Equals(HighlighGreen.BackColor) ? Color.OrangeRed : Color.Green , color);
-        }
-
-        private bool flip(bool flag) {
-            return flag ? false : true;
-        }
+        private bool flip(bool flag) => !flag;
 
         private void btnTask_Click(object sender , EventArgs e) {
+            
+        }
+
+        private void openTaskForm() {
             TaskForm taskForm = new TaskForm(user);
             taskForm.Show();
+            this.Hide();
+            taskForm.FormClosed += (o , e) => this.Show();
         }
 
         private void taskToolStripMenuItem_Click(object sender , EventArgs e) {
-            TaskForm taskForm = new TaskForm(user);
-            taskForm.Show();
+            openTaskForm();
+        }
+
+        private void sortToolStripMenuItem_Click(object sender , EventArgs e) {
+
         }
     }
 }
