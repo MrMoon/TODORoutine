@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 using TODORoutine.database.parsers;
-using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
 using TODORoutine.models;
 using TODORoutine.Shared;

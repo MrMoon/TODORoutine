@@ -160,9 +160,12 @@
     <Compile Include="forms\TextEditorForm.Designer.cs">
       <DependentUpon>TextEditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="general\constants\TypesConstants.cs" />
+    <Compile Include="general\constants\UserMessages.cs" />
     <Compile Include="general\enums\Status.cs" />
-    <Compile Include="general\ErrorMessages.cs" />
+    <Compile Include="general\constants\ErrorMessages.cs" />
     <Compile Include="general\enums\Priority.cs" />
+    <Compile Include="graph\Graph.cs" />
     <Compile Include="models\Authentication.cs" />
     <Compile Include="database\document\dao\DocumentDAO.cs" />
     <Compile Include="database\document\dao\DocumentDAOImplementation.cs" />
@@ -215,32 +218,15 @@
     <Compile Include="models\Share.cs" />
     <Compile Include="models\TaskNote.cs" />
     <Compile Include="models\User.cs" />
-    <Compile Include="NodesEditor\Connector.cs" />
-    <Compile Include="NodesEditor\DiagramObject.cs" />
-    <Compile Include="NodesEditor\Left Edition Panel\ButtonsPanel.xaml.cs">
-      <DependentUpon>ButtonsPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodesEditor\Left Edition Panel\ConnectorPropertyEditor.xaml.cs">
-      <DependentUpon>ConnectorPropertyEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodesEditor\Left Edition Panel\NodePropertyEditor.xaml.cs">
-      <DependentUpon>NodePropertyEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodesEditor\Left Edition Panel\ParametersEditor.xaml.cs">
-      <DependentUpon>ParametersEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NodesEditor\MainViewModel.cs" />
-    <Compile Include="NodesEditor\Node.cs" />
-    <Compile Include="NodesEditor\NodesDataSource.cs" />
-    <Compile Include="NodesEditor\NodesEditor.xaml.cs">
-      <DependentUpon>NodesEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="database\general\parser\DatabaseParserImplementation.cs" />
     <Compile Include="general\csv\CSVParser.cs" />
     <Compile Include="general\logging\Logging.cs" />
     <Compile Include="general\Pair.cs" />
+    <EmbeddedResource Include="forms\SortForm.resx">
+      <DependentUpon>SortForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\TaskForm.resx">
       <DependentUpon>TaskForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -280,32 +266,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="todologoIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="NodesEditor\Left Edition Panel\ButtonsPanel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodesEditor\Left Edition Panel\ConnectorPropertyEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodesEditor\Left Edition Panel\EditorStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodesEditor\Left Edition Panel\NodePropertyEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodesEditor\Left Edition Panel\ParametersEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="NodesEditor\NodesEditor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

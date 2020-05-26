@@ -4,8 +4,8 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using TODORoutine.database.document.dto;
 using TODORoutine.database.parsers;
+using TODORoutine.general.constants;
 using TODORoutine.models;
-using TODORoutine.Models;
 
 namespace TODORoutine.editor {
     class EditorOperation {
@@ -58,7 +58,7 @@ namespace TODORoutine.editor {
         public void save(SaveFileDialog saveFileDialog , bool isSaveAs , Document document) {
             saveFileDialog.FileName = tabControl.SelectedTab.Name;
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            saveFileDialog.Filter = "Text Files|*.txt";
+            saveFileDialog.Filter = TypesConstants.FILE_TYPES;
             saveFileDialog.Title = isSaveAs ? "Save As" : "Save";
             if (isSaveAs) {
                 if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
@@ -72,11 +72,11 @@ namespace TODORoutine.editor {
 
         public void open(OpenFileDialog openFileDialog) {
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            openFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
+            openFileDialog.Filter = TypesConstants.FILE_TYPES;
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 if (openFileDialog.FileName.Length > 4) getCurrentDocument.LoadFile(openFileDialog.FileName , RichTextBoxStreamType.PlainText);
-                else MessageBox.Show("Invalid File");
+                else MessageBox.Show(DatabaseConstants.INVALID("File"));
             }
         }
 
@@ -113,7 +113,6 @@ namespace TODORoutine.editor {
                 startIndex = index + word.Length;
             }
         }
-
         private void unfind(Color color) {
             getCurrentDocument.SelectionStart = 0;
             getCurrentDocument.SelectionLength = getCurrentDocument.TextLength;

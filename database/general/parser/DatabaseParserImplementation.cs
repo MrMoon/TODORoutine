@@ -32,7 +32,6 @@ namespace TODORoutine.Shared {
             query.Append("'");
             return query.ToString();
         }
-
         /**
          * This method is for Generic SQL Select Query Statments
          * @tableName : the table Name in the Database
@@ -47,7 +46,7 @@ namespace TODORoutine.Shared {
         public String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , bool range = false , int from = 1 , int to = 20 , bool isOrder = false , String orderColumn = "") {
             //Validation
             if ((range && (from <= 0 || to <= 0)) || (isOrder && orderColumn == null) || !Validator.isValidParameters(tableName))
-                throw new ArgumentException("Invalid Parameters in getSelect\n" + Logging.paramenterLogging(nameof(getSelect)  , true 
+                throw new ArgumentException("Invalid Parameters in getSelect\n" + Logging.paramenterLogging(nameof(getSelect) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(condition) , condition)
                                             , new Pair(nameof(column) , column)

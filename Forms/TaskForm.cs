@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TODORoutine.database.document.dto;
 using TODORoutine.database.note.dto;
 using TODORoutine.database.parsers;
 using TODORoutine.database.task.dto;
 using TODORoutine.general;
+using TODORoutine.general.constants;
 using TODORoutine.general.enums;
 using TODORoutine.models;
 using TODORoutine.Models;
@@ -28,14 +28,13 @@ namespace TODORoutine.forms {
             this.user = user;
         }
 
-        private bool flip(bool flag) => !flag;
-
         private void refreshTaskData() {
             tasks.UnionWith(taskDTO.getAllTasks(lastId.ToString()));
             foreach (TaskNote task in tasks) {
                 if(String.IsNullOrEmpty(task.document)) task.document = NoteDTOImplementation.getInstance().getNoteDocument(task.noteId).getDocumentContent();
                 if (int.Parse(task.id) > lastId) lastId = int.Parse(task.id);
             }
+            ++lastId;
             taskData.DataSource = tasks.ToList();
         }
 
@@ -52,6 +51,7 @@ namespace TODORoutine.forms {
 
             idDataColumn.ValueType = typeof(String);
             documentDataColumn.ValueType = typeof(String);
+            refreshTaskData();
         }
 
         private void taskData_CellContentClick(object sender , DataGridViewCellEventArgs e) => txtNote.Text = taskData.SelectedCells[0].Value.ToString();
@@ -62,30 +62,28 @@ namespace TODORoutine.forms {
             AddTaskDialog addTask = new AddTaskDialog(user);
             addTask.Show();
             addTask.FormClosed += (obj , form) => refreshTaskData();
-            tasks.UnionWith(addTask.getTaskNotes());
         }
 
         private void btnUpdate_Click(object sender , EventArgs e) {
             if (!chkUpdate.Checked) {
-                MessageBox.Show("Must Enable the Edit Option First");
+                MessageBox.Show(UserMessages.ENABLE_EDIT);
                 chkUpdate.Focus();
                 return;
             }
             if (taskData.SelectedRows.Count > 0) {
-                DialogResult result = MessageBox.Show("Are you sure you want to Update ?" , "Update Confirmation" , MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes) {
+                if (MessageBox.Show(UserMessages.ARE_YOU_SURE("Update") , UserMessages.CONFIRMION("Update") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     foreach (DataGridViewRow row in taskData.SelectedRows) {
                         TaskNote task = (TaskNote) row.DataBoundItem;
                         taskDTO.update(task , DatabaseConstants.COLUMN_DUEDATE , DatabaseConstants.COLUMN_PRIORITY , DatabaseConstants.COLUMN_STATUS);
                     }
                     refreshTaskData();
                 }
-            } else MessageBox.Show("There is nothing to Update");
+            } else MessageBox.Show(UserMessages.EMPTY_OPERATION("Update"));
         }
 
         private void chkUpdate_CheckedChanged(object sender , EventArgs e) {
-            foreach (DataGridViewColumn column in taskData.Columns) column.ReadOnly = flip(column.ReadOnly);
-            txtNote.ReadOnly = flip(txtNote.ReadOnly);
+            foreach (DataGridViewColumn column in taskData.Columns) column.ReadOnly = TypesConstants.FLIP(column.ReadOnly);
+            txtNote.ReadOnly = TypesConstants.FLIP(txtNote.ReadOnly);
             idDataColumn.ReadOnly = true;
             documentDataColumn.ReadOnly = true;
         }
@@ -104,8 +102,7 @@ namespace TODORoutine.forms {
 
         private void btnDeleteTask_Click(object sender , EventArgs e) {
             if(taskData.SelectedRows.Count > 0) {
-                DialogResult result = MessageBox.Show("Are you sure you want to Delete ?" , "Delete Confirmation" , MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes) {
+                if (MessageBox.Show(UserMessages.ARE_YOU_SURE("Delete") , UserMessages.CONFIRMION("Delete") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     lastId -= taskData.SelectedRows.Count;
                     if (lastId < 0) lastId = 1;
                     foreach (DataGridViewRow row in taskData.SelectedRows) {
@@ -120,20 +117,19 @@ namespace TODORoutine.forms {
                     }
                     refreshTaskData();
                 }
-            } else MessageBox.Show("There is nothing to Delete");
+            } else MessageBox.Show(UserMessages.EMPTY_OPERATION("Delete"));
         }
 
         private void btnUndoDelete_Click(object sender , EventArgs e) {
             if (undoBufferIndex > 0) {
-                DialogResult result = MessageBox.Show("Are you sure you want to Undo the Delete ?" , "Undo Delete Confirmation" , MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes) {
+                if (MessageBox.Show(UserMessages.ARE_YOU_SURE("Undo Delete") , UserMessages.CONFIRMION("Undo Delete") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     taskDTO.save(undoBuffer[undoBufferIndex]);
                     tasks.Add(undoBuffer[undoBufferIndex]);
                     undoBufferIndex = (((undoBufferIndex - 1) % bufferSize) + bufferSize) % bufferSize;
                     ++lastId;
                     refreshTaskData();
                 }
-            } else MessageBox.Show("There is nothing to undo");
+            } else MessageBox.Show(UserMessages.EMPTY_OPERATION("Undo"));
         }
     }
 }

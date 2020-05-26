@@ -209,7 +209,7 @@ namespace TODORoutine.database.task.dao {
         public List<String> findAll(String lastTaskId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastTaskId) , lastTaskId));
-            return findAll(parser , tableName , idColumn , lastTaskId);
+            return findAll(parser , tableName , "-1" , lastTaskId);
         }
     }
 }
