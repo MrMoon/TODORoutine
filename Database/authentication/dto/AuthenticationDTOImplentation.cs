@@ -9,11 +9,9 @@ namespace TODORoutine.database.authentication.dto {
     class AuthenticationDTOImplentation : AuthenticationDTO {
 
         private static AuthenticationDTO authDTO = null;
-        private AuthenticationDAO authDAO = null;
+        private readonly AuthenticationDAO authDAO = null;
 
-        private AuthenticationDTOImplentation() {
-            authDAO = AuthenticationDAOImplentation.getInstance();
-        }
+        private AuthenticationDTOImplentation() => authDAO = AuthenticationDAOImplentation.getInstance();
 
         public static AuthenticationDTO getInstance() {
             if (authDTO == null) authDTO = new AuthenticationDTOImplentation();

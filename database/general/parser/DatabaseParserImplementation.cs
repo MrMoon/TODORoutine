@@ -108,7 +108,7 @@ namespace TODORoutine.Shared {
         }
 
         /**
-        * This method is a generic SQL Note Update Query statment
+        * This method is a generic SQL Update Query statment
         * 
         * @tableName : The Table Name in the Database
         * @filter : the filter for the Where Statment

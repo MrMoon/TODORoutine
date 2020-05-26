@@ -2,6 +2,10 @@
 using System.Drawing;
 using System.Drawing.Text;
 using System.Windows.Forms;
+using TODORoutine.database.document.dto;
+using TODORoutine.database.parsers;
+using TODORoutine.models;
+using TODORoutine.Models;
 
 namespace TODORoutine.editor {
     class EditorOperation {
@@ -26,13 +30,12 @@ namespace TODORoutine.editor {
             TabPage newPage = new TabPage();
             tabCounter += 1;
 
-            String documentText = "Document " + tabCounter;
+            String documentText = "BrainStorm " + tabCounter;
             newPage.Name = documentText;
             newPage.Text = documentText;
             newPage.Controls.Add(body);
 
             tabControl.TabPages.Add(newPage);
-
         }
 
         public void removeTab(ContextMenuStrip menuStrip) {
@@ -52,26 +55,19 @@ namespace TODORoutine.editor {
             foreach (TabPage page in tabControl.TabPages) if (page.Name != tabControl.SelectedTab.Name) tabControl.TabPages.Remove(page);
         }
 
-        public void save(SaveFileDialog saveFileDialog) {
+        public void save(SaveFileDialog saveFileDialog , bool isSaveAs , Document document) {
             saveFileDialog.FileName = tabControl.SelectedTab.Name;
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            saveFileDialog.Filter = "RTF|.rtf";
-            saveFileDialog.Title = "Save";
-
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                if (saveFileDialog.FileName.Length > 0) getCurrentDocument.SaveFile(saveFileDialog.FileName , RichTextBoxStreamType.RichText);
-            }
-        }
-
-        public void saveAs(SaveFileDialog saveFileDialog) {
-            saveFileDialog.FileName = tabControl.SelectedTab.Name;
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            saveFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
-            saveFileDialog.Title = "Save As";
-
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                if (saveFileDialog.FileName.Length > 0) getCurrentDocument.SaveFile(saveFileDialog.FileName , RichTextBoxStreamType.PlainText);
-            }
+            saveFileDialog.Filter = "Text Files|*.txt";
+            saveFileDialog.Title = isSaveAs ? "Save As" : "Save";
+            if (isSaveAs) {
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                    if (saveFileDialog.FileName.Length > 4) {
+                        getCurrentDocument.SaveFile(saveFileDialog.FileName , RichTextBoxStreamType.RichText);
+                        DocumentDTOImplementation.getInstance().save(document);
+                    }
+                }
+            } else DocumentDTOImplementation.getInstance().update(document , DatabaseConstants.COLUMN_DOCUMENT);
         }
 
         public void open(OpenFileDialog openFileDialog) {
@@ -79,21 +75,22 @@ namespace TODORoutine.editor {
             openFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
 
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                if (openFileDialog.FileName.Length > 9) getCurrentDocument.LoadFile(openFileDialog.FileName , RichTextBoxStreamType.PlainText);
+                if (openFileDialog.FileName.Length > 4) getCurrentDocument.LoadFile(openFileDialog.FileName , RichTextBoxStreamType.PlainText);
+                else MessageBox.Show("Invalid File");
             }
         }
 
-        public void undo() { getCurrentDocument.Undo(); }
+        public void undo() => getCurrentDocument.Undo(); 
 
-        public void redo() { getCurrentDocument.Redo(); }
+        public void redo() => getCurrentDocument.Redo(); 
 
-        public void cut() { getCurrentDocument.Cut(); }
+        public void cut() => getCurrentDocument.Cut(); 
 
-        public void copy() { getCurrentDocument.Copy(); }
+        public void copy() => getCurrentDocument.Copy(); 
 
-        public void paste() { getCurrentDocument.Paste(); }
+        public void paste() => getCurrentDocument.Paste(); 
 
-        public void selectAll() { getCurrentDocument.SelectAll(); }
+        public void selectAll() => getCurrentDocument.SelectAll(); 
 
         public void getFontCollection(ToolStripComboBox toolStripComboBox) {
             InstalledFontCollection insFonts = new InstalledFontCollection();

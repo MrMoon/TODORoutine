@@ -12,7 +12,7 @@ namespace TODORoutine.Database.Shared {
         /**
          * Simple Validtor for Strings that checks of Empty String and extra white spaces
          * 
-         * @args : the strings to check
+         * @args : the Strings to check
          * 
          * return true if and only if none of the Strings don't have extra white spaces, not Empty and not NULL
          **/
@@ -24,12 +24,12 @@ namespace TODORoutine.Database.Shared {
             return true;
         }
 
-        public static bool isValidTexts(params TextBox[] txts) {
+        public static bool isValidTexts(params Control[] controlers) {
             bool flag = true;
-            foreach(TextBox txt in txts) {
-                if (String.IsNullOrEmpty(txt.Text)) {
+            foreach(Control control in controlers) {
+                if (String.IsNullOrEmpty(control.Text)) {
                     flag = false;
-                    txt.BackColor = Color.Red;
+                    control.BackColor = Color.Red;
                 }
             }
             return flag;

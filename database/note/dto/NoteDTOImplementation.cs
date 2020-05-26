@@ -14,12 +14,10 @@ namespace TODORoutine.database.note.dto {
      **/
     class NoteDTOImplementation : NoteDTO {
 
-        private NoteDAO noteDAO = null;
+        private readonly NoteDAO noteDAO = null;
         private static NoteDTO noteDTO = null;
 
-        private NoteDTOImplementation() {
-            noteDAO = NoteDAOImplentation.getInsence();
-        }
+        private NoteDTOImplementation() => noteDAO = NoteDAOImplentation.getInsence();
 
         public static NoteDTO getInstance() {
             if (noteDTO == null) noteDTO = new NoteDTOImplementation();
@@ -173,9 +171,9 @@ namespace TODORoutine.database.note.dto {
          * 
          * return a docuemnt if it was found and null otherwise
          **/
-        public Document getNoteDocument(String id) {       
+        public Document getNoteDocument(String noteId) {       
             try {
-                return DocumentDTOImplementation.getInstance().getById(noteDAO.findNoteDocument(id));
+                return DocumentDTOImplementation.getInstance().getById(noteDAO.findNoteDocument(noteId));
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }

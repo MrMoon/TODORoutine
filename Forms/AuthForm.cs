@@ -12,16 +12,11 @@ namespace TODORoutine {
     public partial class AuthForm : Form {
 
         private bool createAccount = false;
-        private AuthenticationDTO auth;
+        private readonly AuthenticationDTO auth = AuthenticationDTOImplentation.getInstance();
 
-        public AuthForm() {
-            InitializeComponent();
-        }
+        public AuthForm() => InitializeComponent();
 
-        private void AuthForm_Load(object sender , System.EventArgs e) {
-            auth = AuthenticationDTOImplentation.getInstance();
-            this.ActiveControl = txtUsername;
-        }
+        private void AuthForm_Load(object sender , System.EventArgs e) => this.ActiveControl = txtUsername;
 
         /**
          * Login button
@@ -31,14 +26,17 @@ namespace TODORoutine {
          **/
         private void btnLogin_Click(object sender , System.EventArgs e) {
             if(Validator.isValidTexts(txtUsername , txtPassword)) {
-                if(auth.authenticate(new Authentication(txtUsername.Text , txtPassword.Text) , true)) {
+                if (auth.authenticate(new Authentication(txtUsername.Text , txtPassword.Text) , true)) {
                     this.Hide();
                     User user = new User();
                     user.setUsername(txtUsername.Text);
                     TextEditorForm textEditor = new TextEditorForm(user , true);
                     textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                     textEditor.Show();
-                } else MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Password and Username"));
+                } else {
+                    MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Password and Username"));
+                    txtUsername.Focus();
+                }
             }
         }
 
@@ -73,7 +71,10 @@ namespace TODORoutine {
                             TextEditorForm textEditor = new TextEditorForm(user);
                             textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                             textEditor.Show();
-                        } else MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Username Might be taken"));
+                        } else {
+                            MessageBox.Show(ErrorMessages.SOMETHING_WENT_WRONG("Username Might be taken"));
+                            txtUsername.Focus();
+                        }
                     }
                 }
             }

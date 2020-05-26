@@ -11,5 +11,6 @@ namespace TODORoutine.database.document.dto {
     interface DocumentDTO : DatabaseDTO<Document> {
         List<Document> getAll(String lastId = "1");
         List<Document> getAllByOwnerId(String owenrId);
+        String getDocuement(String id);
     }
 }

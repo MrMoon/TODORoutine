@@ -18,21 +18,21 @@ namespace TODORoutine.Shared {
          * return a String of logs
          **/
         public static String paramenterLogging(String methodName , bool flag , params Pair[] args) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("Method ");
-            stringBuilder.Append(methodName);
-            stringBuilder.Append('\n'); 
-            stringBuilder.Append("{ ");
+            StringBuilder StringBuilder = new StringBuilder();
+            StringBuilder.Append("Method ");
+            StringBuilder.Append(methodName);
+            StringBuilder.Append('\n'); 
+            StringBuilder.Append("{ ");
             foreach(Pair pair in args) {
-                stringBuilder.Append(pair.first);
-                stringBuilder.Append(" - ");
-                stringBuilder.Append(String.IsNullOrEmpty(pair.second) ? "Null or Empty" : pair.second);
-                if (pair != args[args.Count() - 1]) stringBuilder.Append(" , ");
+                StringBuilder.Append(pair.first);
+                StringBuilder.Append(" - ");
+                StringBuilder.Append(String.IsNullOrEmpty(pair.second) ? "Null or Empty" : pair.second);
+                if (pair != args[args.Count() - 1]) StringBuilder.Append(" , ");
             }
-            stringBuilder.Append(" }");
-            if (flag) logger.Error(stringBuilder.ToString());
-            else logger.Info(stringBuilder.ToString());
-            return stringBuilder.ToString();
+            StringBuilder.Append(" }");
+            if (flag) logger.Error(StringBuilder.ToString());
+            else logger.Info(StringBuilder.ToString());
+            return StringBuilder.ToString();
         }
 
         /**
@@ -44,13 +44,13 @@ namespace TODORoutine.Shared {
          * return the Message that was Logged
          **/
         public static String logInfo(bool isError  , params String[] args) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("{ ");
+            StringBuilder StringBuilder = new StringBuilder();
+            StringBuilder.Append("{ ");
             foreach(String str in args) {
-                stringBuilder.Append(str);
-                if(str != args[args.Count() - 1]) stringBuilder.Append(" , ");
+                StringBuilder.Append(str);
+                if(str != args[args.Count() - 1]) StringBuilder.Append(" , ");
             }
-            String s = stringBuilder.ToString();
+            String s = StringBuilder.ToString();
             if (isError) logger.Error(s);
             else logger.Info(s);
             return s;

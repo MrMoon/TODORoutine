@@ -23,177 +23,208 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskForm));
-            this.taskData = new System.Windows.Forms.DataGridView();
-            this.IdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PriorityColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.StatusColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.NoteColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.btnFilter = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnGet = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnUpdateTask = new System.Windows.Forms.Button();
+            this.btnGetTasks = new System.Windows.Forms.Button();
+            this.btnAddTask = new System.Windows.Forms.Button();
             this.txtNote = new System.Windows.Forms.TextBox();
+            this.chkUpdate = new System.Windows.Forms.CheckBox();
+            this.btnDeleteTask = new System.Windows.Forms.Button();
+            this.btnUndoDelete = new System.Windows.Forms.Button();
+            this.taskData = new System.Windows.Forms.DataGridView();
+            this.idDataColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dueDateDataColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priorityDataColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.statusDataColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.documentDataColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taskNoteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.taskData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskNoteBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // taskData
-            // 
-            this.taskData.AllowDrop = true;
-            this.taskData.AllowUserToOrderColumns = true;
-            this.taskData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.taskData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.taskData.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.taskData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.taskData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IdColumn,
-            this.DueDateColumn,
-            this.PriorityColumn,
-            this.StatusColumn,
-            this.NoteColumn});
-            this.taskData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.taskData.Location = new System.Drawing.Point(12, 102);
-            this.taskData.Name = "taskData";
-            this.taskData.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.taskData.RowTemplate.Height = 24;
-            this.taskData.Size = new System.Drawing.Size(1044, 355);
-            this.taskData.TabIndex = 0;
-            this.taskData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.taskData_CellContentClick);
-            // 
-            // IdColumn
-            // 
-            this.IdColumn.DataPropertyName = "id";
-            this.IdColumn.HeaderText = "ID";
-            this.IdColumn.MinimumWidth = 6;
-            this.IdColumn.Name = "IdColumn";
-            this.IdColumn.ReadOnly = true;
-            // 
-            // DueDateColumn
-            // 
-            this.DueDateColumn.DataPropertyName = "dueDate";
-            this.DueDateColumn.HeaderText = "Due Date";
-            this.DueDateColumn.MinimumWidth = 6;
-            this.DueDateColumn.Name = "DueDateColumn";
-            this.DueDateColumn.ReadOnly = true;
-            // 
-            // PriorityColumn
-            // 
-            this.PriorityColumn.DataPropertyName = "proiority";
-            this.PriorityColumn.HeaderText = "Priority";
-            this.PriorityColumn.MinimumWidth = 6;
-            this.PriorityColumn.Name = "PriorityColumn";
-            this.PriorityColumn.ReadOnly = true;
-            this.PriorityColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.PriorityColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // StatusColumn
-            // 
-            this.StatusColumn.DataPropertyName = "status";
-            this.StatusColumn.HeaderText = "Status";
-            this.StatusColumn.MinimumWidth = 6;
-            this.StatusColumn.Name = "StatusColumn";
-            this.StatusColumn.ReadOnly = true;
-            this.StatusColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.StatusColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // NoteColumn
-            // 
-            this.NoteColumn.DataPropertyName = "noteId";
-            this.NoteColumn.HeaderText = "Note";
-            this.NoteColumn.MinimumWidth = 6;
-            this.NoteColumn.Name = "NoteColumn";
-            this.NoteColumn.ReadOnly = true;
             // 
             // txtFilter
             // 
             this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilter.Location = new System.Drawing.Point(184, 61);
+            this.txtFilter.Location = new System.Drawing.Point(13, 61);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(586, 22);
+            this.txtFilter.Size = new System.Drawing.Size(925, 22);
             this.txtFilter.TabIndex = 6;
-            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             // 
             // btnFilter
             // 
             this.btnFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFilter.Location = new System.Drawing.Point(776, 59);
+            this.btnFilter.Location = new System.Drawing.Point(944, 56);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(100, 27);
             this.btnFilter.TabIndex = 7;
             this.btnFilter.Text = "Apply Filter";
             this.btnFilter.UseVisualStyleBackColor = true;
             // 
-            // btnUpdate
+            // btnUpdateTask
             // 
-            this.btnUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnUpdate.Location = new System.Drawing.Point(550, 12);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 33);
-            this.btnUpdate.TabIndex = 17;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdateTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUpdateTask.Location = new System.Drawing.Point(73, 12);
+            this.btnUpdateTask.Name = "btnUpdateTask";
+            this.btnUpdateTask.Size = new System.Drawing.Size(133, 33);
+            this.btnUpdateTask.TabIndex = 17;
+            this.btnUpdateTask.Text = "Update Task";
+            this.btnUpdateTask.UseVisualStyleBackColor = true;
+            this.btnUpdateTask.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // btnGet
+            // btnGetTasks
             // 
-            this.btnGet.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnGet.Location = new System.Drawing.Point(307, 12);
-            this.btnGet.Name = "btnGet";
-            this.btnGet.Size = new System.Drawing.Size(75, 33);
-            this.btnGet.TabIndex = 16;
-            this.btnGet.Text = "Get";
-            this.btnGet.UseVisualStyleBackColor = true;
-            this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
+            this.btnGetTasks.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnGetTasks.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnGetTasks.Location = new System.Drawing.Point(354, 12);
+            this.btnGetTasks.Name = "btnGetTasks";
+            this.btnGetTasks.Size = new System.Drawing.Size(132, 33);
+            this.btnGetTasks.TabIndex = 16;
+            this.btnGetTasks.Text = "Get All Tasks";
+            this.btnGetTasks.UseVisualStyleBackColor = true;
+            this.btnGetTasks.Click += new System.EventHandler(this.btnGet_Click);
             // 
-            // btnDelete
+            // btnAddTask
             // 
-            this.btnDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnDelete.Location = new System.Drawing.Point(629, 12);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 33);
-            this.btnDelete.TabIndex = 15;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnEdit.Location = new System.Drawing.Point(469, 12);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 33);
-            this.btnEdit.TabIndex = 14;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnAdd.Location = new System.Drawing.Point(388, 12);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 33);
-            this.btnAdd.TabIndex = 13;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAddTask.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAddTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAddTask.Location = new System.Drawing.Point(492, 12);
+            this.btnAddTask.Name = "btnAddTask";
+            this.btnAddTask.Size = new System.Drawing.Size(130, 33);
+            this.btnAddTask.TabIndex = 13;
+            this.btnAddTask.Text = "Add a Task";
+            this.btnAddTask.UseVisualStyleBackColor = true;
+            this.btnAddTask.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // txtNote
             // 
+            this.txtNote.AcceptsReturn = true;
             this.txtNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNote.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNote.Location = new System.Drawing.Point(13, 464);
+            this.txtNote.Location = new System.Drawing.Point(13, 442);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.ReadOnly = true;
-            this.txtNote.Size = new System.Drawing.Size(1043, 199);
+            this.txtNote.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtNote.Size = new System.Drawing.Size(1031, 199);
             this.txtNote.TabIndex = 18;
+            // 
+            // chkUpdate
+            // 
+            this.chkUpdate.AutoSize = true;
+            this.chkUpdate.Location = new System.Drawing.Point(13, 19);
+            this.chkUpdate.Name = "chkUpdate";
+            this.chkUpdate.Size = new System.Drawing.Size(54, 21);
+            this.chkUpdate.TabIndex = 19;
+            this.chkUpdate.Text = "Edit";
+            this.chkUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkUpdate.UseVisualStyleBackColor = true;
+            this.chkUpdate.CheckedChanged += new System.EventHandler(this.chkUpdate_CheckedChanged);
+            // 
+            // btnDeleteTask
+            // 
+            this.btnDeleteTask.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteTask.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnDeleteTask.Location = new System.Drawing.Point(914, 12);
+            this.btnDeleteTask.Name = "btnDeleteTask";
+            this.btnDeleteTask.Size = new System.Drawing.Size(130, 33);
+            this.btnDeleteTask.TabIndex = 20;
+            this.btnDeleteTask.Text = "Delete Task";
+            this.btnDeleteTask.UseVisualStyleBackColor = true;
+            this.btnDeleteTask.Click += new System.EventHandler(this.btnDeleteTask_Click);
+            // 
+            // btnUndoDelete
+            // 
+            this.btnUndoDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUndoDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnUndoDelete.Location = new System.Drawing.Point(778, 12);
+            this.btnUndoDelete.Name = "btnUndoDelete";
+            this.btnUndoDelete.Size = new System.Drawing.Size(130, 33);
+            this.btnUndoDelete.TabIndex = 21;
+            this.btnUndoDelete.Text = "Undo Delete";
+            this.btnUndoDelete.UseVisualStyleBackColor = true;
+            this.btnUndoDelete.Click += new System.EventHandler(this.btnUndoDelete_Click);
+            // 
+            // taskData
+            // 
+            this.taskData.AllowUserToOrderColumns = true;
+            this.taskData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.taskData.AutoGenerateColumns = false;
+            this.taskData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.taskData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataColumn,
+            this.dueDateDataColumn,
+            this.priorityDataColumn,
+            this.statusDataColumn,
+            this.documentDataColumn});
+            this.taskData.DataSource = this.taskNoteBindingSource;
+            this.taskData.Location = new System.Drawing.Point(13, 90);
+            this.taskData.Name = "taskData";
+            this.taskData.RowHeadersWidth = 51;
+            this.taskData.RowTemplate.Height = 24;
+            this.taskData.Size = new System.Drawing.Size(1031, 346);
+            this.taskData.TabIndex = 22;
+            this.taskData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.taskData_CellContentClick);
+            this.taskData.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.taskData_RowStateChanged);
+            // 
+            // idDataColumn
+            // 
+            this.idDataColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.idDataColumn.DataPropertyName = "id";
+            this.idDataColumn.HeaderText = "id";
+            this.idDataColumn.MinimumWidth = 6;
+            this.idDataColumn.Name = "idDataColumn";
+            this.idDataColumn.ReadOnly = true;
+            // 
+            // dueDateDataColumn
+            // 
+            this.dueDateDataColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dueDateDataColumn.DataPropertyName = "dueDate";
+            this.dueDateDataColumn.HeaderText = "dueDate";
+            this.dueDateDataColumn.MinimumWidth = 6;
+            this.dueDateDataColumn.Name = "dueDateDataColumn";
+            this.dueDateDataColumn.ReadOnly = true;
+            // 
+            // priorityDataColumn
+            // 
+            this.priorityDataColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.priorityDataColumn.DataPropertyName = "priority";
+            this.priorityDataColumn.HeaderText = "priority";
+            this.priorityDataColumn.MinimumWidth = 6;
+            this.priorityDataColumn.Name = "priorityDataColumn";
+            this.priorityDataColumn.ReadOnly = true;
+            this.priorityDataColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.priorityDataColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // statusDataColumn
+            // 
+            this.statusDataColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.statusDataColumn.DataPropertyName = "status";
+            this.statusDataColumn.HeaderText = "status";
+            this.statusDataColumn.MinimumWidth = 6;
+            this.statusDataColumn.Name = "statusDataColumn";
+            this.statusDataColumn.ReadOnly = true;
+            this.statusDataColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.statusDataColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // documentDataColumn
+            // 
+            this.documentDataColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.documentDataColumn.DataPropertyName = "document";
+            this.documentDataColumn.HeaderText = "document";
+            this.documentDataColumn.MinimumWidth = 6;
+            this.documentDataColumn.Name = "documentDataColumn";
+            this.documentDataColumn.ReadOnly = true;
+            // 
+            // taskNoteBindingSource
+            // 
+            this.taskNoteBindingSource.DataSource = typeof(TODORoutine.models.TaskNote);
             // 
             // TaskForm
             // 
@@ -201,41 +232,44 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1068, 675);
+            this.ClientSize = new System.Drawing.Size(1056, 653);
+            this.Controls.Add(this.taskData);
+            this.Controls.Add(this.btnUndoDelete);
+            this.Controls.Add(this.btnDeleteTask);
+            this.Controls.Add(this.chkUpdate);
             this.Controls.Add(this.txtNote);
-            this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.btnGet);
-            this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.btnUpdateTask);
+            this.Controls.Add(this.btnGetTasks);
+            this.Controls.Add(this.btnAddTask);
             this.Controls.Add(this.btnFilter);
             this.Controls.Add(this.txtFilter);
-            this.Controls.Add(this.taskData);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TaskForm";
             this.Text = "TaskForm";
             this.Load += new System.EventHandler(this.TaskForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.taskData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.taskNoteBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView taskData;
         private System.Windows.Forms.TextBox txtFilter;
         private System.Windows.Forms.Button btnFilter;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnGet;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnUpdateTask;
+        private System.Windows.Forms.Button btnGetTasks;
+        private System.Windows.Forms.Button btnAddTask;
         private System.Windows.Forms.TextBox txtNote;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn PriorityColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn StatusColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NoteColumn;
+        private System.Windows.Forms.CheckBox chkUpdate;
+        private System.Windows.Forms.Button btnDeleteTask;
+        private System.Windows.Forms.Button btnUndoDelete;
+        private System.Windows.Forms.DataGridView taskData;
+        private System.Windows.Forms.BindingSource taskNoteBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dueDateDataColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn priorityDataColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn statusDataColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn documentDataColumn;
     }
 }

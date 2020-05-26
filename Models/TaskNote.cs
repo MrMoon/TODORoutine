@@ -1,15 +1,28 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using TODORoutine.general;
 using TODORoutine.general.enums;
 
 namespace TODORoutine.models {
-    class TaskNote {
+    public class TaskNote {
         public String noteId { get; set; }
+        public String document { get; set; }
         public String id { get; set; }
         public Status status { get; set; }
         public Priority priority { get; set; }
         public DateTime dueDate { get; set; }
+
+        public TaskNote() { }
+
+        public TaskNote(String id , DateTime dueDate , Priority priority , Status status , String docuemnt) {
+            this.id = id;
+            this.dueDate = dueDate;
+            this.priority = priority;
+            this.status = status;
+            this.document = document;
+        }
 
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
