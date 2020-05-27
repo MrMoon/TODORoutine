@@ -11,6 +11,7 @@ using TODORoutine.Database.Shared;
 using TODORoutine.general;
 using TODORoutine.general.constants;
 using TODORoutine.general.enums;
+using TODORoutine.general.validation;
 using TODORoutine.models;
 using TODORoutine.Models;
 
@@ -74,7 +75,7 @@ namespace TODORoutine.forms {
                 task.priority = (Priority) Enum.Parse(typeof(Priority) , priorityComboBox.SelectedItem.ToString());
                 task.noteId = noteTemp.getId();
                 task.dueDate = dueDatePicker.Value;
-                TaskDTOImplentation.getInstance().save(task);
+                TaskDTOImplementation.getInstance().save(task);
                 if (notebook != null) {
                     notebook.addNote(noteTemp.getId());
                     NotebookDTOImplementation.getInstance().update(notebook , DatabaseConstants.COLUMN_NOTESID);
@@ -97,7 +98,7 @@ namespace TODORoutine.forms {
                 priority = (Priority) Enum.Parse(typeof(Priority) , priorityComboBox.SelectedItem.ToString()) ,
                 dueDate = dueDatePicker.Value
             };
-            TaskDTOImplentation.getInstance().update(task , DatabaseConstants.COLUMN_STATUS , DatabaseConstants.COLUMN_PRIORITY , DatabaseConstants.COLUMN_DUEDATE);
+            TaskDTOImplementation.getInstance().update(task , DatabaseConstants.COLUMN_STATUS , DatabaseConstants.COLUMN_PRIORITY , DatabaseConstants.COLUMN_DUEDATE);
         }
 
         private void txtNote_TextChanged(object sender , EventArgs e) {
@@ -115,6 +116,5 @@ namespace TODORoutine.forms {
         private void statusComboBox_SelectedIndexChanged(object sender , EventArgs e) {
             if (statusComboBox.Focused) statusComboBox.BackColor = Color.White;
         }
-
     }
 }

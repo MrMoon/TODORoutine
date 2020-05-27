@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using TODORoutine.database.task.dto;
@@ -18,7 +12,7 @@ using TODORoutine.models;
 namespace TODORoutine.forms {
     public partial class TaskReportForm : Form {
 
-        private readonly TaskDTO taskDTO = TaskDTOImplentation.getInstance();
+        private readonly TaskDTO taskDTO = TaskDTOImplementation.getInstance();
         private int[] priorityCount;
         private int[] statusCount;
         private int[] monuthCount;

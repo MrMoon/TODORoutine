@@ -1,6 +1,11 @@
 ﻿using System;
 
 namespace TODORoutine.database {
+
+    /**
+     * Authentication Model for the user 
+     * To seperate user info from the password
+     **/
     class Authentication {
 
         private String username, password;

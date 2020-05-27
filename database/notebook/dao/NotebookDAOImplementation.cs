@@ -26,6 +26,7 @@ namespace TODORoutine.database.notebook.dao {
         private DatabaseDriver driver = null;
 
         private NotebookDAOImplementation() {
+            Logging.singlton(nameof(NotebookDAO));
             driver = DatabaseDriverImplementation.getInstance();
             parser = NotebookParserImplementation.getInstance();
             driver.createTable(DatabaseConstants.CREATE_NOTEBOOK_TABLE);
@@ -256,6 +257,13 @@ namespace TODORoutine.database.notebook.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
+        /**
+         * Getting all notebooks 
+         * 
+         * @lastNotebookId : the last notebook id that was read from the last call
+         * 
+         * return a list of notebooks ids if it was found and throw an exception otherwise
+         **/
         public List<String> findAll(String lastNotebookId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastNotebookId) , lastNotebookId));

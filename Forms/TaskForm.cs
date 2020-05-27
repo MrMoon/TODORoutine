@@ -21,7 +21,7 @@ namespace TODORoutine.forms {
         private int undoBufferIndex = 0;
         private int lastId = 1;
         private User user;
-        private readonly TaskDTO taskDTO = TaskDTOImplentation.getInstance();
+        private readonly TaskDTO taskDTO = TaskDTOImplementation.getInstance();
 
         public TaskForm(User user) {
             InitializeComponent();
@@ -72,9 +72,12 @@ namespace TODORoutine.forms {
             }
             if (taskData.SelectedRows.Count > 0) {
                 if (MessageBox.Show(UserMessages.ARE_YOU_SURE("Update") , UserMessages.CONFIRMION("Update") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    TaskNote task;
+                    bool flag = false;
                     foreach (DataGridViewRow row in taskData.SelectedRows) {
-                        TaskNote task = (TaskNote) row.DataBoundItem;
-                        taskDTO.update(task , DatabaseConstants.COLUMN_DUEDATE , DatabaseConstants.COLUMN_PRIORITY , DatabaseConstants.COLUMN_STATUS);
+                        task = (TaskNote) row.DataBoundItem;
+                        flag = taskDTO.update(task , DatabaseConstants.COLUMN_DUEDATE , DatabaseConstants.COLUMN_PRIORITY , DatabaseConstants.COLUMN_STATUS);
+                        UserMessages.messageStatus(flag);
                     }
                     refreshTaskData();
                 }
@@ -105,15 +108,19 @@ namespace TODORoutine.forms {
                 if (MessageBox.Show(UserMessages.ARE_YOU_SURE("Delete") , UserMessages.CONFIRMION("Delete") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     lastId -= taskData.SelectedRows.Count;
                     if (lastId < 0) lastId = 1;
+                    TaskNote task;
+                    bool flag = false;
                     foreach (DataGridViewRow row in taskData.SelectedRows) {
-                        TaskNote task = (TaskNote) row.DataBoundItem;
+                        task = (TaskNote) row.DataBoundItem;
                         undoBufferIndex = (undoBufferIndex + 1) % bufferSize;
-                        taskDTO.delete(task.id);
+                        flag = taskDTO.delete(task.id);
                         Note noteTemp = NoteDTOImplementation.getInstance().getById(task.noteId);
-                        NoteDTOImplementation.getInstance().delete(task.noteId);
-                        DocumentDTOImplementation.getInstance().delete(noteTemp.getDocumentId());
+                        flag &= noteTemp != null;
+                        flag &= NoteDTOImplementation.getInstance().delete(task.noteId);
+                        flag &= DocumentDTOImplementation.getInstance().delete(noteTemp.getDocumentId());
                         undoBuffer[undoBufferIndex] = task;
                         tasks.Remove(task);
+                        UserMessages.messageStatus(flag);
                     }
                     refreshTaskData();
                 }
@@ -123,10 +130,11 @@ namespace TODORoutine.forms {
         private void btnUndoDelete_Click(object sender , EventArgs e) {
             if (undoBufferIndex > 0) {
                 if (MessageBox.Show(UserMessages.ARE_YOU_SURE("Undo Delete") , UserMessages.CONFIRMION("Undo Delete") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
-                    taskDTO.save(undoBuffer[undoBufferIndex]);
+                    bool flag = taskDTO.save(undoBuffer[undoBufferIndex]);
                     tasks.Add(undoBuffer[undoBufferIndex]);
                     undoBufferIndex = (((undoBufferIndex - 1) % bufferSize) + bufferSize) % bufferSize;
                     ++lastId;
+                    UserMessages.messageStatus(flag);
                     refreshTaskData();
                 }
             } else MessageBox.Show(UserMessages.EMPTY_OPERATION("Undo"));

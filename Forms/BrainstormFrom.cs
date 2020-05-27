@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TODORoutine;
-using TODORoutine.database;
 using TODORoutine.database.authentication.dto;
 using TODORoutine.database.parsers;
 using TODORoutine.Database.Shared;
@@ -11,6 +9,7 @@ using TODORoutine.Database.user.DTO;
 using TODORoutine.editor;
 using TODORoutine.forms;
 using TODORoutine.general.constants;
+using TODORoutine.general.validation;
 using TODORoutine.models;
 using TODORoutine.Models;
 
@@ -279,7 +278,7 @@ namespace MainTextEditor {
             if(MessageBox.Show(UserMessages.ARE_YOU_SURE("Delete , This can't be undo") , UserMessages.CONFIRMION("Delete") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
                 AuthForm authForm = new AuthForm();
                 userDTO.delete(user.getId());
-                AuthenticationDTOImplentation.getInstance().delete(new Authentication(user.getUsername() , ""));
+                AuthenticationDTOImplementation.getInstance().delete(user.getUsername());
                 authForm.Show();
                 authForm.Activate();
                 authForm.Shown += (o , ev) => this.Close();

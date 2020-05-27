@@ -50,6 +50,8 @@ namespace TODORoutine.Database {
 
         /**
          * Creating Main Database Table
+         * 
+         * @query : the create table query
          **/
         public void createTable(String query) {
             Logging.logInfo(false , "Creating Table " , query);
@@ -66,7 +68,7 @@ namespace TODORoutine.Database {
          * 
          * @query : the query for the reader
          * 
-         * return SQLiteDataReader
+         * return SQLiteDataReader with it's query
          **/
         public SQLiteDataReader getReader(String query) {
             try {
@@ -81,7 +83,7 @@ namespace TODORoutine.Database {
         }
 
         /**
-         * A Method to Execute SQL statments
+         * A Method to Execute all SQL statments
          * 
          * @query : the SQL Statment
          * 
@@ -109,7 +111,22 @@ namespace TODORoutine.Database {
             return n == -1 ? 0 : n;
         }
 
+        /**
+         * Getting SQLiteCommand for the BLOB
+         * 
+         * @connection : the sql connection
+         * @query : the insert query
+         * @parameter : the blob parameter
+         * @file : the bytes to insert into the database
+         * 
+         * return a SQLiteCommand with all of it's configuration
+         **/
         public SQLiteCommand getBLOBCommand(SQLiteConnection connection , String query , String parameter , byte[] file) {
+            //Logging
+            Logging.paramenterLogging(nameof(getBLOBCommand) , false , new Pair(nameof(connection) , connection.ToString())
+                            , new Pair(nameof(query) , query) , new Pair(nameof(parameter) , parameter)
+                            , new Pair(nameof(file) , file.ToString()));
+            //Setting up the command
             try {
                 command.Connection = connection;
                 connection.Open();
@@ -119,7 +136,11 @@ namespace TODORoutine.Database {
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-
+            //Logging
+            Logging.paramenterLogging(nameof(getBLOBCommand) , false , new Pair(nameof(connection) , connection.ToString())
+                            , new Pair(nameof(query) , query) , new Pair(nameof(parameter) , parameter)
+                            , new Pair(nameof(file) , file.ToString()));
+            //Inserting went wrong
             throw new DatabaseException("Something went Wrong");
         }
     }

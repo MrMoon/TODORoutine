@@ -8,15 +8,13 @@ namespace TODORoutine.database.parsers.notes_parser {
 
     /**
      * Main Note Parser for SQL Statment Parsing 
-     * Select , Update , Insert , Update
+     * Handles SQL Parsing for Note class
      **/
     class NoteParserImplementation : DatabaseParserImplementation<Note> , NoteParser {
 
         private static NoteParser noteParser = null;
 
-        private NoteParserImplementation() {
- 
-        }
+        private NoteParserImplementation() => Logging.singlton(nameof(NoteParser));
 
         public static NoteParser getInstance() {
             if (noteParser == null) noteParser = new NoteParserImplementation();

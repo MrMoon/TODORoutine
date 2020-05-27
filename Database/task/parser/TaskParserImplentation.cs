@@ -9,16 +9,16 @@ namespace TODORoutine.database.task.parser {
 
     /**
      * Main Task Parser for SQL Statment Parsing 
-     * Select , Update , Insert , Update
+     * Handles SQL Statement for the Task Class
      **/
-    class TaskParserImplentation : DatabaseParserImplementation<TaskNote> , TaskParser {
+    class TaskParserImplementation : DatabaseParserImplementation<TaskNote> , TaskParser {
 
         private static TaskParser taskParser = null;
-        
-        private TaskParserImplentation() { }
+
+        private TaskParserImplementation() => Logging.singlton(nameof(TaskParser));
 
         public static TaskParser getInstance() {
-            if (taskParser == null) taskParser = new TaskParserImplentation();
+            if (taskParser == null) taskParser = new TaskParserImplementation();
             return taskParser;
         }
 

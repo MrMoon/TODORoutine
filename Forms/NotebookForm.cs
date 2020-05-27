@@ -1,12 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TODORoutine.database.document.dto;
 using TODORoutine.database.note.dto;
@@ -15,6 +7,8 @@ using TODORoutine.database.parsers;
 using TODORoutine.database.sharing.dto;
 using TODORoutine.Database.Shared;
 using TODORoutine.Database.user.DTO;
+using TODORoutine.general.constants;
+using TODORoutine.general.validation;
 using TODORoutine.models;
 using TODORoutine.Models;
 
@@ -42,11 +36,11 @@ namespace TODORoutine.forms {
         }
 
         private void refreshNoteData() {
-            foreach (Note note in noteDTO.getAll(lastNoteId.ToString())) addNote(note);
+            foreach (Note note in noteDTO.getAll(lastNoteId.ToString(lastNoteId.ToString()))) addNote(note);
         }
 
         private void refreshNotebookData() {
-            foreach (Notebook notebook in notebookDTO.getAll(lastNotebookId.ToString())) addNotebook(notebook);
+            foreach (Notebook notebook in notebookDTO.getAll(lastNotebookId.ToString(lastNotebookId.ToString()))) addNotebook(notebook);
         }
 
         private bool binarySearch(ListView.ListViewItemCollection list , int val) {
@@ -62,16 +56,18 @@ namespace TODORoutine.forms {
         }
 
         private void addNote(Note note) {
+            if (int.Parse(note.getId()) > lastNoteId) lastNoteId = int.Parse(note.getId());
             if (!binarySearch(noteListView.Items , int.Parse(note.getId()))) noteListView.Items.Add(note.getId());
         }
 
         private void addNotebook(Notebook notebook) {
+            if (int.Parse(notebook.getId()) > lastNotebookId) lastNotebookId = int.Parse(notebook.getId());
             if (!binarySearch(notebookListView.Items , int.Parse(notebook.getId()))) notebookListView.Items.Add(notebook.getId());
             this.notebook = notebook;
         }
 
         public void openAddNotebookDialog(String id , String title) {
-            Form addNotebookDialog = new Form { Width = 500 , Height = 120 , Text = "Find and Replace" };
+            Form addNotebookDialog = new Form { Width = 500 , Height = 120 , Text = "Add Notebook" };
             Label lblTitle = new Label() { Left = 10 , Top = 20 , Text = "Notebook Title :" , Width = 100 };
             TextBox txtTitle = new TextBox() { Left = 150 , Top = 20 , Width = 300 };
             Button btnAdd = new Button() { Text = "Add" , Left = 350 , Width = 100 , Top = 40 };
@@ -79,14 +75,16 @@ namespace TODORoutine.forms {
             btnAdd.Click += (o , e) => {
                 if(DataValidator.isValidTexts(txtTitle)) {
                     Notebook notebookTemp = new Notebook();
+                    bool flag = false;
                     notebookTemp.setAuthor(user.getFullName());
                     notebookTemp.setLastModified(DateTime.Now);
                     notebookTemp.setTitle(txtTitle.Text);
-                    if (String.IsNullOrEmpty(id)) notebookDTO.save(notebookTemp);
-                    else notebookDTO.update(notebookTemp , DatabaseConstants.COLUMN_AUTHOR , DatabaseConstants.COLUMN_LASTMODIFIED , DatabaseConstants.COLUMN_TITLE);
+                    if (String.IsNullOrEmpty(id)) flag = notebookDTO.save(notebookTemp);
+                    else flag = notebookDTO.update(notebookTemp , DatabaseConstants.COLUMN_AUTHOR , DatabaseConstants.COLUMN_LASTMODIFIED , DatabaseConstants.COLUMN_TITLE);
                     notebook = notebookTemp;
                     user.setNotebookId(notebook.getId());
                     UserDTOImplementation.getInstance().update(user , DatabaseConstants.COLUMN_NOTEBOOKID);
+                    UserMessages.messageStatus(flag);
                     refreshNotebookData();
                 }
             };
@@ -98,10 +96,12 @@ namespace TODORoutine.forms {
         }
 
         private void btnShare_Click(object sender , EventArgs e) {
+            bool flag = false;
             foreach(ListViewItem item in noteListView.SelectedItems) {
                 share.documentsIds.Add(item.Text);
-                if (ShareDTOImplentation.getInstance().update(share , DatabaseConstants.COLUMN_DOCUMENTSIDS)) continue;
-                else ShareDTOImplentation.getInstance().save(share);
+                if (ShareDTOImplementation.getInstance().update(share , DatabaseConstants.COLUMN_DOCUMENTSIDS)) flag = true;
+                else flag = ShareDTOImplementation.getInstance().save(share);
+                UserMessages.messageStatus(flag);
             }
         }
 
@@ -130,14 +130,27 @@ namespace TODORoutine.forms {
 
         private void btnDeleteNote_Click(object sender , EventArgs e) {
             if (noteListView.SelectedItems.Count == 0) MessageBox.Show("Please Select a notebook to delete");
-            else foreach (ListViewItem item in noteListView.SelectedItems) noteDTO.delete(item.Text);
+            else {
+                if(MessageBox.Show(UserMessages.ARE_YOU_SURE("Delete , (this cannot be undone) ") 
+                    , UserMessages.CONFIRMION("Delete") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    Note noteTemp;
+                    bool flag = false;
+                    foreach (ListViewItem item in noteListView.SelectedItems) {
+                        noteTemp = noteDTO.getById(item.Text);
+                        flag = DocumentDTOImplementation.getInstance().delete(noteTemp.getDocumentId());
+                        flag &= noteDTO.delete(noteTemp.getId());
+                        UserMessages.messageStatus(flag);
+                    }
+                }
+            }
         }
 
         private void btnAddNotebook_Click(object sender , EventArgs e) => openAddNotebookDialog(null , null);
 
         private void btnEditNotebook_Click(object sender , EventArgs e) {
+            Notebook notebookTemp;
             foreach(ListViewItem item in notebookListView.SelectedItems) {
-                Notebook notebookTemp = notebookDTO.getById(item.Text);
+                notebookTemp = notebookDTO.getById(item.Text);
                 openAddNotebookDialog(notebookTemp.getId() , notebookTemp.getTitle());
             }
         }
@@ -148,7 +161,8 @@ namespace TODORoutine.forms {
             else {
                 notebook = notebookDTO.getById(notebookListView.SelectedItems[0].Text);
                 user.setNotebookId(notebook.getId());
-                UserDTOImplementation.getInstance().update(user , DatabaseConstants.COLUMN_NOTEBOOKID);
+                bool flag = UserDTOImplementation.getInstance().update(user , DatabaseConstants.COLUMN_NOTEBOOKID);
+                UserMessages.messageStatus(flag);
             }
         }
 
@@ -159,8 +173,21 @@ namespace TODORoutine.forms {
         }
 
         private void btnDeleteNotebook_Click(object sender , EventArgs e) {
-            if(notebookListView.SelectedItems.Count == 0) MessageBox.Show("Please Select a notebook to delete");
-            else foreach(ListViewItem item in notebookListView.SelectedItems) notebookDTO.delete(item.Text);
+            if (notebookListView.SelectedItems.Count == 0) MessageBox.Show("Please Select a notebook to delete");
+            else {
+                if(MessageBox.Show(UserMessages.ARE_YOU_SURE("Delete Notebook , This will also delete the notes (Can't Be Undone)") 
+                    , UserMessages.CONFIRMION("Delete Notebook") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                    Notebook notebookTemp;
+                    bool flag = false;
+                    foreach (ListViewItem item in notebookListView.SelectedItems) {
+                        notebookTemp = notebookDTO.getById(item.Text);
+                        flag = notebookTemp != null;
+                        foreach (String noteId in notebookTemp.getNotes()) flag &= noteDTO.delete(noteId);
+                        flag &= notebookDTO.delete(notebookTemp.getId());
+                        UserMessages.messageStatus(flag);
+                    }
+                }
+            }
         }
     }
 }

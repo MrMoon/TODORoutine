@@ -18,7 +18,10 @@ namespace TODORoutine.database.notebook.dto {
         private static NotebookDTO notebookDTO = null;
         private readonly NotebookDAO notebookDAO = null;
 
-        private NotebookDTOImplementation() => notebookDAO = NotebookDAOImplementation.getInstance();
+        private NotebookDTOImplementation() {
+            Logging.singlton(nameof(NotebookDTO));
+            notebookDAO = NotebookDAOImplementation.getInstance();
+        }
 
         public static NotebookDTO getInstance() {
             if (notebookDTO == null) notebookDTO = new NotebookDTOImplementation();
@@ -121,7 +124,7 @@ namespace TODORoutine.database.notebook.dto {
         public List<Note> getNotes(String id) {
             try {
                 List<Note> notes = new List<Note>();
-                notebookDAO.findNotes(id).ForEach(ID => notes.Add(NoteDAOImplentation.getInsence().findById(ID)));
+                notebookDAO.findNotes(id).ForEach(ID => notes.Add(NoteDAOImplementation.getInsence().findById(ID)));
                 return notes;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
@@ -182,6 +185,13 @@ namespace TODORoutine.database.notebook.dto {
             return false;
         }
 
+        /**
+         * Getting all notebooks within a range from lastNotebookId to lastNotebookId + x
+         * 
+         * @lastNotebookId : the last notebook id that was read from the last call
+         * 
+         * return a list of notebook if it was found and an empty list otherwise
+         **/
         public List<Notebook> getAll(String lastNotebookId = "1") {
             try {
                 List<Notebook> notebooks = new List<Notebook>();

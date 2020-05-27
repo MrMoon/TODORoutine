@@ -10,32 +10,34 @@ using TODORoutine.Shared;
 namespace TODORoutine.database.authentication {
 
     /**
-     * Main Authentication Data Layer Implentation
+     * Main Authentication Data Layer Implementation
+     * Handles user authentication from the data layer
      **/
-    class AuthenticationDAOImplentation : AuthenticationDAO {
+    class AuthenticationDAOImplementation : AuthenticationDAO {
 
         private readonly int KEY = 17;
         private static AuthenticationDAO authDAO = null;
         private DatabaseDriver driver = null;
         private AuthenticationParser parser = null;
 
-        private AuthenticationDAOImplentation() {
-            parser = AuthenticationParserImplentation.getInstance();
+        private AuthenticationDAOImplementation() {
+            Logging.singlton(nameof(AuthenticationDAO));
+            parser = AuthenticationParserImplementation.getInstance();
             driver = DatabaseDriverImplementation.getInstance();
             driver.createTable(DatabaseConstants.CREATE_AUTHENTICATE_TABLE);
         }
 
         public static AuthenticationDAO getInstance() {
-            if (authDAO == null) authDAO = new AuthenticationDAOImplentation();
+            if (authDAO == null) authDAO = new AuthenticationDAOImplementation();
             return authDAO;
         }
 
         /**
          * Login for the user
          * 
-         * @auth : the usernamae and password for the user
+         * @auth : the usernamae and password for the user (the authentication object)
          * 
-         * return true if and only if the operation was done successfully
+         * return true if and only if the login was done successfully
          **/
         public bool login(Authentication auth) {
             //Logging
@@ -44,26 +46,27 @@ namespace TODORoutine.database.authentication {
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(DatabaseConstants.TABLE_AUTHENTICATE , 
                                                             DatabaseConstants.COLUMN_USERNAME , DatabaseConstants.COLUMN_PASSWORD , auth.getUsername()));
-                if(reader.Read()) return derypt(reader[DatabaseConstants.COLUMN_PASSWORD].ToString()).Equals(auth.getPassword());
+                if(reader.Read()) return decrypt(reader[DatabaseConstants.COLUMN_PASSWORD].ToString()).Equals(auth.getPassword());
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
             }
             //Logging
             Logging.paramenterLogging(nameof(login) , true , new Pair(nameof(auth) , auth.ToString()));
+            //Something went wrong
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(auth.ToString()));
         }
 
         /**
          * Register for the user
          * 
-         * @auth : the usernamae and password for the user
+         * @auth : the usernamae and password for the user (the authentication object)
          * 
-         * return true if and only if the operation was done successfully
+         * return true if and only if the register was done successfully
          **/
         public bool register(Authentication auth) {
             //Logging
             Logging.paramenterLogging(nameof(register) , false , new Pair(nameof(auth) , auth.ToString()));
-            //Login
+            //Register
             try {
                 auth.setPassword(encrypt(auth.getPassword()));
                 return driver.executeQuery(parser.getInsert(auth)) != -11;
@@ -72,7 +75,8 @@ namespace TODORoutine.database.authentication {
             }
             //Logging
             Logging.paramenterLogging(nameof(register) , true , new Pair(nameof(auth) , auth.ToString()));
-            throw new DatabaseException(DatabaseConstants.NOT_FOUND(auth.ToString()));
+            //Something went wrong
+            throw new DatabaseException(DatabaseConstants.INVALID(auth.ToString()));
         }
 
         /**
@@ -83,7 +87,11 @@ namespace TODORoutine.database.authentication {
          * 
          * return an encrypted String
          **/
-        public String encrypt(String text , int key = 17) {
+        private String encrypt(String text , int key = 17) {
+            //Logging
+            Logging.paramenterLogging(nameof(encrypt) , false
+                , new Pair(nameof(text) , text) , new Pair(nameof(key) , key.ToString()));
+            //Encription
             String output = "";
             foreach (char c in text) output += cipher(c , key);
             return output;
@@ -94,38 +102,54 @@ namespace TODORoutine.database.authentication {
         * 
         * @text : the text to encrypt
         * 
-        * retunr an derypted String
+        * return an derypted String
         **/
-        public String derypt(String text) {
+        private String decrypt(String text) {
+            //Logging
+            Logging.paramenterLogging(nameof(decrypt) , false
+                , new Pair(nameof(text) , text));
+            //Decription
             return encrypt(text , 26 - KEY);
         }
 
         /**
          * The Caesar Cipher algorithm
          * 
-         * @ch : the character the encrypt
+         * @ch : the character ti encrypt
          * @key : the key of encryption
          * 
          * return the encrypted character
          **/
-        public char cipher(char ch , int key) {
+        private char cipher(char ch , int key) {
+            //Logging
+            Logging.paramenterLogging(nameof(cipher) , false
+                , new Pair(nameof(ch) , ch.ToString()) , new Pair(nameof(key) , key.ToString()));
+            //applying cipher
             if (!char.IsLetter(ch)) return ch;
             char c = char.IsUpper(ch) ? 'A' : 'a';
             return (char) ((((ch + key) - c) % 26) + c);
         }
 
-        public bool delete(Authentication auth) {
+        /**
+         * Deleting the authentication for the user 
+         * 
+         * @username : the username of the user to delete the authentication
+         * 
+         * return ture if and only if the delete was done successfully
+         **/
+        public bool delete(String username) {
             //Logging
-            Logging.paramenterLogging(nameof(delete) , false , new Pair(nameof(auth) , auth.ToString()));
-            //Login
+            Logging.paramenterLogging(nameof(delete) , false , new Pair(nameof(username) , username));
+            //deleting from the database
             try {
-                return driver.executeQuery(parser.getDelete(DatabaseConstants.TABLE_AUTHENTICATE , DatabaseConstants.COLUMN_USERNAME , auth.getUsername())) != -11;
+                return driver.executeQuery(parser.getDelete(DatabaseConstants.TABLE_AUTHENTICATE , DatabaseConstants.COLUMN_USERNAME , username)) != -11;
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
             //Logging
-            Logging.paramenterLogging(nameof(register) , true , new Pair(nameof(auth) , auth.ToString()));
-            throw new DatabaseException(DatabaseConstants.NOT_FOUND(auth.ToString()));
+            Logging.paramenterLogging(nameof(register) , true , new Pair(nameof(username) , username));
+            //Username not found
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(username));
         }
     }
 }

@@ -25,6 +25,7 @@ namespace TODORoutine.database.document.dao {
         private DatabaseDriver driver = null;
 
         private DocumentDAOImplementation() {
+            Logging.singlton(nameof(DocumentDAO));
             driver = DatabaseDriverImplementation.getInstance();
             parser = DocumentParserImplementation.getInstance();
             driver.createTable(DatabaseConstants.CREATE_DOCUMENT_TABLE);
@@ -128,7 +129,7 @@ namespace TODORoutine.database.document.dao {
         }
 
         /**
-         * updatting the document in the SQL Database
+         * Updatting the document in the SQL Database
          * 
          * @document : the document that will get updated
          * @columns : the column in the database that will be updated
@@ -140,7 +141,7 @@ namespace TODORoutine.database.document.dao {
             Logging.paramenterLogging(nameof(update) , false , new Pair(nameof(document) , document.ToString()));
             //Updating
             try {
-                bool flag = delete(document.getId());
+                bool flag = delete(document.getId()); //This is done because of the blob
                 return flag && save(document);
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
@@ -158,11 +159,11 @@ namespace TODORoutine.database.document.dao {
          * 
          * return a list of document ids
          **/
-        public List<String> findAllDocuments(String lastId = "1") {
+        public List<String> findAllDocuments(String lastDocumentId = "1") {
             //Logging
-            Logging.paramenterLogging(nameof(findAllDocuments) , false , new Pair(nameof(lastId) , lastId));
+            Logging.paramenterLogging(nameof(findAllDocuments) , false , new Pair(nameof(lastDocumentId) , lastDocumentId));
             //Finding Documents
-            return findAll(parser , tableName , "" , lastId);
+            return findAll(parser , tableName , "-1" , lastDocumentId);
         }
 
         /**

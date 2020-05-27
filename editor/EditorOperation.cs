@@ -8,6 +8,9 @@ using TODORoutine.general.constants;
 using TODORoutine.models;
 
 namespace TODORoutine.editor {
+    /**
+     * Text Editor Operation Class that handles basic operation related for the richbox 
+     **/
     class EditorOperation {
 
         public int tabCounter = 0;
@@ -17,8 +20,16 @@ namespace TODORoutine.editor {
             this.tabControl = tabControl;
         }
 
+        /**
+         * Return the current Docuemnt from the RichTexBox
+         **/
         public RichTextBox getCurrentDocument => (RichTextBox) tabControl.SelectedTab.Controls["Body"];
 
+        /**
+         * Adding a tab to the Layout
+         * 
+         * @menuStrip : the menu strip to create the tab on
+         **/
         public void addTab(ContextMenuStrip menuStrip) {
 
             RichTextBox body = new RichTextBox {
@@ -38,6 +49,11 @@ namespace TODORoutine.editor {
             tabControl.TabPages.Add(newPage);
         }
 
+        /**
+         * Removing the tab from the layout
+         * 
+         * @menuStrip : the menu strip to remove the tab from
+         **/
         public void removeTab(ContextMenuStrip menuStrip) {
             if (tabControl.TabPages.Count != 1) tabControl.TabPages.Remove(tabControl.SelectedTab);
             else {
@@ -46,15 +62,32 @@ namespace TODORoutine.editor {
             }
         }
 
+        /**
+         * Removing all the tab from the layout
+         * 
+         * @menuStrip : the menu strip to remove the tab from
+         **/
         public void removeAllTabs(ContextMenuStrip menuStrip) {
             foreach (TabPage page in tabControl.TabPages) tabControl.TabPages.Remove(page);
             addTab(menuStrip);
         }
 
+        /**
+         * Removing all the tab but the current one from the layout
+         * 
+         * @menuStrip : the menu strip to remove the tab from
+         **/
         public void removeAllTabsButThis() {
             foreach (TabPage page in tabControl.TabPages) if (page.Name != tabControl.SelectedTab.Name) tabControl.TabPages.Remove(page);
         }
 
+        /**
+         * Saveing the docuemt
+         * 
+         * @saveFileDialog: the dialog to open and save the file locally
+         * @isSaveAs : to indicate the operation
+         * @Document : the document to save
+         **/
         public void save(SaveFileDialog saveFileDialog , bool isSaveAs , Document document) {
             saveFileDialog.FileName = tabControl.SelectedTab.Name;
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -70,6 +103,11 @@ namespace TODORoutine.editor {
             } else DocumentDTOImplementation.getInstance().update(document , DatabaseConstants.COLUMN_DOCUMENT);
         }
 
+        /**
+         * Open a docuemt
+         * 
+         * @openFileDialog: the dialog to open and open the file locally
+         **/
         public void open(OpenFileDialog openFileDialog) {
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             openFileDialog.Filter = TypesConstants.FILE_TYPES;
@@ -80,29 +118,52 @@ namespace TODORoutine.editor {
             }
         }
 
-        public void undo() => getCurrentDocument.Undo(); 
+        //Undo the last operation
+        public void undo() => getCurrentDocument.Undo();
 
+        //Redo the last operation
         public void redo() => getCurrentDocument.Redo(); 
-
+        
+        //Cut a selected text
         public void cut() => getCurrentDocument.Cut(); 
 
+        //Copy a selected text
         public void copy() => getCurrentDocument.Copy(); 
 
+        //paste a text from the clipboard
         public void paste() => getCurrentDocument.Paste(); 
 
-        public void selectAll() => getCurrentDocument.SelectAll(); 
+        //Selecting and highlighting all of the text
+        public void selectAll() => getCurrentDocument.SelectAll();
 
+        /**
+         * Populating the font famliy bar
+         * 
+         * @toolStripComboBox : the toolStripComboBox to poulate
+         **/
         public void getFontCollection(ToolStripComboBox toolStripComboBox) {
             InstalledFontCollection insFonts = new InstalledFontCollection();
             foreach (FontFamily item in insFonts.Families) toolStripComboBox.Items.Add(item.Name);
             toolStripComboBox.SelectedIndex = 0;
         }
 
+        /**
+         * Populating the font size bar
+         * 
+         * @toolStripComboBox : the toolStripComboBox to poulate
+         **/
         public void populateFontSizes(ToolStripComboBox toolStripComboBox) {
             for (int i = 1 ; i <= 75 ; ++i) toolStripComboBox.Items.Add(i);
             toolStripComboBox.SelectedIndex = 15;
         }
 
+        /**
+         * Finding a given word and highlighing it
+         * 
+         * @word : the word to find
+         * @highlightColor : the color of the highlight
+         * @defaultColor : the original color before the highlight
+         **/
         private void find(String word , Color highlightColor , Color defaultColor) {
             if (word == "") return;
             unfind(defaultColor);
@@ -113,14 +174,27 @@ namespace TODORoutine.editor {
                 startIndex = index + word.Length;
             }
         }
+
+        /**
+         * Unhighlight and unSelect the whole document
+         * 
+         * @color : the original color of the document
+         **/
         private void unfind(Color color) {
             getCurrentDocument.SelectionStart = 0;
             getCurrentDocument.SelectionLength = getCurrentDocument.TextLength;
             getCurrentDocument.SelectionColor = color;
         }
 
+        //Replace all of the occurrences of s with t in the document
         private void replace(String s , String t) { getCurrentDocument.Text = getCurrentDocument.Text.Replace(s , t); }
 
+        /**
+         * The find dialog 
+         * 
+         * @colorHighlight : the color to hightlight the text
+         * @defaultColor : the defaultColor of the original document
+         **/
         public void findDialog(Color colorHighlight , Color defaultColor) {
             Form findDialog = new Form { Width = 500 , Height = 160 , Text = "Find and Replace" };
             Label lblFind = new Label() { Left = 10 , Top = 20 , Text = "Find :" , Width = 100 };

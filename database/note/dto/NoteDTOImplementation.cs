@@ -17,7 +17,10 @@ namespace TODORoutine.database.note.dto {
         private readonly NoteDAO noteDAO = null;
         private static NoteDTO noteDTO = null;
 
-        private NoteDTOImplementation() => noteDAO = NoteDAOImplentation.getInsence();
+        private NoteDTOImplementation() {
+            noteDAO = NoteDAOImplementation.getInsence();
+            Logging.singlton(nameof(NoteDTO));
+        }
 
         public static NoteDTO getInstance() {
             if (noteDTO == null) noteDTO = new NoteDTOImplementation();
@@ -180,6 +183,13 @@ namespace TODORoutine.database.note.dto {
             return null;
         }
 
+        /**
+         * Getting all notes from the database within a range of lastNoteId to lastNoteId + x
+         * 
+         * @lastNoteId : the last note id that was read from the last call
+         * 
+         * return a list of notes if it was found and empty list otherwise
+         **/
         public List<Note> getAll(String lastNoteId = "1") {
             try {
                 List<Note> notes = new List<Note>();

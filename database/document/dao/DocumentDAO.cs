@@ -10,7 +10,7 @@ namespace TODORoutine.database.document.dao {
      **/
     interface DocumentDAO : DatabaseDAO<Document> {
         List<String> findByOwnerId(String ownerId);
-        List<String> findAllDocuments(String lastId = "1");
+        List<String> findAllDocuments(String lastDocumentId = "1");
         Byte[] findDocumentBytes(String id);
     }
 }

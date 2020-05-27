@@ -27,7 +27,8 @@ namespace TODORoutine.database.task.dao {
         private TaskParser parser = null;
 
         private TaskDAOImplementation() {
-            parser = TaskParserImplentation.getInstance();
+            Logging.singlton(nameof(TaskDAO));
+            parser = TaskParserImplementation.getInstance();
             driver = DatabaseDriverImplementation.getInstance();
             driver.createTable(DatabaseConstants.CREATE_TASK_TABLE);
         }
@@ -64,6 +65,13 @@ namespace TODORoutine.database.task.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
+        /**
+         * Getting the Task from the reader
+         * 
+         * @reader : the data base reader
+         * 
+         * return a task if it was found and throw an exception otherwise
+         **/
         public override TaskNote find(SQLiteDataReader reader) {
             if(reader.Read()) {
                 TaskNote task = new TaskNote();
@@ -149,6 +157,13 @@ namespace TODORoutine.database.task.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
+        /**
+        * Getting all the task by it's priority
+        * 
+        * @priority : the priority to search for in the database
+        * 
+        * return a list of tasknotes ids with a priority if it was found and throw an exception otherwise
+        **/
         public List<String> findAllByPriority(Priority priority) {
             //Logging
             Logging.paramenterLogging(nameof(findAllByPriority) , false , new Pair(nameof(priority) , priority.ToString()));
@@ -167,6 +182,13 @@ namespace TODORoutine.database.task.dao {
             throw new DatabaseException(DatabaseConstants.INVALID(priority.ToString()));
         }
 
+        /**
+        * Getting all the task by it's status
+        * 
+        * @status : the status to search for in the database
+        * 
+        * return a list of tasknotes ids with a status if it was found and throw an exception otherwise
+        **/
         public List<String> findAllByStatus(Status status) {
             //Logging
             Logging.paramenterLogging(nameof(findAllByPriority) , false , new Pair(nameof(status) , status.ToString()));
@@ -185,6 +207,13 @@ namespace TODORoutine.database.task.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(status.ToString()));
         }
 
+        /**
+         * Getting the Note id from the task id
+         * 
+         * @taskId : the task id to search for
+         * 
+         * return a note id if it was found and throw an exception otherwise
+         **/
         public String findNote(String taskId) {
             //Logging
             Logging.paramenterLogging(nameof(findNote) , false , new Pair(nameof(taskId) , taskId));
@@ -201,12 +230,26 @@ namespace TODORoutine.database.task.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(taskId));
         }
 
+        /**
+        * Getting all the task with in a range of  lastTaskId to lastTaskId + x ordered by it's duedate
+        * 
+        * @lastTaskId : the lastTaskId to start from in the database
+        * 
+        * return a list of tasknotes ids if it was found and throw an exception otherwise
+        **/
         public List<String> findAllByOrderOfDueDate(String lastTaskId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfDueDate) , false , new Pair(nameof(lastTaskId) , lastTaskId));
             return findAll(parser , tableName , DatabaseConstants.COLUMN_DUEDATE , lastTaskId);
         }
 
+        /**
+        * Getting all the task with in a range of  lastTaskId to lastTaskId + x
+        * 
+        * @lastTaskId : the lastTaskId to start from in the database
+        * 
+        * return a list of tasknotes ids if it was found and throw an exception otherwise
+        **/
         public List<String> findAll(String lastTaskId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastTaskId) , lastTaskId));

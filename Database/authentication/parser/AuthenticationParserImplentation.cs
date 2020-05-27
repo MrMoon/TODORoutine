@@ -7,32 +7,33 @@ using TODORoutine.Shared;
 namespace TODORoutine.database.authentication.parser {
 
     /**
-     * Main Authentication SQL Statment Parser Implentation
+     * Main Authentication SQL Statments Parser Implementation
+     * Handles Authentication SQL Statments and Strings
      **/
-    class AuthenticationParserImplentation : DatabaseParserImplementation<Authentication> , AuthenticationParser {
+    class AuthenticationParserImplementation : DatabaseParserImplementation<Authentication> , AuthenticationParser {
 
         private static AuthenticationParser authenticationParser = null;
 
-        private AuthenticationParserImplentation() { }
+        private AuthenticationParserImplementation() => Logging.singlton(nameof(AuthenticationParser));
 
         public static AuthenticationParser getInstance() {
-            if (authenticationParser == null) authenticationParser = new AuthenticationParserImplentation();
+            if (authenticationParser == null) authenticationParser = new AuthenticationParserImplementation();
             return authenticationParser;
         }
 
         /**
-        * Column name in the database into a note filed
+        * from Column name in the database into a authentication filed
         * 
         * @column : the column in the database
-        * @note : the note to return the field from
+        * @authentication : the authentication to return the field from
         * 
-        * return a note field String value based on the database column
+        * return a authentication field String value based on the database column
         **/
-        public override String  getFieldFromColumn(String  column , Authentication authentication) {
+        public override String getFieldFromColumn(String  column , Authentication authentication) {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
                     , new Pair(nameof(column) , column) , new Pair(nameof(note) , authentication.ToString()));
-            //Finding note filed
+            //Finding authentication filed
             if (column.Equals(DatabaseConstants.COLUMN_USERNAME)) return authentication.getUsername();
             if (column.Equals(DatabaseConstants.COLUMN_PASSWORD)) return authentication.getPassword();
             //Logging
@@ -42,7 +43,14 @@ namespace TODORoutine.database.authentication.parser {
             throw new DatabaseException(DatabaseConstants.INVALID(column));
         }
 
-        public override String  getInsert(Authentication authentication) {
+        /**
+         * Insert Statment for Authentication model 
+         * 
+         * @authentication : the authentication object to insert to the database
+         * 
+         * return a SQL insert Statment for the authentication model
+         **/
+        public override String getInsert(Authentication authentication) {
             //Validation
             if (authentication == null)
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getInsert) , true ,
