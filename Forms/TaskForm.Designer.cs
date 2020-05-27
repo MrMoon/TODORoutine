@@ -25,8 +25,6 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskForm));
-            this.txtFilter = new System.Windows.Forms.TextBox();
-            this.btnFilter = new System.Windows.Forms.Button();
             this.btnUpdateTask = new System.Windows.Forms.Button();
             this.btnGetTasks = new System.Windows.Forms.Button();
             this.btnAddTask = new System.Windows.Forms.Button();
@@ -44,25 +42,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.taskData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.taskNoteBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtFilter
-            // 
-            this.txtFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFilter.Location = new System.Drawing.Point(13, 61);
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(925, 22);
-            this.txtFilter.TabIndex = 6;
-            // 
-            // btnFilter
-            // 
-            this.btnFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFilter.Location = new System.Drawing.Point(944, 56);
-            this.btnFilter.Name = "btnFilter";
-            this.btnFilter.Size = new System.Drawing.Size(100, 27);
-            this.btnFilter.TabIndex = 7;
-            this.btnFilter.Text = "Apply Filter";
-            this.btnFilter.UseVisualStyleBackColor = true;
             // 
             // btnUpdateTask
             // 
@@ -164,11 +143,11 @@
             this.statusDataColumn,
             this.documentDataColumn});
             this.taskData.DataSource = this.taskNoteBindingSource;
-            this.taskData.Location = new System.Drawing.Point(13, 90);
+            this.taskData.Location = new System.Drawing.Point(13, 66);
             this.taskData.Name = "taskData";
             this.taskData.RowHeadersWidth = 51;
             this.taskData.RowTemplate.Height = 24;
-            this.taskData.Size = new System.Drawing.Size(1031, 346);
+            this.taskData.Size = new System.Drawing.Size(1031, 370);
             this.taskData.TabIndex = 22;
             this.taskData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.taskData_CellContentClick);
             this.taskData.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.taskData_RowStateChanged);
@@ -241,8 +220,6 @@
             this.Controls.Add(this.btnUpdateTask);
             this.Controls.Add(this.btnGetTasks);
             this.Controls.Add(this.btnAddTask);
-            this.Controls.Add(this.btnFilter);
-            this.Controls.Add(this.txtFilter);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TaskForm";
             this.Text = "TaskForm";
@@ -255,8 +232,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtFilter;
-        private System.Windows.Forms.Button btnFilter;
         private System.Windows.Forms.Button btnUpdateTask;
         private System.Windows.Forms.Button btnGetTasks;
         private System.Windows.Forms.Button btnAddTask;

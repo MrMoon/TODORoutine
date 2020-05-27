@@ -181,5 +181,16 @@ namespace TODORoutine.database.notebook.dto {
             }
             return false;
         }
+
+        public List<Notebook> getAll(string lastNotebookId = "1") {
+            try {
+                List<Notebook> notebooks = new List<Notebook>();
+                notebookDAO.findAll(lastNotebookId).ForEach((id) => notebooks.Add(getById(id)));
+                return notebooks;
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            return new List<Notebook>();
+        }
     }
 }

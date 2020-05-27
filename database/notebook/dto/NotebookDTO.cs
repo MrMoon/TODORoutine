@@ -15,6 +15,6 @@ namespace TODORoutine.database.notebook.dto {
         List<Notebook> getByAuthorName(String author);
         List<Notebook> getAllByOrderOfDateCreated(String lastNoteId = "1");
         List<Notebook> getAllByOrderOfLastModified(String lastNoteId = "1");
-
+        List<Notebook> getAll(String lastNotebookId = "1");
     }
 }

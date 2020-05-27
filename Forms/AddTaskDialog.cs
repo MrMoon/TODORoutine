@@ -35,7 +35,7 @@ namespace TODORoutine.forms {
         }
 
         private void btnAdd_Click(object sender , EventArgs e) {
-            if (!Validator.isValidTexts(txtNote , txtTitle , statusComboBox , priorityComboBox)) return;
+            if (!DataValidator.isValidTexts(txtNote , txtTitle , statusComboBox , priorityComboBox)) return;
             if (dueDatePicker.Text.Length == 0) {
                 MessageBox.Show("Please Select a Due Date");
                 return;

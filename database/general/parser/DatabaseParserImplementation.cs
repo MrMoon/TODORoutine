@@ -45,7 +45,7 @@ namespace TODORoutine.Shared {
          **/
         public String getSelect(String tableName , String filter = "" , String column = "*" , String condition = "" , bool range = false , int from = 1 , int to = 20 , bool isOrder = false , String orderColumn = "") {
             //Validation
-            if ((range && (from <= 0 || to <= 0)) || (isOrder && orderColumn == null) || !Validator.isValidParameters(tableName))
+            if ((range && (from <= 0 || to <= 0)) || (isOrder && orderColumn == null) || !DataValidator.isValidParameters(tableName))
                 throw new ArgumentException("Invalid Parameters in getSelect\n" + Logging.paramenterLogging(nameof(getSelect) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(condition) , condition)
@@ -91,7 +91,7 @@ namespace TODORoutine.Shared {
          **/
         public String getDelete(String tableName , String filter , String condition) {
             //Validation
-            if (!Validator.isValidParameters(tableName , filter , condition))
+            if (!DataValidator.isValidParameters(tableName , filter , condition))
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getDelete) , true , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(condition) , condition)));
             //Logging
@@ -125,7 +125,7 @@ namespace TODORoutine.Shared {
                 throw new ArgumentException(DatabaseConstants.INVALID(DatabaseConstants.EMPTY_UPDATE) + Logging.paramenterLogging(nameof(getUpdate) , true
                 , new Pair(nameof(columns) , columns.ToString())));
 
-            if (!Validator.isValidParameters(tableName , filter , condition) || t == null)
+            if (!DataValidator.isValidParameters(tableName , filter , condition) || t == null)
                 throw new ArgumentException(Logging.paramenterLogging(nameof(getUpdate) , true
                                             , new Pair(nameof(tableName) , tableName)
                                             , new Pair(nameof(filter) , filter) , new Pair(nameof(t) , t.ToString())

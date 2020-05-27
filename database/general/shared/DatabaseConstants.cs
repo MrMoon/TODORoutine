@@ -38,7 +38,7 @@ namespace TODORoutine.database.parsers {
             sb.Append(";");
             return sb.ToString();
         }
-        //Table TODORoutine Strings
+        //Table User Strings
         public readonly static String TABLE_USER = "User";
         public readonly static String COLUMN_USERNAME = "USERNAME";
         public readonly static String COLUMN_NOTESID = "NOTESID";
@@ -47,7 +47,7 @@ namespace TODORoutine.database.parsers {
         public readonly static String CREATE_USER_TABLE = @"CREATE TABLE " + TABLE_USER + " ( "
                                                         + ID
                                                         + COLUMN_USERNAME + " TEXT UNIQUE NOT NULL,"
-                                                        + COLUMN_NOTESID + " INTEGER UNIQUE,"
+                                                        + COLUMN_NOTEBOOKID + " INTEGER UNIQUE,"
                                                         + COLUMN_FULLNAME + " TEXT NOT NULL,"
                                                         + COLUMN_AUTH + " INTEGER);";
         //Table Note Strings

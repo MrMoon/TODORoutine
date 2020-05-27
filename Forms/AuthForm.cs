@@ -26,12 +26,12 @@ namespace TODORoutine {
          * if the authentication is good go to the TODOForm with the user object
          **/
         private void btnLogin_Click(object sender , System.EventArgs e) {
-            if(Validator.isValidTexts(txtUsername , txtPassword)) {
+            if(DataValidator.isValidTexts(txtUsername , txtPassword)) {
                 if (auth.authenticate(new Authentication(txtUsername.Text , txtPassword.Text) , true)) {
                     this.Hide();
                     User user = new User();
                     user.setUsername(txtUsername.Text);
-                    TextEditorForm textEditor = new TextEditorForm(user , true);
+                    BrainstormFrom textEditor = new BrainstormFrom(user , true);
                     textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                     textEditor.Show();
                 } else {
@@ -55,7 +55,7 @@ namespace TODORoutine {
                 lblConfirmPassword.Visible = true;
                 lblName.Visible = true;
             } else {
-                if(Validator.isValidTexts(txtUsername , txtPassword , txtConfirmPassword , txtName)) {
+                if(DataValidator.isValidTexts(txtUsername , txtPassword , txtConfirmPassword , txtName)) {
                     if (txtPassword.Text.Length <= 6) {
                         lblPasswordMessage.Text = ErrorMessages.PASSWORD_LENGTH;
                         txtPassword.BackColor = Color.Red;
@@ -69,7 +69,7 @@ namespace TODORoutine {
                             user.setUsername(txtUsername.Text);
                             user.setFullName(txtName.Text);
                             user.setIsAuthenticated(1);
-                            TextEditorForm textEditor = new TextEditorForm(user);
+                            BrainstormFrom textEditor = new BrainstormFrom(user);
                             textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                             textEditor.Show();
                         } else {

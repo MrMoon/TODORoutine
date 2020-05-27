@@ -179,5 +179,16 @@ namespace TODORoutine.database.note.dto {
             }
             return null;
         }
+
+        public List<Note> getAll(string lastNoteId = "1") {
+            try {
+                List<Note> notes = new List<Note>();
+                noteDAO.findAll(lastNoteId).ForEach(id => notes.Add(getById(id)));
+                return notes;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            return new List<Note>();
+        }
     }
 }

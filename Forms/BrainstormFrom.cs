@@ -11,7 +11,7 @@ using TODORoutine.Models;
 
 namespace MainTextEditor {
 
-    public partial class TextEditorForm : Form {
+    public partial class BrainstormFrom : Form {
 
         private readonly User user = null;
         private Document document = null;
@@ -19,7 +19,7 @@ namespace MainTextEditor {
         private readonly EditorOperation operation = null;
         private readonly UserDTO userDTO = UserDTOImplementation.getInstance();
 
-        public TextEditorForm(User user , bool isLogin = false) {
+        public BrainstormFrom(User user , bool isLogin = false) {
             InitializeComponent();
             if (isLogin) this.user = userDTO.getByUsername(user.getUsername());
             else {
@@ -29,11 +29,34 @@ namespace MainTextEditor {
             operation = new EditorOperation(textTabControl);
         }
 
+
         private void TextEditorForm_Load(object sender , EventArgs e) {
             operation.addTab(contextMenuStrip1);
             operation.getFontCollection(fonts);
             operation.populateFontSizes(sizes);
         }
+
+        private void openTaskForm() {
+            TaskForm taskForm = new TaskForm(user);
+            taskForm.Show();
+            this.Hide();
+            taskForm.FormClosed += (o , e) => this.Show();
+        }
+
+        private void openSortForm() {
+            SortForm sortForm = new SortForm();
+            sortForm.Show();
+            this.Hide();
+            sortForm.FormClosed += (o , e) => this.Show();
+        }
+
+        private void openNotebookForm() {
+            NotebookForm notebookForm = new NotebookForm(user);
+            notebookForm.Show();
+            this.Hide();
+            notebookForm.FormClosed += (o , e) => this.Show();
+        }
+
 
         private void saveDocument() {
             document = new Document();
@@ -200,33 +223,17 @@ namespace MainTextEditor {
         
         private void closeAllButThisToolStripMenuItem_Click(object sender , EventArgs e) => operation.removeAllTabsButThis();
 
-        #endregion
-        private void aboutToolStripMenuItem_Click(object sender , EventArgs e) => MessageBox.Show(DatabaseConstants.ALL);
-
         private void findToolStripMenuItem_Click(object sender , EventArgs e) =>
             operation.findDialog(operation.getCurrentDocument
                 .BackColor.Equals(HighlighGreen.BackColor) ? Color.OrangeRed : Color.Green , color);
 
-        private void btnTask_Click(object sender , EventArgs e) {
-            openTaskForm();
-        }
+        private void btnTask_Click(object sender , EventArgs e) => openTaskForm();
 
-        private void openTaskForm() {
-            TaskForm taskForm = new TaskForm(user);
-            taskForm.Show();
-            this.Hide();
-            taskForm.FormClosed += (o , e) => this.Show();
-        }
+        private void sortToolStripMenuItem_Click(object sender , EventArgs e) => openSortForm();
 
-        private void sortToolStripMenuItem_Click(object sender , EventArgs e) {
-            SortForm sortForm = new SortForm();
-            sortForm.Show();
-            this.Hide();
-            sortForm.FormClosed += (o , eve) => this.Show();
-        }
-
-        private void taskToolStripMenuItem_Click(object sender , EventArgs e) {
-            openTaskForm();
-        }
+        private void taskToolStripMenuItem_Click(object sender , EventArgs e) => openTaskForm();
+        private void notebookToolStripMenuItem_Click(object sender , EventArgs e) => openNotebookForm();
+        private void toolStripButton1_Click(object sender , EventArgs e) => openNotebookForm();
+        #endregion
     }
 }

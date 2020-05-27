@@ -15,5 +15,6 @@ namespace TODORoutine.database.notebook.dao {
         List<String> findByAuthorName(String author);
         List<String> findAllByOrderOfDateCreated(String lastNoteId = "1");
         List<String> findAllByOrderOfLastModified(String lastNoteId = "1");
+        List<String> findAll(String lastNotebookId = "1");
     }
 }

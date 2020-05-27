@@ -225,5 +225,19 @@ namespace TODORoutine.database.note.dao {
             //Note was not found
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
+
+        public List<String> findAll(string lastNoteId = "1") {
+            //Logging
+            Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastNoteId) , lastNoteId));
+            try {
+                return findAll(parser , tableName , "-1" , lastNoteId);
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            //Logging
+            Logging.paramenterLogging(nameof(findByTitle) , true , new Pair(nameof(lastNoteId) , lastNoteId));
+            //Note was not found
+            throw new DatabaseException(DatabaseConstants.INVALID(lastNoteId));
+        }
     }
 }

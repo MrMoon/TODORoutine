@@ -136,6 +136,12 @@
     <Compile Include="database\task\parser\TaskParser.cs" />
     <Compile Include="database\task\parser\TaskParserImplentation.cs" />
     <Compile Include="editor\EditorOperation.cs" />
+    <Compile Include="forms\NotebookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\NotebookForm.Designer.cs">
+      <DependentUpon>NotebookForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\SortForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,11 +160,11 @@
     <Compile Include="forms\AddTaskDialog.Designer.cs">
       <DependentUpon>AddTaskDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="forms\TextEditorForm.cs">
+    <Compile Include="forms\BrainstormFrom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forms\TextEditorForm.Designer.cs">
-      <DependentUpon>TextEditorForm.cs</DependentUpon>
+    <Compile Include="forms\BrainstormFrom.Designer.cs">
+      <DependentUpon>BrainstormFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="general\constants\TypesConstants.cs" />
     <Compile Include="general\constants\UserMessages.cs" />
@@ -199,7 +205,7 @@
     <Compile Include="database\user\parser\UserParserImplementation.cs" />
     <Compile Include="database\general\shared\DatabaseConstants.cs" />
     <Compile Include="database\general\parser\DatabaseParser.cs" />
-    <Compile Include="general\validation\Validator.cs" />
+    <Compile Include="general\validation\DataValidator.cs" />
     <Compile Include="database\user\parser\UserParser.cs" />
     <Compile Include="database\user\dao\UserDAO.cs" />
     <Compile Include="database\user\dao\UserDAOImplementation.cs" />
@@ -224,6 +230,9 @@
     <Compile Include="general\csv\CSVParser.cs" />
     <Compile Include="general\logging\Logging.cs" />
     <Compile Include="general\Pair.cs" />
+    <EmbeddedResource Include="forms\NotebookForm.resx">
+      <DependentUpon>NotebookForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\SortForm.resx">
       <DependentUpon>SortForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,8 +242,8 @@
     <EmbeddedResource Include="forms\AddTaskDialog.resx">
       <DependentUpon>AddTaskDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="forms\TextEditorForm.resx">
-      <DependentUpon>TextEditorForm.cs</DependentUpon>
+    <EmbeddedResource Include="forms\BrainstormFrom.resx">
+      <DependentUpon>BrainstormFrom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\AuthForm.resx">
       <DependentUpon>AuthForm.cs</DependentUpon>
