@@ -255,5 +255,20 @@ namespace TODORoutine.database.notebook.dao {
             //Notebook was not found
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
+
+        public List<String> findAll(String lastNotebookId = "1") {
+            //Logging
+            Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastNotebookId) , lastNotebookId));
+            //Finding
+            try {
+                return findAll(parser , tableName , "-1" , lastNotebookId);
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            //Logging
+            Logging.paramenterLogging(nameof(findAll) , true , new Pair(nameof(lastNotebookId) , lastNotebookId));
+            //Was not found or something went wrong
+            throw new DatabaseException(DatabaseConstants.INVALID(lastNotebookId));
+        }
     }
 }

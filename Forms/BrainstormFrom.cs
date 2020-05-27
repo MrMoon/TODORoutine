@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using TODORoutine;
+using TODORoutine.database;
+using TODORoutine.database.authentication.dto;
 using TODORoutine.database.parsers;
+using TODORoutine.Database.Shared;
 using TODORoutine.Database.user.DTO;
 using TODORoutine.editor;
 using TODORoutine.forms;
@@ -11,7 +16,7 @@ using TODORoutine.Models;
 
 namespace MainTextEditor {
 
-    public partial class TextEditorForm : Form {
+    public partial class BrainstormFrom : Form {
 
         private readonly User user = null;
         private Document document = null;
@@ -19,7 +24,7 @@ namespace MainTextEditor {
         private readonly EditorOperation operation = null;
         private readonly UserDTO userDTO = UserDTOImplementation.getInstance();
 
-        public TextEditorForm(User user , bool isLogin = false) {
+        public BrainstormFrom(User user , bool isLogin = false) {
             InitializeComponent();
             if (isLogin) this.user = userDTO.getByUsername(user.getUsername());
             else {
@@ -29,10 +34,39 @@ namespace MainTextEditor {
             operation = new EditorOperation(textTabControl);
         }
 
+
         private void TextEditorForm_Load(object sender , EventArgs e) {
             operation.addTab(contextMenuStrip1);
             operation.getFontCollection(fonts);
             operation.populateFontSizes(sizes);
+        }
+
+        private void openTaskForm() {
+            TaskForm taskForm = new TaskForm(user);
+            taskForm.Show();
+            this.Hide();
+            taskForm.FormClosed += (o , e) => this.Show();
+        }
+
+        private void openSortForm() {
+            SortForm sortForm = new SortForm();
+            sortForm.Show();
+            this.Hide();
+            sortForm.FormClosed += (o , e) => this.Show();
+        }
+
+        private void openNotebookForm() {
+            NotebookForm notebookForm = new NotebookForm(user);
+            notebookForm.Show();
+            this.Hide();
+            notebookForm.FormClosed += (o , e) => this.Show();
+        }
+
+        private void openTaskReportForm() {
+            TaskReportForm taskReportForm = new TaskReportForm();
+            taskReportForm.Show();
+            this.Hide();
+            taskReportForm.FormClosed += (o , ev) => this.Show();
         }
 
         private void saveDocument() {
@@ -200,33 +234,58 @@ namespace MainTextEditor {
         
         private void closeAllButThisToolStripMenuItem_Click(object sender , EventArgs e) => operation.removeAllTabsButThis();
 
-        #endregion
-        private void aboutToolStripMenuItem_Click(object sender , EventArgs e) => MessageBox.Show(DatabaseConstants.ALL);
-
         private void findToolStripMenuItem_Click(object sender , EventArgs e) =>
             operation.findDialog(operation.getCurrentDocument
                 .BackColor.Equals(HighlighGreen.BackColor) ? Color.OrangeRed : Color.Green , color);
 
-        private void btnTask_Click(object sender , EventArgs e) {
-            openTaskForm();
+        private void btnTask_Click(object sender , EventArgs e) => openTaskForm();
+
+        private void sortToolStripMenuItem_Click(object sender , EventArgs e) => openSortForm();
+
+        private void taskToolStripMenuItem_Click(object sender , EventArgs e) => openTaskForm();
+        
+        private void notebookToolStripMenuItem_Click(object sender , EventArgs e) => openNotebookForm();
+
+        private void btnOpenNotebookForm_Click(object sender , EventArgs e) => openNotebookForm();
+
+        private void btnOpenTaskReport_Click(object sender , EventArgs e) => openTaskReportForm();
+
+        private void reportToolStripMenuItem_Click(object sender , EventArgs e) => openTaskReportForm();
+
+        private void editUserInfoToolStripMenuItem_Click(object sender , EventArgs e) {
+            Form editDialog = new Form { Width = 500 , Height = 160 , Text = "Update Full Name" };
+            Label lblFullName = new Label() { Left = 10 , Top = 20 , Text = "Full Name :" , Width = 100 };
+            TextBox txtFullName = new TextBox() { Left = 150 , Text = user.getFullName() , Top = 20 , Width = 300 };
+            Button btnEdit = new Button() { Text = "Update" , Left = 350 , Width = 100 , Top = 50 };
+
+            btnEdit.Click += (o , ev) => {
+                if(DataValidator.isValidTexts(txtFullName)) {
+                    if (MessageBox.Show(UserMessages.ARE_YOU_SURE("Edit") , UserMessages.CONFIRMION("Edit") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                        user.setFullName(txtFullName.Text);
+                        bool flag = userDTO.update(user , DatabaseConstants.COLUMN_FULLNAME);
+                        MessageBox.Show(flag ? "Updated" : "Something went wrong , Didn't Get updated");
+                    }
+                }
+            };
+
+            editDialog.Controls.Add(btnEdit);
+            editDialog.Controls.Add(lblFullName);
+            editDialog.Controls.Add(txtFullName);
+            editDialog.Show();
         }
 
-        private void openTaskForm() {
-            TaskForm taskForm = new TaskForm(user);
-            taskForm.Show();
-            this.Hide();
-            taskForm.FormClosed += (o , e) => this.Show();
+
+        private void deleteUserToolStripMenuItem_Click(object sender , EventArgs e) {
+            if(MessageBox.Show(UserMessages.ARE_YOU_SURE("Delete , This can't be undo") , UserMessages.CONFIRMION("Delete") , MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                AuthForm authForm = new AuthForm();
+                userDTO.delete(user.getId());
+                AuthenticationDTOImplentation.getInstance().delete(new Authentication(user.getUsername() , ""));
+                authForm.Show();
+                authForm.Activate();
+                authForm.Shown += (o , ev) => this.Close();
+            }
         }
 
-        private void sortToolStripMenuItem_Click(object sender , EventArgs e) {
-            SortForm sortForm = new SortForm();
-            sortForm.Show();
-            this.Hide();
-            sortForm.FormClosed += (o , eve) => this.Show();
-        }
-
-        private void taskToolStripMenuItem_Click(object sender , EventArgs e) {
-            openTaskForm();
-        }
+        #endregion
     }
 }

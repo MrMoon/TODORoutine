@@ -75,9 +75,9 @@ namespace TODORoutine.database.task.parser {
             query.Append(") VALUES ('");
             query.Append(task.noteId);
             query.Append("','");
-            query.Append(task.status.ToString());
+            query.Append(task.status);
             query.Append("','");
-            query.Append(task.priority.ToString());
+            query.Append(task.priority);
             query.Append("','");
             query.Append(task.dueDate.ToString());
             query.Append("');");

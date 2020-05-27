@@ -1,6 +1,8 @@
 ﻿using MainTextEditor;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using TODORoutine.database;
 using TODORoutine.database.authentication.dto;
@@ -8,6 +10,7 @@ using TODORoutine.Database.Shared;
 using TODORoutine.general;
 using TODORoutine.general.constants;
 using TODORoutine.Models;
+using TODORoutine.shared.csv;
 
 namespace TODORoutine {
     public partial class AuthForm : Form {
@@ -26,12 +29,12 @@ namespace TODORoutine {
          * if the authentication is good go to the TODOForm with the user object
          **/
         private void btnLogin_Click(object sender , System.EventArgs e) {
-            if(Validator.isValidTexts(txtUsername , txtPassword)) {
+            if(DataValidator.isValidTexts(txtUsername , txtPassword)) {
                 if (auth.authenticate(new Authentication(txtUsername.Text , txtPassword.Text) , true)) {
                     this.Hide();
                     User user = new User();
                     user.setUsername(txtUsername.Text);
-                    TextEditorForm textEditor = new TextEditorForm(user , true);
+                    BrainstormFrom textEditor = new BrainstormFrom(user , true);
                     textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                     textEditor.Show();
                 } else {
@@ -54,8 +57,9 @@ namespace TODORoutine {
                 txtConfirmPassword.Visible = true;
                 lblConfirmPassword.Visible = true;
                 lblName.Visible = true;
+                this.AcceptButton = btnRegister;
             } else {
-                if(Validator.isValidTexts(txtUsername , txtPassword , txtConfirmPassword , txtName)) {
+                if(DataValidator.isValidTexts(txtUsername , txtPassword , txtConfirmPassword , txtName)) {
                     if (txtPassword.Text.Length <= 6) {
                         lblPasswordMessage.Text = ErrorMessages.PASSWORD_LENGTH;
                         txtPassword.BackColor = Color.Red;
@@ -69,7 +73,7 @@ namespace TODORoutine {
                             user.setUsername(txtUsername.Text);
                             user.setFullName(txtName.Text);
                             user.setIsAuthenticated(1);
-                            TextEditorForm textEditor = new TextEditorForm(user);
+                            BrainstormFrom textEditor = new BrainstormFrom(user);
                             textEditor.Closed += (s , args) => this.Close(); //It creates a function "in place" that is called when the form2.Closed event is fired.
                             textEditor.Show();
                         } else {
@@ -102,6 +106,24 @@ namespace TODORoutine {
         }
         private void txtName_KeyDown(object sender , KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) btnRegister_Click(this , new EventArgs());
+        }
+
+        private void picLogo_Click(object sender , EventArgs e) {
+            btnCSV.Visible = TypesConstants.FLIP(btnCSV.Visible);
+        }
+
+        private void btnCSV_Click(object sender , EventArgs e) {
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            openFileDialog.Filter = CSVParser.FILE;
+            int counter = 0;
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                Stream fileStream = openFileDialog.OpenFile();
+                StreamReader streamReader = new StreamReader(fileStream);
+                while (!streamReader.EndOfStream) 
+                    counter += TODORoutine.Database.user.DTO.UserDTOImplementation.getInstance()
+                        .save(CSVParser.getUser(streamReader.ReadLine())) ? 1 : 0;
+            }
+            MessageBox.Show(counter + " was added successfully to the database");
         }
     }
 }

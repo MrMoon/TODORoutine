@@ -11,7 +11,7 @@ namespace TODORoutine.Database.user.DAO {
     interface UserDAO : DatabaseDAO<User> {
         String findUserId(String username);
         String findUsername(String id);
-        String findNotesId(String id);
+        String findNotebookId(String id);
         User findByUsername(String username);
         bool isUserAuthenticated(String id);
     }

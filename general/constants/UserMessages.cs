@@ -1,4 +1,5 @@
 ﻿using System;
+using TODORoutine.Shared;
 
 namespace TODORoutine.general.constants {
     class UserMessages {

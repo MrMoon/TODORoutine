@@ -7,7 +7,7 @@ namespace TODORoutine.Database.Shared {
     /**
      * Main Genral Validtor that handle basic validation for Strings 
      **/
-    class Validator {
+    class DataValidator {
 
         /**
          * Simple Validtor for Strings that checks of Empty String and extra white spaces

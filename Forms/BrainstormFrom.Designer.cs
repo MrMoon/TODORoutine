@@ -1,6 +1,8 @@
-﻿namespace MainTextEditor
+﻿using TODORoutine.general.constants;
+
+namespace MainTextEditor
 {
-    partial class TextEditorForm
+    partial class BrainstormFrom
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextEditorForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrainstormFrom));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.statusbar = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -44,7 +46,9 @@
             this.btnCopy = new System.Windows.Forms.ToolStripButton();
             this.btnPaste = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnTask = new System.Windows.Forms.ToolStripButton();
+            this.btnOpenTaskForm = new System.Windows.Forms.ToolStripButton();
+            this.btnOpenNotebookForm = new System.Windows.Forms.ToolStripButton();
+            this.btnOpenTaskReport = new System.Windows.Forms.ToolStripButton();
             this.toolbar = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +71,13 @@
             this.routinesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.notebookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editUserInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontsbar = new System.Windows.Forms.ToolStrip();
+            this.lblBrainstorm = new System.Windows.Forms.ToolStripLabel();
             this.btnBold = new System.Windows.Forms.ToolStripButton();
             this.btnItalic = new System.Windows.Forms.ToolStripButton();
             this.btnUnderline = new System.Windows.Forms.ToolStripButton();
@@ -87,7 +97,6 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.fonts = new System.Windows.Forms.ToolStripComboBox();
             this.sizes = new System.Windows.Forms.ToolStripComboBox();
-            this.lblBrainstorm = new System.Windows.Forms.ToolStripLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.undoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -187,10 +196,12 @@
             this.btnCopy,
             this.btnPaste,
             this.toolStripSeparator5,
-            this.btnTask});
+            this.btnOpenTaskForm,
+            this.btnOpenNotebookForm,
+            this.btnOpenTaskReport});
             this.sidebar.Location = new System.Drawing.Point(0, 4);
             this.sidebar.Name = "sidebar";
-            this.sidebar.Size = new System.Drawing.Size(30, 230);
+            this.sidebar.Size = new System.Drawing.Size(30, 284);
             this.sidebar.TabIndex = 0;
             // 
             // btnNew
@@ -209,7 +220,7 @@
             this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
             this.btnRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(38, 24);
+            this.btnRemove.Size = new System.Drawing.Size(28, 24);
             this.btnRemove.Text = "X";
             this.btnRemove.Click += new System.EventHandler(this.RemoveTabToolStripButton_Click);
             // 
@@ -219,7 +230,7 @@
             this.btnOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnOpen.Image")));
             this.btnOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(38, 24);
+            this.btnOpen.Size = new System.Drawing.Size(28, 24);
             this.btnOpen.Text = "&Open";
             this.btnOpen.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
@@ -229,14 +240,14 @@
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
             this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(38, 24);
+            this.btnSave.Size = new System.Drawing.Size(28, 24);
             this.btnSave.Text = "&Save";
             this.btnSave.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(38, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(28, 6);
             // 
             // btnCut
             // 
@@ -244,7 +255,7 @@
             this.btnCut.Image = ((System.Drawing.Image)(resources.GetObject("btnCut.Image")));
             this.btnCut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCut.Name = "btnCut";
-            this.btnCut.Size = new System.Drawing.Size(38, 24);
+            this.btnCut.Size = new System.Drawing.Size(28, 24);
             this.btnCut.Text = "C&ut";
             this.btnCut.Click += new System.EventHandler(this.cutToolStripButton_Click);
             // 
@@ -254,7 +265,7 @@
             this.btnCopy.Image = ((System.Drawing.Image)(resources.GetObject("btnCopy.Image")));
             this.btnCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(38, 24);
+            this.btnCopy.Size = new System.Drawing.Size(28, 24);
             this.btnCopy.Text = "&Copy";
             this.btnCopy.Click += new System.EventHandler(this.copyToolStripButton_Click);
             // 
@@ -264,24 +275,45 @@
             this.btnPaste.Image = ((System.Drawing.Image)(resources.GetObject("btnPaste.Image")));
             this.btnPaste.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPaste.Name = "btnPaste";
-            this.btnPaste.Size = new System.Drawing.Size(38, 24);
+            this.btnPaste.Size = new System.Drawing.Size(28, 24);
             this.btnPaste.Text = "&Paste";
             this.btnPaste.Click += new System.EventHandler(this.pasteToolStripButton_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(38, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(28, 6);
             // 
-            // btnTask
+            // btnOpenTaskForm
             // 
-            this.btnTask.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnTask.Image = ((System.Drawing.Image)(resources.GetObject("btnTask.Image")));
-            this.btnTask.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTask.Name = "btnTask";
-            this.btnTask.Size = new System.Drawing.Size(38, 24);
-            this.btnTask.Text = "Task";
-            this.btnTask.Click += new System.EventHandler(this.btnTask_Click);
+            this.btnOpenTaskForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnOpenTaskForm.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenTaskForm.Image")));
+            this.btnOpenTaskForm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnOpenTaskForm.Name = "btnOpenTaskForm";
+            this.btnOpenTaskForm.Size = new System.Drawing.Size(28, 24);
+            this.btnOpenTaskForm.Text = "Task";
+            this.btnOpenTaskForm.Click += new System.EventHandler(this.btnTask_Click);
+            // 
+            // btnOpenNotebookForm
+            // 
+            this.btnOpenNotebookForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnOpenNotebookForm.ForeColor = System.Drawing.Color.DarkCyan;
+            this.btnOpenNotebookForm.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenNotebookForm.Image")));
+            this.btnOpenNotebookForm.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnOpenNotebookForm.Name = "btnOpenNotebookForm";
+            this.btnOpenNotebookForm.Size = new System.Drawing.Size(28, 24);
+            this.btnOpenNotebookForm.Text = "N";
+            this.btnOpenNotebookForm.Click += new System.EventHandler(this.btnOpenNotebookForm_Click);
+            // 
+            // btnOpenTaskReport
+            // 
+            this.btnOpenTaskReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnOpenTaskReport.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenTaskReport.Image")));
+            this.btnOpenTaskReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnOpenTaskReport.Name = "btnOpenTaskReport";
+            this.btnOpenTaskReport.Size = new System.Drawing.Size(28, 24);
+            this.btnOpenTaskReport.Text = "toolStripButton2";
+            this.btnOpenTaskReport.Click += new System.EventHandler(this.btnOpenTaskReport_Click);
             // 
             // toolbar
             // 
@@ -290,7 +322,8 @@
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
-            this.routinesToolStripMenuItem});
+            this.routinesToolStripMenuItem,
+            this.profileToolStripMenuItem});
             this.toolbar.Location = new System.Drawing.Point(0, 0);
             this.toolbar.Name = "toolbar";
             this.toolbar.Size = new System.Drawing.Size(952, 28);
@@ -460,17 +493,21 @@
             // 
             this.routinesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.taskToolStripMenuItem,
-            this.sortToolStripMenuItem});
+            this.sortToolStripMenuItem,
+            this.notebookToolStripMenuItem,
+            this.reportToolStripMenuItem});
             this.routinesToolStripMenuItem.Name = "routinesToolStripMenuItem";
+            this.routinesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.A)));
             this.routinesToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
             this.routinesToolStripMenuItem.Text = "Routines";
             // 
             // taskToolStripMenuItem
             // 
             this.taskToolStripMenuItem.Name = "taskToolStripMenuItem";
-            this.taskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.taskToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.T)));
-            this.taskToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.taskToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.taskToolStripMenuItem.Text = "&Task";
             this.taskToolStripMenuItem.Click += new System.EventHandler(this.taskToolStripMenuItem_Click);
             // 
@@ -479,9 +516,56 @@
             this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
             this.sortToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.S)));
-            this.sortToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.sortToolStripMenuItem.Text = "&Sort";
             this.sortToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
+            // 
+            // notebookToolStripMenuItem
+            // 
+            this.notebookToolStripMenuItem.Name = "notebookToolStripMenuItem";
+            this.notebookToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.B)));
+            this.notebookToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
+            this.notebookToolStripMenuItem.Text = "&Notebook";
+            this.notebookToolStripMenuItem.Click += new System.EventHandler(this.notebookToolStripMenuItem_Click);
+            // 
+            // reportToolStripMenuItem
+            // 
+            this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
+            this.reportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.R)));
+            this.reportToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
+            this.reportToolStripMenuItem.Text = "&Report";
+            this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
+            // 
+            // profileToolStripMenuItem
+            // 
+            this.profileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editUserInfoToolStripMenuItem,
+            this.deleteUserToolStripMenuItem});
+            this.profileToolStripMenuItem.Name = "profileToolStripMenuItem";
+            this.profileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.profileToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
+            this.profileToolStripMenuItem.Text = "&Profile";
+            // 
+            // editUserInfoToolStripMenuItem
+            // 
+            this.editUserInfoToolStripMenuItem.Name = "editUserInfoToolStripMenuItem";
+            this.editUserInfoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.editUserInfoToolStripMenuItem.Size = new System.Drawing.Size(271, 26);
+            this.editUserInfoToolStripMenuItem.Text = "&Edit User Info";
+            this.editUserInfoToolStripMenuItem.Click += new System.EventHandler(this.editUserInfoToolStripMenuItem_Click);
+            // 
+            // deleteUserToolStripMenuItem
+            // 
+            this.deleteUserToolStripMenuItem.Name = "deleteUserToolStripMenuItem";
+            this.deleteUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D)));
+            this.deleteUserToolStripMenuItem.Size = new System.Drawing.Size(271, 26);
+            this.deleteUserToolStripMenuItem.Text = "&Delete User";
+            this.deleteUserToolStripMenuItem.Click += new System.EventHandler(this.deleteUserToolStripMenuItem_Click);
             // 
             // fontsbar
             // 
@@ -489,6 +573,7 @@
             this.fontsbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.fontsbar.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.fontsbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblBrainstorm,
             this.btnBold,
             this.btnItalic,
             this.btnUnderline,
@@ -504,12 +589,17 @@
             this.btnHighlight,
             this.toolStripSeparator9,
             this.fonts,
-            this.sizes,
-            this.lblBrainstorm});
+            this.sizes});
             this.fontsbar.Location = new System.Drawing.Point(4, 28);
             this.fontsbar.Name = "fontsbar";
             this.fontsbar.Size = new System.Drawing.Size(727, 28);
             this.fontsbar.TabIndex = 1;
+            // 
+            // lblBrainstorm
+            // 
+            this.lblBrainstorm.Name = "lblBrainstorm";
+            this.lblBrainstorm.Size = new System.Drawing.Size(83, 25);
+            this.lblBrainstorm.Text = "BrainStorm";
             // 
             // btnBold
             // 
@@ -685,12 +775,6 @@
             this.sizes.Size = new System.Drawing.Size(121, 28);
             this.sizes.SelectedIndexChanged += new System.EventHandler(this.size_SelectedIndexChanged);
             // 
-            // lblBrainstorm
-            // 
-            this.lblBrainstorm.Name = "lblBrainstorm";
-            this.lblBrainstorm.Size = new System.Drawing.Size(83, 25);
-            this.lblBrainstorm.Text = "BrainStorm";
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -792,14 +876,14 @@
             // 
             this.openFileDialog.DefaultExt = "txt";
             this.openFileDialog.FileName = "openFileDialog1";
-            this.openFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
+            this.openFileDialog.Filter = TypesConstants.FILE_TYPES;
             // 
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "txt";
-            this.saveFileDialog.Filter = "Text Files|*.txt|VB Files|*.vb|C# Files|*.cs|All Files|*.*";
+            this.saveFileDialog.Filter = TypesConstants.FILE_TYPES;
             // 
-            // TextEditorForm
+            // BrainstormFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -809,7 +893,7 @@
             this.MainMenuStrip = this.toolbar;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(862, 537);
-            this.Name = "TextEditorForm";
+            this.Name = "BrainstormFrom";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TODORoutine";
             this.Load += new System.EventHandler(this.TextEditorForm_Load);
@@ -906,11 +990,18 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
         private System.Windows.Forms.ToolStripLabel lblBrainstorm;
-        private System.Windows.Forms.ToolStripButton btnTask;
+        private System.Windows.Forms.ToolStripButton btnOpenTaskForm;
         private System.Windows.Forms.TabControl textTabControl;
         private System.Windows.Forms.ToolStripMenuItem routinesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem taskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem profileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem notebookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btnOpenNotebookForm;
+        private System.Windows.Forms.ToolStripButton btnOpenTaskReport;
+        private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editUserInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteUserToolStripMenuItem;
     }
 }
 
