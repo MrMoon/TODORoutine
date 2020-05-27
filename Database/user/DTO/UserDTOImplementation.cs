@@ -95,7 +95,7 @@ namespace TODORoutine.Database.user.DTO {
          **/
         public String getNotesId(String id) {
             try {
-                return userDAO.findNotesId(id);
+                return userDAO.findNotebookId(id);
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
@@ -143,8 +143,7 @@ namespace TODORoutine.Database.user.DTO {
         **/
         public bool save(User user) {
             try {
-                bool flag = userDAO.save(user);
-                if(flag) {
+                if(userDAO.save(user)) {
                     user.setId(DatabaseDAOImplementation<User>.getLastId(DatabaseConstants.TABLE_USER));
                     return true;
                 }

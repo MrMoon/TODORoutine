@@ -226,7 +226,7 @@ namespace TODORoutine.database.note.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
-        public List<String> findAll(string lastNoteId = "1") {
+        public List<String> findAll(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastNoteId) , lastNoteId));
             try {

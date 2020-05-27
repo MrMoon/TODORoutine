@@ -56,3 +56,4 @@ E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.csprojAs
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.forms.SortForm.resources
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.forms.NotebookForm.resources
 E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\MainTextEditor.BrainstormFrom.resources
+E:\MyDocs\Programming\Projects\CSharp\TODORoutine\obj\Debug\TODORoutine.forms.TaskReportForm.resources

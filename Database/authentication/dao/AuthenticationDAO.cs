@@ -8,5 +8,7 @@
 
         bool login(Authentication auth);
         bool register(Authentication auth);
+
+        bool delete(Authentication auth);
     }
 }

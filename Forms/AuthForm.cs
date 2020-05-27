@@ -1,6 +1,8 @@
 ﻿using MainTextEditor;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using TODORoutine.database;
 using TODORoutine.database.authentication.dto;
@@ -8,6 +10,7 @@ using TODORoutine.Database.Shared;
 using TODORoutine.general;
 using TODORoutine.general.constants;
 using TODORoutine.Models;
+using TODORoutine.shared.csv;
 
 namespace TODORoutine {
     public partial class AuthForm : Form {
@@ -54,6 +57,7 @@ namespace TODORoutine {
                 txtConfirmPassword.Visible = true;
                 lblConfirmPassword.Visible = true;
                 lblName.Visible = true;
+                this.AcceptButton = btnRegister;
             } else {
                 if(DataValidator.isValidTexts(txtUsername , txtPassword , txtConfirmPassword , txtName)) {
                     if (txtPassword.Text.Length <= 6) {
@@ -102,6 +106,24 @@ namespace TODORoutine {
         }
         private void txtName_KeyDown(object sender , KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) btnRegister_Click(this , new EventArgs());
+        }
+
+        private void picLogo_Click(object sender , EventArgs e) {
+            btnCSV.Visible = TypesConstants.FLIP(btnCSV.Visible);
+        }
+
+        private void btnCSV_Click(object sender , EventArgs e) {
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            openFileDialog.Filter = CSVParser.FILE;
+            int counter = 0;
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                Stream fileStream = openFileDialog.OpenFile();
+                StreamReader streamReader = new StreamReader(fileStream);
+                while (!streamReader.EndOfStream) 
+                    counter += TODORoutine.Database.user.DTO.UserDTOImplementation.getInstance()
+                        .save(CSVParser.getUser(streamReader.ReadLine())) ? 1 : 0;
+            }
+            MessageBox.Show(counter + " was added successfully to the database");
         }
     }
 }

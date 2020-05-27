@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NotebookForm));
             this.groupBoxNotebook = new System.Windows.Forms.GroupBox();
             this.notebookListView = new System.Windows.Forms.ListView();
             this.btnAddNotebook = new System.Windows.Forms.Button();
@@ -32,7 +33,7 @@
             this.btnAddNote = new System.Windows.Forms.Button();
             this.btnEditNote = new System.Windows.Forms.Button();
             this.btnDeleteNote = new System.Windows.Forms.Button();
-            this.btnShare = new System.Windows.Forms.Button();
+            this.btnShareNote = new System.Windows.Forms.Button();
             this.groupBoxNote = new System.Windows.Forms.GroupBox();
             this.noteListView = new System.Windows.Forms.ListView();
             this.groupBoxNotebook.SuspendLayout();
@@ -57,9 +58,9 @@
             // 
             // notebookListView
             // 
-            this.notebookListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.notebookListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.notebookListView.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.notebookListView.AllowColumnReorder = true;
             this.notebookListView.HideSelection = false;
             this.notebookListView.Location = new System.Drawing.Point(6, 59);
             this.notebookListView.Name = "notebookListView";
@@ -77,7 +78,7 @@
             this.btnAddNotebook.TabIndex = 2;
             this.btnAddNotebook.Text = "Add Notebook";
             this.btnAddNotebook.UseVisualStyleBackColor = true;
-            this.btnAddNotebook.Click += new System.EventHandler(this.btnAddNotebook_Click_1);
+            this.btnAddNotebook.Click += new System.EventHandler(this.btnAddNotebook_Click);
             // 
             // btnEditNotebook
             // 
@@ -148,17 +149,17 @@
             this.btnDeleteNote.UseVisualStyleBackColor = true;
             this.btnDeleteNote.Click += new System.EventHandler(this.btnDeleteNote_Click);
             // 
-            // btnShare
+            // btnShareNote
             // 
-            this.btnShare.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnShareNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShare.Location = new System.Drawing.Point(184, 21);
-            this.btnShare.Name = "btnShare";
-            this.btnShare.Size = new System.Drawing.Size(131, 31);
-            this.btnShare.TabIndex = 16;
-            this.btnShare.Text = "Share Note";
-            this.btnShare.UseVisualStyleBackColor = true;
-            this.btnShare.Click += new System.EventHandler(this.btnShare_Click);
+            this.btnShareNote.Location = new System.Drawing.Point(184, 21);
+            this.btnShareNote.Name = "btnShareNote";
+            this.btnShareNote.Size = new System.Drawing.Size(131, 31);
+            this.btnShareNote.TabIndex = 16;
+            this.btnShareNote.Text = "Share Note";
+            this.btnShareNote.UseVisualStyleBackColor = true;
+            this.btnShareNote.Click += new System.EventHandler(this.btnShare_Click);
             // 
             // groupBoxNote
             // 
@@ -167,7 +168,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxNote.Controls.Add(this.noteListView);
             this.groupBoxNote.Controls.Add(this.btnDeleteNote);
-            this.groupBoxNote.Controls.Add(this.btnShare);
+            this.groupBoxNote.Controls.Add(this.btnShareNote);
             this.groupBoxNote.Controls.Add(this.btnAddNote);
             this.groupBoxNote.Controls.Add(this.btnEditNote);
             this.groupBoxNote.Location = new System.Drawing.Point(579, 12);
@@ -179,6 +180,7 @@
             // 
             // noteListView
             // 
+            this.noteListView.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
             this.noteListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -197,6 +199,7 @@
             this.ClientSize = new System.Drawing.Size(1048, 745);
             this.Controls.Add(this.groupBoxNotebook);
             this.Controls.Add(this.groupBoxNote);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1027, 792);
             this.Name = "NotebookForm";
             this.Text = "NotebookForm";
@@ -217,7 +220,7 @@
         private System.Windows.Forms.Button btnAddNote;
         private System.Windows.Forms.Button btnEditNote;
         private System.Windows.Forms.Button btnDeleteNote;
-        private System.Windows.Forms.Button btnShare;
+        private System.Windows.Forms.Button btnShareNote;
         private System.Windows.Forms.GroupBox groupBoxNote;
         private System.Windows.Forms.ListView noteListView;
         private System.Windows.Forms.ListView notebookListView;

@@ -39,6 +39,8 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.btnCSV = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,6 +63,7 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picLogo.TabIndex = 8;
             this.picLogo.TabStop = false;
+            this.picLogo.Click += new System.EventHandler(this.picLogo_Click);
             // 
             // btnRegister
             // 
@@ -182,6 +185,21 @@
             this.txtName.Visible = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
+            // btnCSV
+            // 
+            this.btnCSV.Location = new System.Drawing.Point(487, 363);
+            this.btnCSV.Name = "btnCSV";
+            this.btnCSV.Size = new System.Drawing.Size(79, 37);
+            this.btnCSV.TabIndex = 24;
+            this.btnCSV.Text = "CSV";
+            this.btnCSV.UseVisualStyleBackColor = true;
+            this.btnCSV.Visible = false;
+            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
             // AuthForm
             // 
             this.AcceptButton = this.btnLogin;
@@ -189,6 +207,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(578, 412);
+            this.Controls.Add(this.btnCSV);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtConfirmPassword);
             this.Controls.Add(this.txtPassword);
@@ -232,5 +251,7 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtConfirmPassword;
         private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.Button btnCSV;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }

@@ -5,5 +5,6 @@
      **/
     interface AuthenticationDTO {
         bool authenticate(Authentication auth , bool isLogin = false);
+        bool delete(Authentication auth);
     }
 }

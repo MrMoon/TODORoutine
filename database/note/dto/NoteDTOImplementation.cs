@@ -180,7 +180,7 @@ namespace TODORoutine.database.note.dto {
             return null;
         }
 
-        public List<Note> getAll(string lastNoteId = "1") {
+        public List<Note> getAll(String lastNoteId = "1") {
             try {
                 List<Note> notes = new List<Note>();
                 noteDAO.findAll(lastNoteId).ForEach(id => notes.Add(getById(id)));

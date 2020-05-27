@@ -66,7 +66,7 @@ namespace TODORoutine.database.parsers.user_parsers {
                     , new Pair(nameof(column) , column) , new Pair(nameof(user) , user.ToString()));
             //Finding user filed
             if (column.Equals(DatabaseConstants.COLUMN_FULLNAME)) return user.getFullName();
-            if (column.Equals(DatabaseConstants.COLUMN_NOTESID)) return user.getNotesId();
+            if (column.Equals(DatabaseConstants.COLUMN_NOTEBOOKID)) return user.getNotebookId();
             if (column.Equals(DatabaseConstants.COLUMN_ID)) return user.getId();
             if (column.Equals(DatabaseConstants.COLUMN_USERNAME)) return user.getUsername();
             //Column is invalid

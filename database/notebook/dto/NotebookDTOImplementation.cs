@@ -182,7 +182,7 @@ namespace TODORoutine.database.notebook.dto {
             return false;
         }
 
-        public List<Notebook> getAll(string lastNotebookId = "1") {
+        public List<Notebook> getAll(String lastNotebookId = "1") {
             try {
                 List<Notebook> notebooks = new List<Notebook>();
                 notebookDAO.findAll(lastNotebookId).ForEach((id) => notebooks.Add(getById(id)));

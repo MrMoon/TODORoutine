@@ -256,7 +256,7 @@ namespace TODORoutine.database.notebook.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
-        public List<String> findAll(string lastNotebookId = "1") {
+        public List<String> findAll(String lastNotebookId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastNotebookId) , lastNotebookId));
             //Finding

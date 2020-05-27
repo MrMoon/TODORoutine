@@ -97,6 +97,7 @@ namespace TODORoutine.Database {
             } catch (System.Data.SQLite.SQLiteException e) {
                 if (e.Message.Contains("constraint failed UNIQUE constraint failed")) {
                     Console.WriteLine("Record Exsists");
+                    System.Windows.Forms.MessageBox.Show("This must be unique");
                     return -11;
                 } else if(e.Message.Contains("already exists")) {
                     Console.WriteLine("Table Exsists");

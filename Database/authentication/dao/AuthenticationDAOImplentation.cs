@@ -113,5 +113,19 @@ namespace TODORoutine.database.authentication {
             char c = char.IsUpper(ch) ? 'A' : 'a';
             return (char) ((((ch + key) - c) % 26) + c);
         }
+
+        public bool delete(Authentication auth) {
+            //Logging
+            Logging.paramenterLogging(nameof(delete) , false , new Pair(nameof(auth) , auth.ToString()));
+            //Login
+            try {
+                return driver.executeQuery(parser.getDelete(DatabaseConstants.TABLE_AUTHENTICATE , DatabaseConstants.COLUMN_USERNAME , auth.getUsername())) != -11;
+            } catch (Exception e) {
+                Logging.logInfo(true , e.Message);
+            }
+            //Logging
+            Logging.paramenterLogging(nameof(register) , true , new Pair(nameof(auth) , auth.ToString()));
+            throw new DatabaseException(DatabaseConstants.NOT_FOUND(auth.ToString()));
+        }
     }
 }

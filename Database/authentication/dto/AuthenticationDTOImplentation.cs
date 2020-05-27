@@ -35,5 +35,14 @@ namespace TODORoutine.database.authentication.dto {
                 return false;
             }
         }
+
+        public bool delete(Authentication auth) {
+            try {
+                return authDAO.delete(auth);
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+                return false;
+            }
+        }
     }
 }

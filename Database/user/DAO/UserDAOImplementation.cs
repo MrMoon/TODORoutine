@@ -45,7 +45,7 @@ namespace TODORoutine.Database.user.DAO {
                 User user = new User();
                 user.setFullName(reader[DatabaseConstants.COLUMN_FULLNAME].ToString());
                 user.setIsAuthenticated(int.Parse(reader[DatabaseConstants.COLUMN_AUTH].ToString()));
-                user.setNotesId(reader[DatabaseConstants.COLUMN_NOTESID].ToString());
+                user.setNotebookId(reader[DatabaseConstants.COLUMN_NOTEBOOKID].ToString());
                 user.setUsername(reader[DatabaseConstants.COLUMN_USERNAME].ToString());
                 user.setId(reader[idColumn].ToString());
                 return user;
@@ -164,22 +164,22 @@ namespace TODORoutine.Database.user.DAO {
         * 
         * return user notesid if it was found and throw an exception otherwise
         **/
-        public String findNotesId(String id) {
+        public String findNotebookId(String id) {
             //Logging 
-            Logging.paramenterLogging(nameof(findNotesId) , false , new Pair(nameof(id) , id));
+            Logging.paramenterLogging(nameof(findNotebookId) , false , new Pair(nameof(id) , id));
             //Finding notesId of the user
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName 
-                                        , idColumn , DatabaseConstants.COLUMN_NOTESID , id));
+                                        , idColumn , DatabaseConstants.COLUMN_NOTEBOOKID , id));
                 if(reader.Read()) {
-                    String notesId = reader[DatabaseConstants.COLUMN_NOTESID].ToString();
+                    String notesId = reader[DatabaseConstants.COLUMN_NOTEBOOKID].ToString();
                     reader.Close();
                     return notesId;
                 }
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);
             }
-            Logging.paramenterLogging(nameof(findNotesId) , true , new Pair(nameof(id) , id));
+            Logging.paramenterLogging(nameof(findNotebookId) , true , new Pair(nameof(id) , id));
             //User was not found
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
@@ -198,9 +198,9 @@ namespace TODORoutine.Database.user.DAO {
             try {
                 SQLiteDataReader reader = driver.getReader(parser.getSelect(tableName , idColumn , DatabaseConstants.COLUMN_USERNAME , id));
                 if(reader.Read()) {
-                    String notesId = reader[DatabaseConstants.COLUMN_USERNAME].ToString();
+                    String username = reader[DatabaseConstants.COLUMN_USERNAME].ToString();
                     reader.Close();
-                    return notesId;
+                    return username;
                 }
             } catch (Exception e) {
                 Logging.logInfo(true , e.Message);

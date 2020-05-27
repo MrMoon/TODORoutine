@@ -41,13 +41,13 @@ namespace TODORoutine.database.parsers {
         //Table User Strings
         public readonly static String TABLE_USER = "User";
         public readonly static String COLUMN_USERNAME = "USERNAME";
-        public readonly static String COLUMN_NOTESID = "NOTESID";
         public readonly static String COLUMN_FULLNAME = "FULLNAME";
         public readonly static String COLUMN_AUTH = "AUTH";
+        public readonly static String COLUMN_NOTEBOOKID = "NOTEBOOKID";
         public readonly static String CREATE_USER_TABLE = @"CREATE TABLE " + TABLE_USER + " ( "
                                                         + ID
-                                                        + COLUMN_USERNAME + " TEXT UNIQUE NOT NULL,"
-                                                        + COLUMN_NOTEBOOKID + " INTEGER UNIQUE,"
+                                                        + COLUMN_USERNAME + " TEXT NOT NULL UNIQUE,"
+                                                        + COLUMN_NOTEBOOKID + " TEXT,"
                                                         + COLUMN_FULLNAME + " TEXT NOT NULL,"
                                                         + COLUMN_AUTH + " INTEGER);";
         //Table Note Strings
@@ -57,6 +57,7 @@ namespace TODORoutine.database.parsers {
         public readonly static String COLUMN_AUTHOR = "AUTHOR";
         public readonly static String COLUMN_DATECREATED = "DATECREATED";
         public readonly static String COLUMN_LASTMODIFIED = "LASTMODIFIED";
+        public readonly static String COLUMN_NOTESID = "NOTESID";
         public readonly static String COLUMN_DOCUMENTID = "DOCUMNETID";
         public readonly static String CREATE_NOTE_TABLE = @"CREATE TABLE " + TABLE_NOTE + " ( "
                                                             + ID
@@ -78,7 +79,6 @@ namespace TODORoutine.database.parsers {
                                                             + COLUMN_DOCUMENT + " BLOB);";
         //Table Notebook Strings
         public readonly static String TABLE_NOTEBOOK = "Notebook";
-        public readonly static String COLUMN_NOTEBOOKID = "NOTEBOOKID";
         public readonly static String CREATE_NOTEBOOK_TABLE = @"CREATE TABLE " + TABLE_NOTEBOOK + " ( "
                                                             + ID
                                                             + COLUMN_TITLE + " TEXT NOT NULL,"

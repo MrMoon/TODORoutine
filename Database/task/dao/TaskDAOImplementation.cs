@@ -69,9 +69,10 @@ namespace TODORoutine.database.task.dao {
                 TaskNote task = new TaskNote();
                 task.dueDate = DateTime.Parse(reader[DatabaseConstants.COLUMN_DUEDATE].ToString());
                 task.id = reader[idColumn].ToString();
-                String priorityString = reader[DatabaseConstants.COLUMN_PRIORITY].ToString();
-                if(Enum.TryParse(priorityString , true , out Priority priority)) task.priority = priority;
-                if (Enum.TryParse(priorityString , true , out Status status)) task.status = status;
+                String temp = reader[DatabaseConstants.COLUMN_PRIORITY].ToString();
+                if(Enum.TryParse(temp , true , out Priority priority)) task.priority = priority;
+                temp = reader[DatabaseConstants.COLUMN_STATUS].ToString();
+                if (Enum.TryParse(temp , true , out Status status)) task.status = status;
                 task.noteId = reader[DatabaseConstants.COLUMN_NOTEID].ToString();
                 return task;
             }
