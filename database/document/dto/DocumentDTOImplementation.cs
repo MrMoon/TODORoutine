@@ -18,7 +18,10 @@ namespace TODORoutine.database.document.dto {
         private readonly DocumentDAO documentDAO = null;
         private static DocumentDTO documentDTO = null;
 
-        private DocumentDTOImplementation() => documentDAO = DocumentDAOImplementation.getInstance();
+        private DocumentDTOImplementation() {
+            Logging.singlton(nameof(DocumentDTO));
+            documentDAO = DocumentDAOImplementation.getInstance();
+        }
 
         public static DocumentDTO getInstance() {
             if (documentDTO == null) documentDTO = new DocumentDTOImplementation();
@@ -130,6 +133,13 @@ namespace TODORoutine.database.document.dto {
             return new List<Document>();
         }
 
+        /**
+         * Getting Document Content From it's id
+         * 
+         * @id : the docuemnt id
+         * 
+         * return the document content
+         **/
         public String getDocuement(String id) {
             try {
                 return Encoding.Default.GetString(documentDAO.findDocumentBytes(id));

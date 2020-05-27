@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TODORoutine.database.general.dto;
 using TODORoutine.Models;
 
@@ -13,5 +14,6 @@ namespace TODORoutine.Database.user.DTO {
         String getUsername(String id);
         String getNotesId(String id);
         bool isAuthenticated(String id);
+        List<User> getAll();
     }
 }

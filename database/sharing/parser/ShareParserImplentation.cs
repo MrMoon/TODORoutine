@@ -10,16 +10,16 @@ using TODORoutine.Shared;
 namespace TODORoutine.database.sharing.parser {
 
     /**
-     * Main Share Parser Implentation that handle insert and delete statement for the share class
+     * Main Share Parser Implementation that handle insert and delete statement for the share class
      **/
-    class ShareParserImplentation : DatabaseParserImplementation<Share>, ShareParser {
+    class ShareParserImplementation : DatabaseParserImplementation<Share>, ShareParser {
 
         private static ShareParser shareParser = null;
 
-        private ShareParserImplentation() { }
+        private ShareParserImplementation() => Logging.singlton(nameof(ShareParser));
 
         public static ShareParser getInstance() {
-            if (shareParser == null) shareParser = new ShareParserImplentation();
+            if (shareParser == null) shareParser = new ShareParserImplementation();
             return shareParser;
         }
 

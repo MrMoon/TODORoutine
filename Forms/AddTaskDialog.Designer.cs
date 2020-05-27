@@ -42,16 +42,16 @@
             this.txtNote.Location = new System.Drawing.Point(12, 14);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(537, 155);
+            this.txtNote.Size = new System.Drawing.Size(573, 155);
             this.txtNote.TabIndex = 0;
             this.txtNote.TextChanged += new System.EventHandler(this.txtNote_TextChanged);
             // 
             // dueDatePicker
             // 
             this.dueDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dueDatePicker.Location = new System.Drawing.Point(554, 56);
+            this.dueDatePicker.Location = new System.Drawing.Point(590, 56);
             this.dueDatePicker.Name = "dueDatePicker";
-            this.dueDatePicker.Size = new System.Drawing.Size(176, 22);
+            this.dueDatePicker.Size = new System.Drawing.Size(182, 22);
             this.dueDatePicker.TabIndex = 1;
             // 
             // priorityComboBox
@@ -59,9 +59,9 @@
             this.priorityComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.priorityComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.priorityComboBox.FormattingEnabled = true;
-            this.priorityComboBox.Location = new System.Drawing.Point(555, 93);
+            this.priorityComboBox.Location = new System.Drawing.Point(591, 93);
             this.priorityComboBox.Name = "priorityComboBox";
-            this.priorityComboBox.Size = new System.Drawing.Size(176, 28);
+            this.priorityComboBox.Size = new System.Drawing.Size(181, 28);
             this.priorityComboBox.TabIndex = 2;
             this.priorityComboBox.SelectedIndexChanged += new System.EventHandler(this.priorityComboBox_SelectedIndexChanged);
             // 
@@ -70,9 +70,9 @@
             this.statusComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.statusComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusComboBox.FormattingEnabled = true;
-            this.statusComboBox.Location = new System.Drawing.Point(554, 141);
+            this.statusComboBox.Location = new System.Drawing.Point(590, 141);
             this.statusComboBox.Name = "statusComboBox";
-            this.statusComboBox.Size = new System.Drawing.Size(176, 28);
+            this.statusComboBox.Size = new System.Drawing.Size(182, 28);
             this.statusComboBox.TabIndex = 3;
             this.statusComboBox.SelectedIndexChanged += new System.EventHandler(this.statusComboBox_SelectedIndexChanged);
             // 
@@ -83,7 +83,7 @@
             // btnBrowesFile
             // 
             this.btnBrowesFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowesFile.Location = new System.Drawing.Point(594, 179);
+            this.btnBrowesFile.Location = new System.Drawing.Point(630, 179);
             this.btnBrowesFile.Name = "btnBrowesFile";
             this.btnBrowesFile.Size = new System.Drawing.Size(95, 31);
             this.btnBrowesFile.TabIndex = 4;
@@ -94,7 +94,7 @@
             // btnAdd
             // 
             this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btnAdd.Location = new System.Drawing.Point(316, 175);
+            this.btnAdd.Location = new System.Drawing.Point(334, 175);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(111, 31);
             this.btnAdd.TabIndex = 5;
@@ -106,9 +106,9 @@
             // 
             this.txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTitle.Location = new System.Drawing.Point(555, 11);
+            this.txtTitle.Location = new System.Drawing.Point(591, 11);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(175, 27);
+            this.txtTitle.Size = new System.Drawing.Size(181, 27);
             this.txtTitle.TabIndex = 6;
             this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
             // 
@@ -116,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(743, 215);
+            this.ClientSize = new System.Drawing.Size(779, 215);
             this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnBrowesFile);

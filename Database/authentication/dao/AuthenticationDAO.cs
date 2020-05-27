@@ -1,14 +1,14 @@
-﻿namespace TODORoutine.database.authentication {
+﻿using System;
+
+namespace TODORoutine.database.authentication {
 
     /**
-     * Main Authentication Data  Layer
+     * Main Authentication Data Layer
      * Handles basic authentication data operations
      **/
     interface AuthenticationDAO {
-
         bool login(Authentication auth);
         bool register(Authentication auth);
-
-        bool delete(Authentication auth);
+        bool delete(String username);
     }
 }

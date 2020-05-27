@@ -178,7 +178,7 @@
     <Compile Include="general\enums\Status.cs" />
     <Compile Include="general\constants\ErrorMessages.cs" />
     <Compile Include="general\enums\Priority.cs" />
-    <Compile Include="graph\Graph.cs" />
+    <Compile Include="models\Graph.cs" />
     <Compile Include="models\Authentication.cs" />
     <Compile Include="database\document\dao\DocumentDAO.cs" />
     <Compile Include="database\document\dao\DocumentDAOImplementation.cs" />
@@ -236,7 +236,7 @@
     <Compile Include="database\general\parser\DatabaseParserImplementation.cs" />
     <Compile Include="general\csv\CSVParser.cs" />
     <Compile Include="general\logging\Logging.cs" />
-    <Compile Include="general\Pair.cs" />
+    <Compile Include="models\Pair.cs" />
     <EmbeddedResource Include="forms\NotebookForm.resx">
       <DependentUpon>NotebookForm.cs</DependentUpon>
     </EmbeddedResource>

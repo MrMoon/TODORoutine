@@ -63,7 +63,7 @@ namespace TODORoutine.forms {
         private void connectEdge(Panel source , Panel destination) {
             Pen pen = new Pen(Color.Red , 4);
             GraphicsPath penCapPath = new GraphicsPath();
-            // A triangle for the arrow
+            // A triangle for the arrow cap of the pen
             penCapPath.AddLine(-1 , 0 , 1 , 0);
             penCapPath.AddLine(-1 , 0 , 0 , 1);
             penCapPath.AddLine(0 , 1 , 1 , 0);
@@ -77,9 +77,7 @@ namespace TODORoutine.forms {
             graph.add(u , v);
         }
 
-        private void btnAdd_Click(object sender , EventArgs e) {
-            this.Controls.Add(createPanel());
-        }        
+        private void btnAdd_Click(object sender , EventArgs e) => this.Controls.Add(createPanel());
 
         private void ckbxEdit_CheckedChanged(object sender , EventArgs e) {
             foreach (Panel panel in this.Controls.OfType<Panel>())

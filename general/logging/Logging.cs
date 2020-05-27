@@ -55,5 +55,12 @@ namespace TODORoutine.Shared {
             else logger.Info(s);
             return s;
         }
+
+        /**
+         * Singlton class logging for the creation of the object
+         * 
+         * @className : the class name that get logged from
+         **/
+        public static void singlton(String className) => logInfo(false , "Instance of " + className + " has been created");
     }
 }

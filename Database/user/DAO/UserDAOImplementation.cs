@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
@@ -23,6 +24,7 @@ namespace TODORoutine.Database.user.DAO {
         private static UserDAO userDAO = null;
 
         private UserDAOImplementation() {
+            Logging.singlton(nameof(UserDAO));
             driver = DatabaseDriverImplementation.getInstance();
             parser = UserParserImplementation.getInstance();
             driver.createTable(DatabaseConstants.CREATE_USER_TABLE);
@@ -275,6 +277,17 @@ namespace TODORoutine.Database.user.DAO {
                 Logging.logInfo(true , e.Message);
             }
             return false;
+        }
+
+        /**
+         * Getting all users 
+         * 
+         * return users ids
+         **/
+        public List<string> findAll() {
+            //Logging
+            Logging.paramenterLogging(nameof(findAll) , false);
+            return findAll(parser , tableName , "-1");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TODORoutine.database.general.dao;
 using TODORoutine.database.parsers;
 using TODORoutine.Database.user.DAO;
@@ -8,14 +9,18 @@ using TODORoutine.Shared;
 namespace TODORoutine.Database.user.DTO {
 
     /**
-     * Main User Data Transfer Implementation that will handle that communication between class for the User 
+     * Main User Data Transfer Implementation that will 
+     * handle that communication between data layer and user
      **/
     class UserDTOImplementation : UserDTO {
 
         private static UserDTO userDTO = null;
         private readonly UserDAO userDAO = null;
-        
-        private UserDTOImplementation() => userDAO = UserDAOImplementation.getInstance();
+
+        private UserDTOImplementation() {
+            Logging.singlton(nameof(UserDTO));
+            userDAO = UserDAOImplementation.getInstance();
+        }
 
         public static UserDTO getInstance() {
             if (userDTO == null) userDTO = new UserDTOImplementation();
@@ -36,6 +41,22 @@ namespace TODORoutine.Database.user.DTO {
                 Logging.logInfo(true , e.Message);
             }
             return false;
+        }
+
+        /**
+         * Getting all users form the database
+         * 
+         * Return a List of users
+         **/
+        public List<User> getAll() {
+            try {
+                List<User> users = new List<User>();
+                userDAO.findAll().ForEach(id => users.Add(getById(id)));
+                return users;
+            } catch(Exception e) {
+                Logging.logInfo(true , e.Message);
+                return new List<User>();
+            }
         }
 
         /**

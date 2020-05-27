@@ -12,7 +12,7 @@ namespace TODORoutine.database.notebook {
 
         private static NotebookParser notebookParser = null;
 
-        private NotebookParserImplementation() { }
+        private NotebookParserImplementation() => Logging.singlton(nameof(NotebookParser));
 
         public static NotebookParser getInstance() {
             if (notebookParser == null) notebookParser = new NotebookParserImplementation();

@@ -15,7 +15,7 @@ namespace TODORoutine.database.note.dao {
     /**
      * Main Note Data Access Implementation that handle database operations
      **/
-    class NoteDAOImplentation : DatabaseDAOImplementation<Note> , NoteDAO {
+    class NoteDAOImplementation : DatabaseDAOImplementation<Note> , NoteDAO {
 
         private readonly String idColumn = DatabaseConstants.COLUMN_ID;
         private readonly String tableName = DatabaseConstants.TABLE_NOTE;
@@ -23,14 +23,15 @@ namespace TODORoutine.database.note.dao {
         private DatabaseDriver driver = null;
         private NoteParser parser = null;
 
-        private NoteDAOImplentation() {
+        private NoteDAOImplementation() {
+            Logging.singlton(nameof(NoteDAO));
             parser = NoteParserImplementation.getInstance();
             driver = DatabaseDriverImplementation.getInstance();
             driver.createTable(DatabaseConstants.CREATE_NOTE_TABLE);
         }
 
         public static NoteDAO getInsence() {
-            if (noteDAO == null) noteDAO = new NoteDAOImplentation();
+            if (noteDAO == null) noteDAO = new NoteDAOImplementation();
             return noteDAO;
         }
 
@@ -59,18 +60,39 @@ namespace TODORoutine.database.note.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
+        /**
+         * Getting all the notes sorted by the date of it creation
+         * 
+         * @lastNoteId : the last note that was read from the last call
+         * 
+         * return a list of notes ids
+         **/
         public List<String> findAllByOrderOfDateCreated(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfDateCreated) , false , new Pair(nameof(lastNoteId) , lastNoteId));
             return findAll(parser , tableName , DatabaseConstants.COLUMN_DATECREATED , lastNoteId);
         }
 
+        /**
+         * Getting all the notes sorted by the last modified date
+         * 
+         * @lastNoteId : the last note that was read from the last call
+         * 
+         * return a list of notes ids
+         **/
         public List<String> findAllByOrderOfLastModified(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAllByOrderOfLastModified) , false , new Pair(nameof(lastNoteId) , lastNoteId));
             return findAll(parser , tableName , DatabaseConstants.COLUMN_LASTMODIFIED , lastNoteId);
         }
 
+        /**
+         * Getting all the notes for a certin author
+         * 
+         * @author : the author name 
+         * 
+         * return a list of notes ids for an author if it was found and throw an exception otherwise
+         **/
         public List<String> findByAuthorName(String author) {
             //Logging
             Logging.paramenterLogging(nameof(findByAuthorName) , false , new Pair(nameof(author) , author));
@@ -96,7 +118,7 @@ namespace TODORoutine.database.note.dao {
          * 
          * @id : the note id to search for
          * 
-         * return note if found and throw an Exception otherwise
+         * return note if found and throw an Exception otherwise 
          **/
         public override Note findById(String id) {
             //Logging
@@ -118,6 +140,13 @@ namespace TODORoutine.database.note.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
+        /**
+         * Getting a note by it title
+         * 
+         * @title : the note title
+         * 
+         * return a note if it was found and throw an exception otherwise
+         **/
         public Note findByTitle(String title) {
             //Logging
             Logging.paramenterLogging(nameof(findByTitle) , false , new Pair(nameof(title) , title));
@@ -139,6 +168,13 @@ namespace TODORoutine.database.note.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(title));
         }
 
+        /**
+         * Getting the Note from the dataReader
+         * 
+         * @reader : the sql reader
+         * 
+         * return a note from the reader if it was found and throw an exception otherwise
+         **/
         public override Note find(SQLiteDataReader reader) {
             if(reader.Read()) {
                 Note note = new Note();
@@ -226,6 +262,13 @@ namespace TODORoutine.database.note.dao {
             throw new DatabaseException(DatabaseConstants.NOT_FOUND(id));
         }
 
+        /**
+         * Getting all note 
+         * 
+         * @lastNoteId : the last note that was read from the last call
+         * 
+         * return a list of notes id if it was found and throw an exception otherwise
+         **/
         public List<String> findAll(String lastNoteId = "1") {
             //Logging
             Logging.paramenterLogging(nameof(findAll) , false , new Pair(nameof(lastNoteId) , lastNoteId));

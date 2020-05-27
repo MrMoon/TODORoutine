@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TODORoutine.database.general.dao;
 using TODORoutine.Models;
 
@@ -14,5 +15,6 @@ namespace TODORoutine.Database.user.DAO {
         String findNotebookId(String id);
         User findByUsername(String username);
         bool isUserAuthenticated(String id);
+        List<String> findAll();
     }
 }

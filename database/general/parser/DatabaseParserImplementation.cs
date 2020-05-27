@@ -4,12 +4,13 @@ using System.Text;
 using TODORoutine.database.parsers;
 using TODORoutine.Database.Shared;
 using TODORoutine.exceptions;
+using TODORoutine.general.validation;
 
 namespace TODORoutine.Shared {
 
     /**
      * Main Database Parser Implementation
-     * Database Statment Parser Class that handle SQL Statments
+     * Handles Parsing for all of the main SQL statments
      **/
     abstract class DatabaseParserImplementation<T> : DatabaseParser<T> {
 
@@ -32,6 +33,7 @@ namespace TODORoutine.Shared {
             query.Append("'");
             return query.ToString();
         }
+
         /**
          * This method is for Generic SQL Select Query Statments
          * @tableName : the table Name in the Database

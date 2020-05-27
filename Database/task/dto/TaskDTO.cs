@@ -6,6 +6,9 @@ using TODORoutine.general.enums;
 using TODORoutine.models;
 
 namespace TODORoutine.database.task.dto {
+    /**
+     * Main Task Data Transfer Layer
+     **/
     interface TaskDTO : DatabaseDTO<TaskNote> {
         List<TaskNote> getAllByPriority(Priority priority);
         List<TaskNote> getAllByStatus(Status status);

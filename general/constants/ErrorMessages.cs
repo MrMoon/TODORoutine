@@ -1,6 +1,10 @@
 ﻿using System;
 
 namespace TODORoutine.general {
+
+    /**
+     * Main Error Messages Constatnts
+     **/
     abstract class ErrorMessages {
         public static readonly String PASSWORD_MATCH = "Please Enter the same Password";
         public static readonly String PASSWORD_LENGTH = "Password must be 6 or more characters";

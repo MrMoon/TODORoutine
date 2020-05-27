@@ -9,10 +9,13 @@ namespace TODORoutine.database.document {
 
     /**
      * Main Document Parser Implementation that handles inserts of the Documnets and Updating 
+     * Handle Parsing for the Docuemnt Class
      **/
     class DocumentParserImplementation : DatabaseParserImplementation<Document> , DocumentParser {
 
         private static DocumentParser documentParser = null;
+
+        private DocumentParserImplementation() => Logging.singlton(nameof(DocumentParser));
 
         public static DocumentParser getInstance() {
             if (documentParser == null) documentParser = new DocumentParserImplementation();
@@ -31,7 +34,7 @@ namespace TODORoutine.database.document {
             //Logging
             Logging.paramenterLogging(nameof(getFieldFromColumn) , false
                     , new Pair(nameof(column) , column) , new Pair(nameof(document) , document.ToString()));
-            //Finding document filed
+            //Finding document field
             if (column.Equals(DatabaseConstants.COLUMN_DOCUMENTID)) return document.getId();
             if (column.Equals(DatabaseConstants.COLUMN_OWENER)) return document.getOwner();
             //Column is invalid
@@ -57,7 +60,7 @@ namespace TODORoutine.database.document {
 
             //Logging
             Logging.paramenterLogging(nameof(getInsert) , false , new Pair(nameof(document) , document.ToString()));
-            //Building the SQL Statment 
+            //Building the Insert Statment 
             StringBuilder query = new StringBuilder();
             query.Append("INSERT INTO ");
             query.Append(DatabaseConstants.TABLE_DOCUMENT);

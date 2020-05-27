@@ -6,9 +6,15 @@ using TODORoutine.Models;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.parsers.user_parsers {
+    /**
+     * Main User Parser Implementation 
+     * Handles user SQL Statment Parsing
+     **/
     class UserParserImplementation : DatabaseParserImplementation<User> , UserParser {
 
         private static UserParser userParser = null;
+
+        private UserParserImplementation() => Logging.singlton(nameof(UserParser));
 
         public static UserParser getInstance() {
             if (userParser == null) userParser = new UserParserImplementation();

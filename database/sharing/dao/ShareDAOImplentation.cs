@@ -13,7 +13,11 @@ using TODORoutine.shared.csv;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.sharing.dao {
-    class ShareDAOImplentation : DatabaseDAOImplementation<Share> , ShareDAO {
+    /**
+     * Main Implementation for the Data Access Layer for the share
+     * handles data operations for the share
+     **/
+    class ShareDAOImplementation : DatabaseDAOImplementation<Share> , ShareDAO {
 
         private readonly String tableName = DatabaseConstants.TABLE_DOCUMENT_SHARE;
         private readonly String documentsIds = DatabaseConstants.COLUMN_DOCUMENTSIDS;
@@ -22,14 +26,15 @@ namespace TODORoutine.database.sharing.dao {
         private DatabaseDriver driver = null;
         private ShareParser parser = null;
 
-        private ShareDAOImplentation() {
+        private ShareDAOImplementation() {
+            Logging.singlton(nameof(ShareDAO));
             driver = DatabaseDriverImplementation.getInstance();
-            parser = ShareParserImplentation.getInstance();
+            parser = ShareParserImplementation.getInstance();
             driver.createTable(DatabaseConstants.CREATE_DOCUMENT_SHARE_TABLE);
         }
 
         public static ShareDAO getInstance() {
-            if (shareDAO == null) shareDAO = new ShareDAOImplentation();
+            if (shareDAO == null) shareDAO = new ShareDAOImplementation();
             return shareDAO;
         }
 

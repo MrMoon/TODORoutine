@@ -7,8 +7,10 @@ using System.Windows.Forms;
 using TODORoutine.database;
 using TODORoutine.database.authentication.dto;
 using TODORoutine.Database.Shared;
+using TODORoutine.Database.user.DTO;
 using TODORoutine.general;
 using TODORoutine.general.constants;
+using TODORoutine.general.validation;
 using TODORoutine.Models;
 using TODORoutine.shared.csv;
 
@@ -16,7 +18,7 @@ namespace TODORoutine {
     public partial class AuthForm : Form {
 
         private bool createAccount = false;
-        private readonly AuthenticationDTO auth = AuthenticationDTOImplentation.getInstance();
+        private readonly AuthenticationDTO auth = AuthenticationDTOImplementation.getInstance();
 
         public AuthForm() => InitializeComponent();
 
@@ -109,21 +111,30 @@ namespace TODORoutine {
         }
 
         private void picLogo_Click(object sender , EventArgs e) {
-            btnCSV.Visible = TypesConstants.FLIP(btnCSV.Visible);
+            btnReadCSV.Visible = TypesConstants.FLIP(btnReadCSV.Visible);
+            btnWriteCSV.Visible = TypesConstants.FLIP(btnWriteCSV.Visible);
         }
 
-        private void btnCSV_Click(object sender , EventArgs e) {
+        private void btnReadCSV_Click(object sender , EventArgs e) {
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             openFileDialog.Filter = CSVParser.FILE;
             int counter = 0;
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 Stream fileStream = openFileDialog.OpenFile();
-                StreamReader streamReader = new StreamReader(fileStream);
-                while (!streamReader.EndOfStream) 
+                StreamReader reader = new StreamReader(fileStream);
+                while (!reader.EndOfStream) 
                     counter += TODORoutine.Database.user.DTO.UserDTOImplementation.getInstance()
-                        .save(CSVParser.getUser(streamReader.ReadLine())) ? 1 : 0;
+                        .save(CSVParser.getUser(reader.ReadLine())) ? 1 : 0;
+                reader.Close();
             }
             MessageBox.Show(counter + " was added successfully to the database");
+        }
+
+        private void btnWriteCSV_Click(object sender , EventArgs e) {
+            TextWriter writer = new StreamWriter("users.csv");
+            List<User> users = UserDTOImplementation.getInstance().getAll();
+            foreach(User user in users) writer.WriteLine(CSVParser.setUser(user));
+            writer.Close();
         }
     }
 }

@@ -39,8 +39,9 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.btnCSV = new System.Windows.Forms.Button();
+            this.btnReadCSV = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btnWriteCSV = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -185,20 +186,31 @@
             this.txtName.Visible = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
-            // btnCSV
+            // btnReadCSV
             // 
-            this.btnCSV.Location = new System.Drawing.Point(487, 363);
-            this.btnCSV.Name = "btnCSV";
-            this.btnCSV.Size = new System.Drawing.Size(79, 37);
-            this.btnCSV.TabIndex = 24;
-            this.btnCSV.Text = "CSV";
-            this.btnCSV.UseVisualStyleBackColor = true;
-            this.btnCSV.Visible = false;
-            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
+            this.btnReadCSV.Location = new System.Drawing.Point(487, 363);
+            this.btnReadCSV.Name = "btnReadCSV";
+            this.btnReadCSV.Size = new System.Drawing.Size(79, 37);
+            this.btnReadCSV.TabIndex = 24;
+            this.btnReadCSV.Text = "Read";
+            this.btnReadCSV.UseVisualStyleBackColor = true;
+            this.btnReadCSV.Visible = false;
+            this.btnReadCSV.Click += new System.EventHandler(this.btnReadCSV_Click);
             // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // btnWriteCSV
+            // 
+            this.btnWriteCSV.Location = new System.Drawing.Point(487, 320);
+            this.btnWriteCSV.Name = "btnWriteCSV";
+            this.btnWriteCSV.Size = new System.Drawing.Size(79, 37);
+            this.btnWriteCSV.TabIndex = 25;
+            this.btnWriteCSV.Text = "Write";
+            this.btnWriteCSV.UseVisualStyleBackColor = true;
+            this.btnWriteCSV.Visible = false;
+            this.btnWriteCSV.Click += new System.EventHandler(this.btnWriteCSV_Click);
             // 
             // AuthForm
             // 
@@ -207,7 +219,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(578, 412);
-            this.Controls.Add(this.btnCSV);
+            this.Controls.Add(this.btnWriteCSV);
+            this.Controls.Add(this.btnReadCSV);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtConfirmPassword);
             this.Controls.Add(this.txtPassword);
@@ -251,7 +264,8 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtConfirmPassword;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Button btnCSV;
+        private System.Windows.Forms.Button btnReadCSV;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button btnWriteCSV;
     }
 }

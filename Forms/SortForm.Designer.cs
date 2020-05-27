@@ -24,25 +24,41 @@
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SortForm));
-            this.ckbxEdit = new System.Windows.Forms.CheckBox();
-            this.sotMenuStrip = new System.Windows.Forms.MenuStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.btnConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSort = new System.Windows.Forms.ToolStripMenuItem();
+            this.sotMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.ckbxEdit = new System.Windows.Forms.CheckBox();
             this.sotMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ckbxEdit
+            // btnAdd
             // 
-            this.ckbxEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ckbxEdit.AutoSize = true;
-            this.ckbxEdit.Location = new System.Drawing.Point(1435, 644);
-            this.ckbxEdit.Name = "ckbxEdit";
-            this.ckbxEdit.Size = new System.Drawing.Size(54, 21);
-            this.ckbxEdit.TabIndex = 2;
-            this.ckbxEdit.Text = "Edit";
-            this.ckbxEdit.UseVisualStyleBackColor = true;
-            this.ckbxEdit.CheckedChanged += new System.EventHandler(this.ckbxEdit_CheckedChanged);
+            this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.btnAdd.Size = new System.Drawing.Size(143, 24);
+            this.btnAdd.Text = "&Add";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.btnConnect.Size = new System.Drawing.Size(143, 24);
+            this.btnConnect.Text = "&Connect";
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
+            // btnSort
+            // 
+            this.btnSort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnSort.Name = "btnSort";
+            this.btnSort.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.S)));
+            this.btnSort.Size = new System.Drawing.Size(143, 24);
+            this.btnSort.Text = "&Sort";
+            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
             // 
             // sotMenuStrip
             // 
@@ -52,36 +68,23 @@
             this.btnAdd,
             this.btnConnect,
             this.btnSort});
-            this.sotMenuStrip.Location = new System.Drawing.Point(1418, 0);
+            this.sotMenuStrip.Location = new System.Drawing.Point(1345, 0);
             this.sotMenuStrip.Name = "sotMenuStrip";
-            this.sotMenuStrip.Size = new System.Drawing.Size(83, 677);
+            this.sotMenuStrip.Size = new System.Drawing.Size(156, 677);
             this.sotMenuStrip.TabIndex = 5;
             this.sotMenuStrip.Text = "SortMenu";
             // 
-            // btnAdd
+            // ckbxEdit
             // 
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.btnAdd.Size = new System.Drawing.Size(70, 24);
-            this.btnAdd.Text = "&Add";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.btnConnect.Size = new System.Drawing.Size(70, 24);
-            this.btnConnect.Text = "&Connect";
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // btnSort
-            // 
-            this.btnSort.Name = "btnSort";
-            this.btnSort.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
-            | System.Windows.Forms.Keys.S)));
-            this.btnSort.Size = new System.Drawing.Size(70, 24);
-            this.btnSort.Text = "&Sort";
-            this.btnSort.Click += new System.EventHandler(this.btnSort_Click);
+            this.ckbxEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckbxEdit.AutoSize = true;
+            this.ckbxEdit.Location = new System.Drawing.Point(1435, 92);
+            this.ckbxEdit.Name = "ckbxEdit";
+            this.ckbxEdit.Size = new System.Drawing.Size(54, 21);
+            this.ckbxEdit.TabIndex = 2;
+            this.ckbxEdit.Text = "Edit";
+            this.ckbxEdit.UseVisualStyleBackColor = true;
+            this.ckbxEdit.CheckedChanged += new System.EventHandler(this.ckbxEdit_CheckedChanged);
             // 
             // SortForm
             // 
@@ -102,10 +105,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox ckbxEdit;
-        private System.Windows.Forms.MenuStrip sotMenuStrip;
+
         private System.Windows.Forms.ToolStripMenuItem btnAdd;
         private System.Windows.Forms.ToolStripMenuItem btnConnect;
         private System.Windows.Forms.ToolStripMenuItem btnSort;
+        private System.Windows.Forms.MenuStrip sotMenuStrip;
+        private System.Windows.Forms.CheckBox ckbxEdit;
     }
 }

@@ -5,26 +5,30 @@ namespace TODORoutine.database.authentication.dto {
 
     /**
      * Main Authentication Transfer Layer Implenetation
+     * Handles Authentication object transfermation between other classes and the data layer
      **/
-    class AuthenticationDTOImplentation : AuthenticationDTO {
+    class AuthenticationDTOImplementation : AuthenticationDTO {
 
         private static AuthenticationDTO authDTO = null;
         private readonly AuthenticationDAO authDAO = null;
 
-        private AuthenticationDTOImplentation() => authDAO = AuthenticationDAOImplentation.getInstance();
+        private AuthenticationDTOImplementation() {
+            Logging.singlton(nameof(AuthenticationDTO));
+            authDAO = AuthenticationDAOImplementation.getInstance();
+        }
 
         public static AuthenticationDTO getInstance() {
-            if (authDTO == null) authDTO = new AuthenticationDTOImplentation();
+            if (authDTO == null) authDTO = new AuthenticationDTOImplementation();
             return authDTO;
         }
 
         /**
-         * Authenticating user 
+         * Authenticating user from the data
          * 
          * @auth : user auth (username and password)
-         * @islogin : a flag to indicate the operation
+         * @islogin : a flag to indicate the operation (login or register)
          * 
-         * return true if and only if the operation was done successfully and false other wise
+         * return true if and only if the authentication was done successfully and false other wise
          **/
         public bool authenticate(Authentication auth , bool isLogin = false) {
             try {
@@ -36,9 +40,16 @@ namespace TODORoutine.database.authentication.dto {
             }
         }
 
-        public bool delete(Authentication auth) {
+        /**
+         * Deletng the Authentication from the data
+         * 
+         * @auth : the authentication to delete
+         * 
+         * return true if and only if the the delete operation was done successfully
+         **/
+        public bool delete(String username) {
             try {
-                return authDAO.delete(auth);
+                return authDAO.delete(username);
             } catch(Exception e) {
                 Logging.logInfo(true , e.Message);
                 return false;

@@ -10,15 +10,23 @@ using TODORoutine.models;
 using TODORoutine.Shared;
 
 namespace TODORoutine.database.task.dto {
-    class TaskDTOImplentation : TaskDTO {
+
+    /**
+     * Main Task Data Transfer Layer Implementation
+     * Handles transfer operations between the user and the data layer
+     **/
+    class TaskDTOImplementation : TaskDTO {
 
         private static TaskDTO taskDTO = null;
         private readonly TaskDAO taskDAO = null;
 
-        private TaskDTOImplentation() => taskDAO = TaskDAOImplementation.getInstance();
+        private TaskDTOImplementation() {
+            Logging.singlton(nameof(TaskDTO));
+            taskDAO = TaskDAOImplementation.getInstance();
+        }
 
         public static TaskDTO getInstance() {
-            if (taskDTO == null) taskDTO = new TaskDTOImplentation();
+            if (taskDTO == null) taskDTO = new TaskDTOImplementation();
             return taskDTO;
         }
 
@@ -91,6 +99,13 @@ namespace TODORoutine.database.task.dto {
             return false;
         }
 
+        /**
+         * Getting all the task by it's priority
+         * 
+         * @priority : the priority to search for in the database
+         * 
+         * return a list of tasknotes with a priority if it was found and an empty list otherwise
+         **/
         public List<TaskNote> getAllByPriority(Priority priority) {
             try {
                 List<TaskNote> notes = new List<TaskNote>();
@@ -102,6 +117,13 @@ namespace TODORoutine.database.task.dto {
             return new List<TaskNote>();
         }
 
+        /**
+        * Getting all the task by it's status
+        * 
+        * @status : the status to search for in the database
+        * 
+        * return a list of tasknotes with a status if it was found and an empty list otherwise
+        **/
         public List<TaskNote> getAllByStatus(Status status) {
             try {
                 List<TaskNote> notes = new List<TaskNote>();
@@ -113,6 +135,13 @@ namespace TODORoutine.database.task.dto {
             return new List<TaskNote>();
         }
 
+        /**
+        * Getting the task note by the taskId
+        * 
+        * @taskId : the taskId to search for in the database
+        * 
+        * return a note o if it was found and an null otherwise
+        **/
         public Note getNote(String taskId) {
             try {
                 return NoteDTOImplementation.getInstance().getById(taskDAO.findNote(taskId));
@@ -122,6 +151,13 @@ namespace TODORoutine.database.task.dto {
             }
         }
 
+        /**
+        * Getting all the task with in a range of  lastTaskId to lastTaskId + x by order of dueDate
+        * 
+        * @lastTaskId : the lastTaskId to start from in the database
+        * 
+        * return a list of tasknotes if it was found and an empty list otherwise
+        **/
         public List<TaskNote> getAllTasksOrderByDueDate(String lastTaskId = "1") {
             try {
                 List<TaskNote> taskNotes = new List<TaskNote>();
@@ -133,6 +169,13 @@ namespace TODORoutine.database.task.dto {
             }
         }
 
+        /**
+        * Getting all the task with in a range of  lastTaskId to lastTaskId + x
+        * 
+        * @lastTaskId : the lastTaskId to start from in the database
+        * 
+        *     return a list of tasknotes if it was found and an empty list otherwise
+        **/
         public List<TaskNote> getAllTasks(String lastTaskId = "1") {
             try {
                 List<TaskNote> taskNotes = new List<TaskNote>();
