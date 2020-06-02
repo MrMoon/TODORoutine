@@ -1,8 +1,6 @@
 # TODORoutine
 
 ___________________________________________________________________________
-<h2>TODO Routine</h2>
-
 <p>Create , organize , report TODOs </p>
 
 <p>1<sup>st</sup> June 2020
