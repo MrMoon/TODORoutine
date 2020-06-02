@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TODORoutine.general {
+namespace TODORoutine.general.constants {
 
     /**
      * Main Error Messages Constatnts

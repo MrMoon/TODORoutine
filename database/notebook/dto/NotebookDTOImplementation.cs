@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.general.dao;
+using TODORoutine.database.general.shared;
 using TODORoutine.database.note.dao;
 using TODORoutine.database.notebook.dao;
-using TODORoutine.database.parsers;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.notebook.dto {
 

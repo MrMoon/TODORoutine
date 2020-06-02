@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Data.SQLite;
 using System.IO;
-using TODORoutine.Shared;
-using TODORoutine.database.parsers;
-using TODORoutine.database.general;
-using TODORoutine.exceptions;
 using System.Data;
+using TODORoutine.database.general.shared;
+using TODORoutine.general.logging;
+using TODORoutine.models;
+using TODORoutine.database.general.exception;
 
-namespace TODORoutine.Database {
+namespace TODORoutine.database.general.driver {
 
     /**
      * Main Database Driver Class that will take care of database initilizing 

@@ -3,17 +3,14 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TODORoutine.database.document.dto;
+using TODORoutine.database.general.shared;
 using TODORoutine.database.note.dto;
 using TODORoutine.database.notebook.dto;
-using TODORoutine.database.parsers;
 using TODORoutine.database.task.dto;
-using TODORoutine.Database.Shared;
-using TODORoutine.general;
 using TODORoutine.general.constants;
 using TODORoutine.general.enums;
 using TODORoutine.general.validation;
 using TODORoutine.models;
-using TODORoutine.Models;
 
 namespace TODORoutine.forms {
     public partial class AddTaskDialog : Form {

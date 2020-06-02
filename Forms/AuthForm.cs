@@ -1,20 +1,16 @@
-﻿using MainTextEditor;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using TODORoutine.database;
 using TODORoutine.database.authentication.dto;
-using TODORoutine.Database.Shared;
-using TODORoutine.Database.user.DTO;
-using TODORoutine.general;
+using TODORoutine.database.user.dto;
 using TODORoutine.general.constants;
+using TODORoutine.general.csv;
 using TODORoutine.general.validation;
-using TODORoutine.Models;
-using TODORoutine.shared.csv;
+using TODORoutine.models;
 
-namespace TODORoutine {
+namespace TODORoutine.forms {
     public partial class AuthForm : Form {
 
         private bool createAccount = false;
@@ -123,7 +119,7 @@ namespace TODORoutine {
                 Stream fileStream = openFileDialog.OpenFile();
                 StreamReader reader = new StreamReader(fileStream);
                 while (!reader.EndOfStream) 
-                    counter += TODORoutine.Database.user.DTO.UserDTOImplementation.getInstance()
+                    counter += UserDTOImplementation.getInstance()
                         .save(CSVParser.getUser(reader.ReadLine())) ? 1 : 0;
                 reader.Close();
             }

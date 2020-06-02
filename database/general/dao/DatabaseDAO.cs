@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using TODORoutine.database.parsers;
+using TODORoutine.database.general.parser;
 
 namespace TODORoutine.database.general.dao {
 

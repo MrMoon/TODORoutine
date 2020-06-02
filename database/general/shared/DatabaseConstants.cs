@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using TODORoutine.Shared;
+using TODORoutine.models;
 
-namespace TODORoutine.database.parsers {
+namespace TODORoutine.database.general.shared {
     /**
      * Main Database Constants Class that has all the important Strings so it would be easier to edit and scale
      **/

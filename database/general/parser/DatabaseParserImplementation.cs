@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using TODORoutine.database.parsers;
-using TODORoutine.Database.Shared;
-using TODORoutine.exceptions;
+using TODORoutine.database.general.exception;
+using TODORoutine.database.general.shared;
+using TODORoutine.general.logging;
 using TODORoutine.general.validation;
+using TODORoutine.models;
 
-namespace TODORoutine.Shared {
+namespace TODORoutine.database.general.parser {
 
     /**
      * Main Database Parser Implementation

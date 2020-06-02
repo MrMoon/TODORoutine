@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using TODORoutine.general;
 using TODORoutine.general.enums;
 
 namespace TODORoutine.models {

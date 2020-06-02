@@ -218,7 +218,7 @@
     <Compile Include="database\user\dao\UserDAOImplementation.cs" />
     <Compile Include="database\user\dto\UserDTO.cs" />
     <Compile Include="database\user\dto\UserDTOImplementation.cs" />
-    <Compile Include="database\general\exceptions\DatabaseException.cs" />
+    <Compile Include="database\general\exception\DatabaseException.cs" />
     <Compile Include="forms\AuthForm.cs">
       <SubType>Form</SubType>
     </Compile>

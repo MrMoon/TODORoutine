@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 using TODORoutine.database.document.dto;
+using TODORoutine.database.general.shared;
 using TODORoutine.database.note.dto;
 using TODORoutine.database.notebook.dto;
-using TODORoutine.database.parsers;
 using TODORoutine.database.sharing.dto;
-using TODORoutine.Database.Shared;
-using TODORoutine.Database.user.DTO;
+using TODORoutine.database.user.dto;
 using TODORoutine.general.constants;
 using TODORoutine.general.validation;
 using TODORoutine.models;
-using TODORoutine.Models;
 
 namespace TODORoutine.forms {
     public partial class NotebookForm : Form {

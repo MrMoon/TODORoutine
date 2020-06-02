@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using TODORoutine.database.document.dto;
 using TODORoutine.database.general.dao;
+using TODORoutine.database.general.shared;
 using TODORoutine.database.note.dao;
-using TODORoutine.database.parsers;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.note.dto {
 

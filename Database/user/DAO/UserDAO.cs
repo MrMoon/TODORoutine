@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.general.dao;
-using TODORoutine.Models;
+using TODORoutine.models;
 
-namespace TODORoutine.Database.user.DAO {
+namespace TODORoutine.database.user.dao {
 
     /**
      * Main Data Access Layer for all the user comunicatation with the database

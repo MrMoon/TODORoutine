@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
-using TODORoutine.database.parsers;
-using TODORoutine.database.parsers.user_parsers;
-using TODORoutine.Database.Shared;
-using TODORoutine.exceptions;
-using TODORoutine.Models;
-using TODORoutine.Shared;
+using TODORoutine.database.general.driver;
+using TODORoutine.database.general.exception;
+using TODORoutine.database.general.shared;
+using TODORoutine.database.user.parser;
+using TODORoutine.general.logging;
+using TODORoutine.models;
 
-namespace TODORoutine.Database.user.DAO {
+namespace TODORoutine.database.user.dao {
 
     /**
      * Main User Data Access Implementation that handle database operations for the User

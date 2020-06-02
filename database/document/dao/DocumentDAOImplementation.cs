@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Text;
-using TODORoutine.database.general;
+using TODORoutine.database.document.parser;
 using TODORoutine.database.general.dao;
-using TODORoutine.database.parsers;
-using TODORoutine.Database;
-using TODORoutine.exceptions;
+using TODORoutine.database.general.driver;
+using TODORoutine.database.general.exception;
+using TODORoutine.database.general.shared;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.document.dao {
 

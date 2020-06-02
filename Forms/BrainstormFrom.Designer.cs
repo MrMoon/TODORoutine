@@ -1,6 +1,6 @@
 ﻿using TODORoutine.general.constants;
 
-namespace MainTextEditor
+namespace TODORoutine.forms
 {
     partial class BrainstormFrom
     {

@@ -1,4 +1,5 @@
-﻿using TODORoutine.database.parsers;
+﻿using TODORoutine.database.general.parser;
+using TODORoutine.models;
 
 namespace TODORoutine.database.authentication.parser {
     /**

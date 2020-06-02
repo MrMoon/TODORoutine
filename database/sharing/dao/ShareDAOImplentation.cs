@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
-using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
-using TODORoutine.database.parsers;
+using TODORoutine.database.general.driver;
+using TODORoutine.database.general.exception;
+using TODORoutine.database.general.shared;
 using TODORoutine.database.sharing.parser;
-using TODORoutine.Database;
-using TODORoutine.exceptions;
+using TODORoutine.general.csv;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.shared.csv;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.sharing.dao {
     /**

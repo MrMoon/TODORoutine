@@ -1,4 +1,4 @@
-﻿namespace TODORoutine {
+﻿namespace TODORoutine.forms {
     partial class AuthForm {
         /// <summary>
         /// Required designer variable.

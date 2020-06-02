@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TODORoutine.Shared {
+namespace TODORoutine.models {
     /**
      * Pair Class that handle Strings that are connected 
      **/

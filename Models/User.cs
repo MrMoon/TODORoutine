@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TODORoutine.Models {
+namespace TODORoutine.models {
     /**
      * Main User Genral Class that has fields related to the user
      **/

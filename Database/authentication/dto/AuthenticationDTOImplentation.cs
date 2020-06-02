@@ -1,5 +1,7 @@
 ﻿using System;
-using TODORoutine.Shared;
+using TODORoutine.database.authentication.dao;
+using TODORoutine.general.logging;
+using TODORoutine.models;
 
 namespace TODORoutine.database.authentication.dto {
 

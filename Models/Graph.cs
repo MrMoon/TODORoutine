@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TODORoutine.general.constants;
 
-namespace TODORoutine.graph {
+namespace TODORoutine.models {
 
     /**
      * Basic Graph Model that handles graph algorihtms

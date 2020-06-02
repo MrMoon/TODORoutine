@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.general.dto;
-using TODORoutine.Models;
+using TODORoutine.models;
 
-namespace TODORoutine.Database.user.DTO {
+namespace TODORoutine.database.user.dto {
     /**
      * Main Transfor Layer between the Data Access Layer and the Application Layer
      * Handles the User Data transfor between the Transfor Layer and the Data Layer

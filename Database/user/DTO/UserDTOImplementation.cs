@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.general.dao;
-using TODORoutine.database.parsers;
-using TODORoutine.Database.user.DAO;
-using TODORoutine.Models;
-using TODORoutine.Shared;
+using TODORoutine.database.general.shared;
+using TODORoutine.database.user.dao;
+using TODORoutine.general.logging;
+using TODORoutine.models;
 
-namespace TODORoutine.Database.user.DTO {
+namespace TODORoutine.database.user.dto {
 
     /**
      * Main User Data Transfer Implementation that will 

@@ -1,6 +1,7 @@
-﻿using TODORoutine.models;
+﻿using TODORoutine.database.general.parser;
+using TODORoutine.models;
 
-namespace TODORoutine.database.parsers.notes_parser {
+namespace TODORoutine.database.note.parser {
 
     /**
      * Main Note Database Parser that handle Insert and Update Statments for the Notes , 

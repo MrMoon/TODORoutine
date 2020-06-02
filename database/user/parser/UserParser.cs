@@ -1,7 +1,7 @@
-﻿using TODORoutine.database.parsers;
-using TODORoutine.Models;
+﻿using TODORoutine.database.general.parser;
+using TODORoutine.models;
 
-namespace TODORoutine.Database.Shared {
+namespace TODORoutine.database.user.parser {
     /**
      * Main User Database Parser that handle Insert and Update Statments , 
      * Parsing Columns and SQL Statments for the user class
