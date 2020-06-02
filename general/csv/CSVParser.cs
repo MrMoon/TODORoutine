@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TODORoutine.Models;
-using TODORoutine.Shared;
+using TODORoutine.general.logging;
+using TODORoutine.models;
 
-namespace TODORoutine.shared.csv {
+namespace TODORoutine.general.csv {
     /**
      * Main Comma Seprated Values Parser
      **/

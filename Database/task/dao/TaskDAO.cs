@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.general.dao;
-using TODORoutine.general;
 using TODORoutine.general.enums;
 using TODORoutine.models;
 

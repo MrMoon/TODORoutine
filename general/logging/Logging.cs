@@ -2,8 +2,9 @@
 using System;
 using System.Linq;
 using System.Text;
+using TODORoutine.models;
 
-namespace TODORoutine.Shared {
+namespace TODORoutine.general.logging {
     /**
      * Genral Logging Class that handle Error and Info Logging
      **/

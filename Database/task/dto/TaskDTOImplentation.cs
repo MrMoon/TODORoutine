@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using TODORoutine.database.general.dao;
+using TODORoutine.database.general.shared;
 using TODORoutine.database.note.dto;
-using TODORoutine.database.parsers;
 using TODORoutine.database.task.dao;
-using TODORoutine.general;
 using TODORoutine.general.enums;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.task.dto {
 

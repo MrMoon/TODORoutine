@@ -1,7 +1,7 @@
-﻿using TODORoutine.database.parsers;
+﻿using TODORoutine.database.general.parser;
 using TODORoutine.models;
 
-namespace TODORoutine.database.notebook {
+namespace TODORoutine.database.notebook.parser {
 
     /**
      * Notebook SQL Parser that handles SQL Statments

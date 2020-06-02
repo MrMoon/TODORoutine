@@ -1,6 +1,7 @@
 ﻿using System;
+using TODORoutine.models;
 
-namespace TODORoutine.database.authentication {
+namespace TODORoutine.database.authentication.dao {
 
     /**
      * Main Authentication Data Layer

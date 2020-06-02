@@ -1,4 +1,5 @@
 ﻿using System;
+using TODORoutine.models;
 
 namespace TODORoutine.database.authentication.dto {
     /**

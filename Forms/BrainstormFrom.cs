@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TODORoutine;
 using TODORoutine.database.authentication.dto;
-using TODORoutine.database.parsers;
-using TODORoutine.Database.Shared;
-using TODORoutine.Database.user.DTO;
+using TODORoutine.database.general.shared;
+using TODORoutine.database.user.dto;
 using TODORoutine.editor;
-using TODORoutine.forms;
 using TODORoutine.general.constants;
 using TODORoutine.general.validation;
 using TODORoutine.models;
-using TODORoutine.Models;
 
-namespace MainTextEditor {
+namespace TODORoutine.forms {
 
     public partial class BrainstormFrom : Form {
 

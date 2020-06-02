@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Windows.Forms;
 using TODORoutine.database.document.dto;
-using TODORoutine.database.parsers;
+using TODORoutine.database.general.shared;
 using TODORoutine.general.constants;
 using TODORoutine.models;
 

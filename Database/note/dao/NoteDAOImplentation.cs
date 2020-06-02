@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using TODORoutine.database.general;
 using TODORoutine.database.general.dao;
-using TODORoutine.database.parsers;
-using TODORoutine.database.parsers.notes_parser;
-using TODORoutine.Database;
-using TODORoutine.exceptions;
+using TODORoutine.database.general.driver;
+using TODORoutine.database.general.exception;
+using TODORoutine.database.general.shared;
+using TODORoutine.database.note.parser;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.note.dao {
 

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using TODORoutine.database.document.dto;
 using TODORoutine.database.sharing.dao;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.sharing.dto {
-    
+
     /**
      * Main Implementation for the Share Data Transfer 
      * Handles tarnser operation between Data Layer and the user

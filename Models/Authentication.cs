@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TODORoutine.database {
+namespace TODORoutine.models {
 
     /**
      * Authentication Model for the user 

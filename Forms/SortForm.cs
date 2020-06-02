@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TODORoutine.general.constants;
-using TODORoutine.graph;
+using TODORoutine.models;
 
 namespace TODORoutine.forms {
     public partial class SortForm : Form {

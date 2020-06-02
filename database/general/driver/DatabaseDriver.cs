@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 
-namespace TODORoutine.database.general {
+namespace TODORoutine.database.general.driver {
 
     /**
      * Database Driver Interface that has all the methods for the database drivers

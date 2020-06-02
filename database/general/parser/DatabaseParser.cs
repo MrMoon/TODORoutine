@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TODORoutine.database.parsers {
+namespace TODORoutine.database.general.parser {
     /**
      * Database Parser Interface that has all the methods for the database parser 
      * Handle String Parsing for the main SQL statments SELECT , INSERT , UPDATE , and DELETE

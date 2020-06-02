@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text;
-using TODORoutine.database.parsers;
-using TODORoutine.exceptions;
+using TODORoutine.database.general.exception;
+using TODORoutine.database.general.parser;
+using TODORoutine.database.general.shared;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.task.parser {
 

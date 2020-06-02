@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using TODORoutine.database.document.dao;
 using TODORoutine.database.general.dao;
-using TODORoutine.database.parsers;
+using TODORoutine.database.general.shared;
+using TODORoutine.general.logging;
 using TODORoutine.models;
-using TODORoutine.Shared;
 
 namespace TODORoutine.database.document.dto {
 

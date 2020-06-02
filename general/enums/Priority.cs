@@ -1,4 +1,4 @@
-﻿namespace TODORoutine.general {
+﻿namespace TODORoutine.general.enums {
 
     /**
      * Priority Enum for the tasks
